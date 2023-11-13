@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    color: #fff;
+    background: #131418;
+}
+
+@layer base {
+    a {
+        @apply text-link;
+    }
+}
+
+@layer utilities {
+    .text-link {
+        @apply cursor-pointer text-blue hover:underline;
+    }
+}

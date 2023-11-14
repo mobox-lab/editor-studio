@@ -18,4 +18,8 @@ body {
     .text-link {
         @apply cursor-pointer text-blue hover:underline;
     }
+
+    .flex-center {
+        @apply flex items-center justify-center;
+    }
 }

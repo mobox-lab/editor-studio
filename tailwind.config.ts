@@ -16,6 +16,7 @@ const config: Config = {
         },
       },
       spacing: {
+        4.5: '1.125rem',
         7.5: '1.875rem',
         70: '17.5rem',
         93: '23.25rem',
@@ -27,9 +28,19 @@ const config: Config = {
         rare: '#43BBFF',
         uncommon: '#70FF6D',
         common: '#BDC9E3',
+        gray: {
+          300: '#A5A6AB',
+          400: '#6F7784',
+          500: '#434851',
+          600: '#22242A',
+          700: '#15171A',
+        },
         blue: {
           DEFAULT: '#43BBFF',
         },
+        yellow: {
+          DEFAULT: '#FFE7AB',
+        }
       },
       keyframes: {
         breathing: {

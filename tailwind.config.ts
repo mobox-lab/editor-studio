@@ -34,13 +34,25 @@ const config: Config = {
           500: '#434851',
           600: '#22242A',
           700: '#15171A',
+          750: '#14161B',
         },
         blue: {
           DEFAULT: '#43BBFF',
+          450: '#4383FF',
+        },
+        red: {
+          DEFAULT: '#FF2358',
         },
         yellow: {
           DEFAULT: '#FFE7AB',
-        }
+        },
+        p12: {
+          'gradient-from': 'var(--gradient-from)',
+          'gradient-to': 'var(--gradient-to)',
+        },
+      },
+      backgroundImage: {
+        'p12-gradient': 'linear-gradient(to right, var(--gradient-from), var(--gradient-to))',
       },
       keyframes: {
         breathing: {

@@ -1,8 +1,11 @@
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/index.css';
-import { PropsWithChildren } from 'react';
+
 import Providers from '@/providers/root';
-import { Poppins } from 'next/font/google';
 import type { Metadata } from 'next';
+import { Poppins } from 'next/font/google';
+import { PropsWithChildren } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700'] });
 
@@ -17,6 +20,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body className={poppins.className}>
         <Providers>
           <main className="container py-7.5 pt-5">{children}</main>
+          <ToastContainer theme="dark" />
         </Providers>
       </body>
     </html>

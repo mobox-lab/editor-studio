@@ -2,7 +2,7 @@
 
 import DefaultUserSvg from '@/../public/svg/default_user.svg?component';
 import WarningSvg from '@/../public/svg/warning.svg?component';
-import { completeLoginUserInfoDialogAtom } from '@/atoms/profile';
+import { completeLoginUserInfoDialogAtom, verifyEmailDialogAtom } from '@/atoms/profile';
 import StyledButton from '@/components/ui/button/StyledButton';
 import RadioGroup from '@/components/ui/radio/RadioGroup';
 import { useProfileRadioOptions, useProfileSubmit } from '@/hooks/profile';
@@ -12,7 +12,9 @@ import { useSetAtom } from 'jotai';
 import { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import CompleteLoginInfoDialog from './dialog/CompleteLoginInfoDialog';
+import VerifyEmailDialog from './dialog/VerifyEmailDialog';
 
+const bioMaxLength = 250;
 export type ProfileFormData = {
   bio: string;
   displayName: string;
@@ -45,16 +47,18 @@ export default function ProfileForm({ className }: { className?: string }) {
   const { onSubmit } = useProfileSubmit(selectedRadioKey);
   const onError = useFormOnError();
   const setCompleteInfoDialogOpen = useSetAtom(completeLoginUserInfoDialogAtom);
+  const setVerifyEmailDialogOpen = useSetAtom(verifyEmailDialogAtom);
+
   // watch bio length
   const bio = watch('bio');
   const handleTextareaChange = useCallback(
     (e: any) => {
       const currentLength = e.target.value.length;
 
-      if (currentLength > 250) {
+      if (currentLength > bioMaxLength) {
         setError('bio', {
           type: 'manual',
-          message: 'Bio should be less than 250 characters',
+          message: `Bio should be less than ${bioMaxLength} characters`,
         });
       } else {
         clearErrors(['bio']); // specify fields to clear
@@ -99,12 +103,14 @@ export default function ProfileForm({ className }: { className?: string }) {
           <textarea
             rows={3}
             className="w-full resize-none rounded bg-white/10 p-3 text-xs/5"
-            {...register('bio', { maxLength: { value: 250, message: 'Bio should be less than 250 characters' } })}
+            {...register('bio', {
+              maxLength: { value: bioMaxLength, message: `Bio should be less than ${bioMaxLength} characters` },
+            })}
             onChange={handleTextareaChange}
           />
           {errors.bio && (
             <p className="text-xs text-red">
-              {errors.bio.message} {bio?.length}/250
+              {errors.bio.message} {bio?.length}/{bioMaxLength}
             </p>
           )}
         </div>
@@ -136,10 +142,17 @@ export default function ProfileForm({ className }: { className?: string }) {
             {profileData?.email ? (
               <div className="relative z-0 flex justify-between gap-4 rounded-sm bg-white/10 px-3 py-2.5 text-xs/5">
                 {profileData?.email}
-                <span className="font-semibold text-blue">Update email</span>
+                <span className="cursor-pointer font-semibold text-blue" onClick={() => setVerifyEmailDialogOpen(true)}>
+                  Update email
+                </span>
               </div>
             ) : (
-              <StyledButton variant="warning" type="button" className="gap-1.5 bg-legendary/30 py-2.5">
+              <StyledButton
+                variant="warning"
+                type="button"
+                className="gap-1.5 bg-legendary/30 py-2.5"
+                onClick={() => setVerifyEmailDialogOpen(true)}
+              >
                 <WarningSvg />
                 <p className="text-sm/5 font-semibold">Complete and verify your email</p>
               </StyledButton>
@@ -200,6 +213,7 @@ export default function ProfileForm({ className }: { className?: string }) {
         </StyledButton>
       </form>
       <CompleteLoginInfoDialog />
+      <VerifyEmailDialog isUpdate={!!profileData?.email} />
     </>
   );
 }

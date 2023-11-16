@@ -35,7 +35,7 @@ function Dialog({
   onOpenChange,
   isDismiss = false,
   headerClass,
-}: React.PropsWithChildren<DialogProps>) {
+}: DialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const onChange = (status: boolean) => {
     setIsOpen(status);

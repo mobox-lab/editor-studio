@@ -1,7 +1,12 @@
+import Link from 'next/link';
 import GamerLevel from '@/app/arcade/_components/GamerLevel';
 import Selection from '@/app/arcade/_components/Selection';
 import Recommended from '@/app/arcade/_components/Recommended';
 import Search from '@/../public/svg/search.svg?component';
+import Continue from '@/app/arcade/_components/Continue';
+import ArcanaGames from '@/app/arcade/_components/ArcanaGames';
+import Category from '@/app/arcade/_components/Category';
+import Right from '@/../public/svg/right.svg?component';
 
 export default function Arcade() {
   return (
@@ -25,7 +30,29 @@ export default function Arcade() {
             <Recommended />
           </div>
         </div>
-        <div>1</div>
+        <div className="w-full">
+          <div className="flex h-10 items-end">
+            <p className="text-base font-semibold">Continue</p>
+          </div>
+          <div className="mt-3">
+            <Continue />
+          </div>
+        </div>
+      </div>
+      <div className="mt-7.5">
+        <div className="flex-center gap-4">
+          <h2 className="text-base font-medium">Arcana Games</h2>
+          <Link className="text-sm font-medium" href="/">
+            View All
+            <Right className="inline h-3.5 w-3.5 fill-blue align-baseline" />
+          </Link>
+        </div>
+        <div className="relative mt-3 h-[180px]">
+          <ArcanaGames />
+        </div>
+        <div className="mt-9">
+          <Category />
+        </div>
       </div>
     </div>
   );

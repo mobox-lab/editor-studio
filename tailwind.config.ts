@@ -18,6 +18,12 @@ const config: Config = {
       spacing: {
         4.5: '1.125rem',
         7.5: '1.875rem',
+        15: '3.75rem',
+        25: '6.25rem',
+        30: '7.5rem',
+        31: '7.75rem',
+        31.5: '7.875rem',
+        35: '8.75rem',
         70: '17.5rem',
         93: '23.25rem',
         100: '25rem',
@@ -30,6 +36,7 @@ const config: Config = {
         common: '#BDC9E3',
         gray: {
           300: '#A5A6AB',
+          350: '#8E8F91',
           400: '#6F7784',
           500: '#434851',
           600: '#22242A',
@@ -45,6 +52,10 @@ const config: Config = {
         },
         yellow: {
           DEFAULT: '#FFE7AB',
+        },
+        red: {
+          300: '#F2B8B0',
+          DEFAULT: '#FF2358',
         },
         p12: {
           'gradient-from': 'var(--gradient-from)',

@@ -31,3 +31,19 @@ body {
     @apply flex items-center justify-center;
   }
 }
+
+.rotate-container {
+    position: relative;
+}
+
+.rotate-container input {
+    display: none;
+}
+
+.rotate-container div {
+    transition: transform 0.5s;
+}
+
+.rotate-container input:checked + div {
+    transform: rotate(180deg);
+}

@@ -1,9 +1,7 @@
 'use client';
 
 import DefaultUserSvg from '@/../public/svg/default_user.svg?component';
-import TwitterSvg from '@/../public/svg/twitter.svg?component';
-import TelegramSvg from '@/../public/svg/telegram.svg?component';
-import DiscordSvg from '@/../public/svg/discord.svg?component';
+import WarningSvg from '@/../public/svg/warning.svg?component';
 import RadioGroup from '@/components/ui/radio/RadioGroup';
 import { useProfileRadioOptions, useProfileSubmit } from '@/hooks/profile';
 import { useFormOnError } from '@/hooks/useFormOnError';
@@ -15,16 +13,14 @@ import StyledButton from '@/components/ui/button/StyledButton';
 export type ProfileFormData = {
   bio: string;
   displayName: string;
-  twitterHandle?: string;
-  discordHandle?: string;
+  loginUsername?: string;
 };
 export default function ProfileForm({ className }: { className?: string }) {
   const profileData = {
     address: '0x9aB3C5644fC631B9996Ef96732Cd1ef1c5B3a2B2',
     bio: 'Let go! Vote for your favorite works. Get a daily bonus reward for each vote.',
-    twitter: 'cosine_x',
-    loginUsername: 'cosine',
-    email: 'xdodovo@email.com',
+    loginUsername: undefined,
+    email: undefined,
   };
   const radioOptions = useProfileRadioOptions();
   const [selectedRadioKey, setSelectedRadioKey] = useState<string | undefined>(undefined);
@@ -41,8 +37,6 @@ export default function ProfileForm({ className }: { className?: string }) {
     defaultValues: {
       bio: profileData?.bio ?? '',
       displayName: profileData?.address ?? '',
-      twitterHandle: '',
-      discordHandle: '',
     },
   });
   const { onSubmit } = useProfileSubmit(selectedRadioKey);
@@ -115,22 +109,36 @@ export default function ProfileForm({ className }: { className?: string }) {
         {/* Login Username */}
         <div className="flex flex-grow flex-col gap-3">
           <h2 className="text-sm font-medium">Login Username</h2>
-          <div className="relative z-0 flex justify-between gap-4 rounded-sm bg-white/10 px-3 py-2.5 text-xs/5">
-            {profileData?.loginUsername}
-            <span className="font-semibold text-blue">Forget password?</span>
-          </div>
+          {profileData?.loginUsername ? (
+            <div className="relative z-0 flex justify-between gap-4 rounded-sm bg-white/10 px-3 py-2.5 text-xs/5">
+              {profileData?.loginUsername}
+              <span className="font-semibold text-blue">Forget password?</span>
+            </div>
+          ) : (
+            <StyledButton variant="warning" className="gap-1.5 bg-legendary/30 py-2.5">
+              <WarningSvg />
+              <p className="text-sm/5 font-semibold">Complete Login Information</p>
+            </StyledButton>
+          )}
         </div>
         {/* Email */}
         <div className="flex flex-grow flex-col gap-3">
           <h2 className="text-sm font-medium">Email</h2>
-          <div className="relative z-0 flex justify-between gap-4 rounded-sm bg-white/10 px-3 py-2.5 text-xs/5">
-            {profileData?.email}
-            <span className="font-semibold text-blue">Update email</span>
-          </div>
+          {profileData?.email ? (
+            <div className="relative z-0 flex justify-between gap-4 rounded-sm bg-white/10 px-3 py-2.5 text-xs/5">
+              {profileData?.email}
+              <span className="font-semibold text-blue">Update email</span>
+            </div>
+          ) : (
+            <StyledButton variant="warning" className="gap-1.5 bg-legendary/30 py-2.5">
+              <WarningSvg />
+              <p className="text-sm/5 font-semibold">Complete and verify your email</p>
+            </StyledButton>
+          )}
         </div>
       </div>
       {/* Social Links */}
-      <div className="flex flex-grow flex-col gap-3">
+      {/* <div className="flex flex-grow flex-col gap-3">
         <h2 className="text-sm font-medium">Social Links</h2>
         <div className="grid grid-cols-3 items-start gap-3 fill-white text-xs/5">
           <div className="flex flex-col gap-2">
@@ -177,8 +185,8 @@ export default function ProfileForm({ className }: { className?: string }) {
             ) : null}
           </div>
         </div>
-      </div>
-      <StyledButton variant="gradient" className="w-[118px] self-end">
+      </div> */}
+      <StyledButton variant="gradient" className="w-[118px] self-end py-3">
         Submit
       </StyledButton>
     </form>

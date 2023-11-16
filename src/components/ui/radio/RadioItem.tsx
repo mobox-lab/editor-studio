@@ -88,7 +88,7 @@ export const RadioItem = ({
       {showDot && (
         <div
           className={clsxm(
-            'bg-p12-gradient relative flex h-5 w-5 items-center justify-center rounded-full p-1',
+            'bg-gradient-p12 relative flex h-5 w-5 items-center justify-center rounded-full p-1',
             {
               'border-2 border-white/30 bg-transparent': !isSelected,
               'group-hover:border-white': !_dotIsSelected,
@@ -102,7 +102,7 @@ export const RadioItem = ({
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                className={clsxm('bg-p12-gradient h-2 w-2 transform rounded-full', dotClass, innerDotClass)}
+                className={clsxm('bg-gradient-p12 h-2 w-2 transform rounded-full', dotClass, innerDotClass)}
               ></motion.div>
             )}
           </div>

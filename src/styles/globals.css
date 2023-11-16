@@ -3,28 +3,33 @@
 @tailwind utilities;
 
 * {
-    outline: none;
+  outline: none;
 }
 
 body {
-    color: #fff;
-    background: #131418;
+  color: #fff;
+  background: #131418;
+}
+
+:root {
+  --gradient-from: #a072ff;
+  --gradient-to: #3592ff;
 }
 
 @layer base {
-    a {
-        @apply text-link;
-    }
+  a {
+    @apply text-link;
+  }
 }
 
 @layer utilities {
-    .text-link {
-        @apply cursor-pointer text-blue hover:underline;
-    }
+  .text-link {
+    @apply cursor-pointer text-blue hover:underline;
+  }
 
-    .flex-center {
-        @apply flex items-center justify-center;
-    }
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
 }
 
 .rotate-container {

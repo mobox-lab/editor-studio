@@ -47,9 +47,6 @@ const config: Config = {
           DEFAULT: '#43BBFF',
           450: '#4383FF',
         },
-        red: {
-          DEFAULT: '#FF2358',
-        },
         yellow: {
           DEFAULT: '#FFE7AB',
         },

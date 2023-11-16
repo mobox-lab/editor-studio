@@ -6,11 +6,13 @@ import { completeLoginUserInfoDialogAtom } from '@/atoms/profile';
 import StyledButton from '@/components/ui/button/StyledButton';
 import Dialog from '@/components/ui/dialog';
 import { useFormOnError } from '@/hooks/useFormOnError';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAtom } from 'jotai';
 import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { z } from 'zod';
 
 const formVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -28,19 +30,24 @@ export type ProfileLoginInfoFormData = {
   confirmPassword: string;
 };
 const usernameMaxLength = 50;
+const schema = z.object({
+  username: z
+    .string()
+    .max(usernameMaxLength, { message: `Username should be less than ${usernameMaxLength} characters.` })
+    .refine((value) => /^[a-zA-Z0-9_]+$/.test(value), {
+      message: 'Invalid username, please use only letters, numbers, and underscores.',
+    }),
+  password: z.string().min(6, { message: 'Password should be at least 6 characters.' }),
+  confirmPassword: z.string().min(6, { message: 'At least 6 characters.' }),
+});
 export default function CompleteLoginInfoDialog() {
   const [isOpen, setIsOpen] = useAtom(completeLoginUserInfoDialogAtom);
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm<ProfileLoginInfoFormData>({
-    defaultValues: {
-      username: '',
-      password: '',
-      confirmPassword: '',
-    },
+    resolver: zodResolver(schema),
   });
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
@@ -65,6 +72,10 @@ export default function CompleteLoginInfoDialog() {
   // form submission
   const onError = useFormOnError();
   const onSubmit = (values: ProfileLoginInfoFormData) => {
+    if (values.password !== values.confirmPassword) {
+      toast.error('Passwords do not match.');
+      return;
+    }
     console.log('submit values ===============>', values);
     setTempData(values);
     setConfirmDialogOpen(true);
@@ -117,18 +128,7 @@ export default function CompleteLoginInfoDialog() {
                 <input
                   placeholder="Only allow character, number and _"
                   className="mt-1 rounded bg-white/10 p-3 text-xs/5"
-                  {...register('username', {
-                    maxLength: {
-                      value: usernameMaxLength,
-                      message: `Username should be less than ${usernameMaxLength} characters.`,
-                    },
-                    validate: {
-                      // 自定义校验规则
-                      validateUsername: (value: any) => {
-                        return /^[a-zA-Z0-9_]+$/.test(value) || 'Invalid username, please try again.';
-                      },
-                    },
-                  })}
+                  {...register('username')}
                 />
                 {errors.username && <p className="text-xs text-red">{errors.username.message}</p>}
               </div>
@@ -140,9 +140,7 @@ export default function CompleteLoginInfoDialog() {
                     type={showPassword ? 'text' : 'password'}
                     placeholder="At least 6 characters"
                     className="flex-grow bg-transparent pl-3 text-xs/5"
-                    {...register('password', {
-                      minLength: { value: 6, message: 'Password should be less than 6 characters.' },
-                    })}
+                    {...register('password')}
                   />
                   <div className="cursor-pointer p-3" onClick={togglePasswordVisibility}>
                     {showPassword ? <HidePasswordSvg /> : <ShowPasswordSvg />}
@@ -157,9 +155,7 @@ export default function CompleteLoginInfoDialog() {
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Confirm your password"
                   className="mt-1 rounded-sm bg-white/10 p-3 text-xs/5"
-                  {...register('confirmPassword', {
-                    validate: (value) => value === watch('password') || 'Passwords do not match.',
-                  })}
+                  {...register('confirmPassword')}
                 />
                 {errors.confirmPassword && <p className="text-xs text-red">{errors.confirmPassword.message}</p>}
               </div>

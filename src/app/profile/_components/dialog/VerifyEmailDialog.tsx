@@ -41,7 +41,7 @@ export default function VerifyEmailDialog({ isUpdate }: { isUpdate?: boolean }) 
             console.log(`Email: ${values.email}, Code: ${fullCode}`);
           }, onError)}
         >
-          {!isUpdate && <p className="mb-9 text-sm">Current verified email: asjfhafasfo@gmail.com</p>}
+          {isUpdate && <p className="mb-9 text-sm">Current verified email: asjfhafasfo@gmail.com</p>}
           {/* Email */}
           <div className="flex flex-grow flex-col gap-2">
             <h2 className="text-sm font-medium">Email</h2>

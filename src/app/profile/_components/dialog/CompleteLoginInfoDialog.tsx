@@ -143,7 +143,11 @@ export default function CompleteLoginInfoDialog() {
                     {...register('password')}
                   />
                   <div className="cursor-pointer p-3" onClick={togglePasswordVisibility}>
-                    {showPassword ? <HidePasswordSvg /> : <ShowPasswordSvg />}
+                    {showPassword ? (
+                      <HidePasswordSvg className="fill-gray-300 hover:fill-white" />
+                    ) : (
+                      <ShowPasswordSvg className="fill-gray-300 hover:fill-white" />
+                    )}
                   </div>
                 </div>
                 {errors.password && <p className="text-xs text-red">{errors.password.message}</p>}

@@ -2,7 +2,7 @@
 
 import DefaultUserSvg from '@/../public/svg/default_user.svg?component';
 import WarningSvg from '@/../public/svg/warning.svg?component';
-import { completeLoginUserInfoDialogAtom, verifyEmailDialogAtom } from '@/atoms/profile';
+import { completeLoginUserInfoDialogAtom, forgetPasswordDialogAtom, verifyEmailDialogAtom } from '@/atoms/profile';
 import StyledButton from '@/components/ui/button/StyledButton';
 import RadioGroup from '@/components/ui/radio/RadioGroup';
 import { useProfileRadioOptions, useProfileSubmit } from '@/hooks/profile';
@@ -13,6 +13,7 @@ import { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import CompleteLoginInfoDialog from './dialog/CompleteLoginInfoDialog';
 import VerifyEmailDialog from './dialog/VerifyEmailDialog';
+import ForgetPasswordDialog from './dialog/ForgetPasswordDialog';
 
 const bioMaxLength = 250;
 export type ProfileFormData = {
@@ -24,7 +25,7 @@ export default function ProfileForm({ className }: { className?: string }) {
   const profileData = {
     address: '0x9aB3C5644fC631B9996Ef96732Cd1ef1c5B3a2B2',
     bio: 'Let go! Vote for your favorite works. Get a daily bonus reward for each vote.',
-    loginUsername: undefined,
+    loginUsername: 'cosine',
     email: undefined,
   };
   const radioOptions = useProfileRadioOptions();
@@ -46,8 +47,10 @@ export default function ProfileForm({ className }: { className?: string }) {
   });
   const { onSubmit } = useProfileSubmit(selectedRadioKey);
   const onError = useFormOnError();
+
   const setCompleteInfoDialogOpen = useSetAtom(completeLoginUserInfoDialogAtom);
   const setVerifyEmailDialogOpen = useSetAtom(verifyEmailDialogAtom);
+  const setForgetPasswordDialogOpen = useSetAtom(forgetPasswordDialogAtom);
 
   // watch bio length
   const bio = watch('bio');
@@ -122,7 +125,9 @@ export default function ProfileForm({ className }: { className?: string }) {
             {profileData?.loginUsername ? (
               <div className="relative z-0 flex justify-between gap-4 rounded-sm bg-white/10 px-3 py-2.5 text-xs/5">
                 {profileData?.loginUsername}
-                <span className="font-semibold text-blue">Forget password?</span>
+                <span className="cursor-pointer font-semibold text-blue" onClick={() => setForgetPasswordDialogOpen(true)}>
+                  Forget password?
+                </span>
               </div>
             ) : (
               <StyledButton
@@ -213,6 +218,7 @@ export default function ProfileForm({ className }: { className?: string }) {
         </StyledButton>
       </form>
       <CompleteLoginInfoDialog />
+      <ForgetPasswordDialog />
       <VerifyEmailDialog isUpdate={!!profileData?.email} />
     </>
   );

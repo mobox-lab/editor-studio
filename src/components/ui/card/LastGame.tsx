@@ -1,9 +1,13 @@
+'use client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function LastGame() {
+  const router = useRouter();
+
   return (
-    <div className="hover:border-gray-350 cursor-pointer border border-gray-500">
-      <div className="h-25 relative w-full">
+    <div onClick={() => router.push('/game/1001')} className="cursor-pointer border border-gray-500 hover:border-gray-350">
+      <div className="relative h-25 w-full">
         <Image
           src="https://qn-mw-game.gpark.io/GameRelease/P_6f38f7b5a0bf56f3ecc21232ee73a1c512f8a09f/1.0.0/87945/661dd5ff2d33714897122be1522cb6870e22d2e9"
           style={{ objectFit: 'cover' }}

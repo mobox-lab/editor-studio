@@ -18,8 +18,10 @@ const config: Config = {
       spacing: {
         4.5: '1.125rem',
         7.5: '1.875rem',
+        10.5: '2.625rem',
         15: '3.75rem',
         25: '6.25rem',
+        27.5: '6.875rem',
         30: '7.5rem',
         31: '7.75rem',
         31.5: '7.875rem',
@@ -39,6 +41,7 @@ const config: Config = {
           350: '#8E8F91',
           400: '#6F7784',
           500: '#434851',
+          550: '#3D444B',
           600: '#22242A',
           700: '#15171A',
           750: '#14161B',
@@ -60,7 +63,8 @@ const config: Config = {
         },
       },
       backgroundImage: {
-        'p12-gradient': 'linear-gradient(to right, var(--gradient-from), var(--gradient-to))',
+        'gradient-p12': 'linear-gradient(to right, var(--gradient-from), var(--gradient-to))',
+        'gradient-play': 'linear-gradient(to right, #00F0FF, #00FF94)',
       },
       keyframes: {
         breathing: {

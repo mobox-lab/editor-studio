@@ -12,7 +12,8 @@ const buttonStyles = tv({
       'gradient-play': 'bg-gradient-play hover:brightness-110',
       warning: 'bg-legendary/30 text-legendary hover:brightness-110',
       error: 'bg-red hover:brightness-110',
-      bordered: 'border hover:opacity-80',
+      bordered: 'border hover:bg-white/10',
+      blue: 'bg-blue/20 hover:bg-blue/30 text-blue',
     },
     disabled: {
       true: 'bg-white/10 text-white hover:brightness-100 hover:bg-white/10 hover:opacity-100 disabled:cursor-not-allowed cursor-not-allowed',
@@ -25,7 +26,7 @@ const buttonStyles = tv({
 
 export type NativeButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 export type SharedProps = {
-  variant?: 'default' | 'gradient' | 'gradient-play' | 'bordered' | 'warning' | 'error';
+  variant?: 'default' | 'gradient' | 'gradient-play' | 'bordered' | 'warning' | 'error' | 'blue';
   disabled?: boolean;
   loading?: boolean;
   className?: string;

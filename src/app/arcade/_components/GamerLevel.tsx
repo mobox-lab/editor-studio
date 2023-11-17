@@ -13,7 +13,7 @@ export default function GamerLevel() {
             <div className="relative p-4">
               <Image width={220} height={220} src="https://cdn1.p12.games/airdrop/badge/dev_purple_256.webp" alt="badge" />
             </div>
-            <p className="mb-6 mt-1 text-center text-sm font-medium">P12 GENESIS BADGE</p>
+            <p className="mb-6 mt-1 text-center text-sm font-medium">P12 Developer SBT</p>
           </div>
           <div className="px-4 py-7.5">
             <p className="text-[26px]/[26px] font-semibold text-epic">EPIC</p>

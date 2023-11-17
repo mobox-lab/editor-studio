@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 import LeftEditorSelection from './_components/LeftEditorSelection';
 import RightLeaderboard from './_components/RightLeaderboard';

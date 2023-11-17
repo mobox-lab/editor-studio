@@ -1,5 +1,3 @@
-'use client';
-
 import Refresh from '@/../public/svg/refresh.svg?component';
 import StyledButton from '@/components/ui/button/StyledButton';
 import ArcanaGame from '@/components/ui/card/ArcanaGame';

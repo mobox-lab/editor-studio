@@ -1,5 +1,3 @@
-'use client';
-
 import ArcanaGame from '@/components/ui/card/ArcanaGame';
 import Dropdown, { DropdownItem } from '@/components/ui/dropdown';
 import { useState } from 'react';

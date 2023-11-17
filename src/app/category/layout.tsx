@@ -21,7 +21,7 @@ export default function Layout({ children }: PropsWithChildren) {
         </div>
         <Search className="w-90" />
       </div>
-      {children}
+      <div className="mt-5">{children}</div>
     </div>
   );
 }

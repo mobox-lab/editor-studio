@@ -69,10 +69,10 @@ export default function GamePanel() {
           </div>
         </div>
         <div className="mt-2 flex gap-3 px-6 py-2">
-          <StyledButton variant="gradient-play" className="flex-1 text-base/5 font-bold text-black">
+          <StyledButton variant="gradient-play" className="flex-1 py-3.5 text-base/5 font-bold text-black">
             Play Now
           </StyledButton>
-          <StyledButton variant="gradient" className="flex w-36 gap-1.5 font-bold">
+          <StyledButton variant="gradient" className="flex w-36 py-3 gap-1.5 font-bold">
             <Like />
             302
           </StyledButton>

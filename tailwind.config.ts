@@ -79,6 +79,9 @@ const config: Config = {
       animation: {
         breathing: 'breathing 4s linear infinite alternate',
       },
+      fontFamily: {
+        poppins: 'var(--font-poppins)',
+      },
     },
   },
   plugins: [],

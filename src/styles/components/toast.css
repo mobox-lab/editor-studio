@@ -1,5 +1,5 @@
-.toast-container {
-  @apply relative rounded-sm border-gray-400 bg-gray-600 text-sm/5;
+.toast-container.Toastify__toast {
+  @apply font-poppins relative rounded-sm border border-gray-400 bg-gray-600 text-sm/5;
 }
 
 .Toastify__toast-body {
@@ -7,5 +7,5 @@
 }
 
 .Toastify__toast-icon {
-  @apply w-7 items-start;
+  @apply m-0 w-7 items-start;
 }

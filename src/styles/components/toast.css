@@ -1,0 +1,11 @@
+.toast-container {
+  @apply relative rounded-sm border-gray-400 bg-gray-600 text-sm/5;
+}
+
+.Toastify__toast-body {
+  @apply items-center;
+}
+
+.Toastify__toast-icon {
+  @apply w-7 items-start;
+}

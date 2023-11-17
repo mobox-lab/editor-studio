@@ -16,7 +16,9 @@ const config: Config = {
         },
       },
       spacing: {
+        1.5: '.375rem',
         4.5: '1.125rem',
+        5.5: '1.375rem',
         7.5: '1.875rem',
         10.5: '2.625rem',
         15: '3.75rem',
@@ -38,6 +40,7 @@ const config: Config = {
         uncommon: '#70FF6D',
         common: '#BDC9E3',
         gray: {
+          250: '#ADADAD',
           300: '#A5A6AB',
           350: '#8E8F91',
           400: '#6F7784',

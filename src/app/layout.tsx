@@ -1,6 +1,7 @@
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/index.css';
 
+import ToastIcon from '@/components/ui/toast/ToastIcon';
 import Providers from '@/providers/root';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
@@ -20,7 +21,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body className={poppins.className}>
         <Providers>
           <main className="container py-7.5 pt-5">{children}</main>
-          <ToastContainer theme="dark" />
+          <ToastContainer theme="dark" toastClassName="toast-container" icon={<ToastIcon />} autoClose={3000} hideProgressBar />
         </Providers>
       </body>
     </html>

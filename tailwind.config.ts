@@ -40,6 +40,7 @@ const config: Config = {
         uncommon: '#70FF6D',
         common: '#BDC9E3',
         gray: {
+          250: '#ADADAD',
           300: '#A5A6AB',
           350: '#8E8F91',
           400: '#6F7784',

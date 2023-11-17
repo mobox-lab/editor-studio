@@ -19,6 +19,7 @@ export default function RightLeaderboard() {
       <div className="flex items-center justify-between gap-3">
         Leaderboard
         <Dropdown items={dropdownItems} selectedItem={selectedItem} onSelectItem={handleSelectItem} />
+        <Dropdown type="warning" items={dropdownItems} selectedItem={selectedItem} onSelectItem={handleSelectItem} />
       </div>
       <div className="grid grid-cols-2 gap-4">
         <ArcanaGame />

@@ -7,7 +7,7 @@ export default function GamerLevel() {
     <div>
       <h3 className="text-base font-medium">Gamer Level</h3>
       <div className="relative mt-3 h-93 w-100 border border-gray-400">
-        <BadgeBackground />
+        <BadgeBackground level="epic" />
         <div className="flex">
           <div className="border-r border-white/[.16]">
             <div className="relative p-4">
@@ -19,7 +19,7 @@ export default function GamerLevel() {
             <p className="text-[26px]/[26px] font-semibold text-epic">EPIC</p>
             <div className="mt-7.5">
               <p className="text-xs/3 text-gray-300">Gamer PowerLevel</p>
-              <div className="text-yellow flex items-center gap-1 text-xl font-bold">
+              <div className="flex items-center gap-1 text-xl font-bold text-yellow">
                 <Image src="/img/power.webp" alt="power" width={30} height={30} />
                 5300
               </div>

@@ -6,7 +6,7 @@ export default function ArcadeGame({ params }: { params: { id: string } }) {
   return (
     <div>
       <div className="text-base font-medium">
-        <span className="text-gray-300">Arcade /</span> Borderland
+        <span className="font-normal text-gray-300">Arcade /</span> Borderland
       </div>
       <div className="mt-3">
         <GamePanel />

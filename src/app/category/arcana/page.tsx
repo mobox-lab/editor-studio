@@ -9,7 +9,7 @@ export default function CategoryArcana(props: any) {
     console.log('props: ', props);
   }, [props]);
   return (
-    <div className="gap-5.5 mt-5 grid grid-cols-2">
+    <div className="gap-5.5 grid grid-cols-2">
       <LeftEditorSelection />
       <RightLeaderboard />
     </div>

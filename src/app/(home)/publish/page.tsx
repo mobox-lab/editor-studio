@@ -1,6 +1,15 @@
+'use client';
+import { publishProcessDialogAtom, publishProcessNameAtom, publishProcessTypeAtom } from '@/atoms/publish';
+import { useSetAtom } from 'jotai';
 import Image from 'next/image';
+import PublishProcessDialog from './_components/PublishProcessDialog';
+import StyledButton from '@/components/ui/button/StyledButton';
 
 export default function Publish() {
+  const setIsOpen = useSetAtom(publishProcessDialogAtom);
+  const setType = useSetAtom(publishProcessTypeAtom);
+  const setName = useSetAtom(publishProcessNameAtom);
+
   return (
     <div>
       <div className="text-base font-medium">
@@ -59,10 +68,17 @@ export default function Publish() {
                 <li>Manual Publish Verification Process</li>
               </ul>
             </div>
-
-            <div className="absolute bottom-0 left-0 flex h-12 w-full cursor-pointer items-center justify-center bg-gradient-p12 font-semibold">
+            <StyledButton
+              variant="gradient"
+              className="absolute bottom-0 left-0 flex h-12 w-full cursor-pointer items-center justify-center bg-gradient-p12 font-semibold"
+              onClick={() => {
+                setIsOpen(true);
+                setType('gpark');
+                setName('Test');
+              }}
+            >
               Publish
-            </div>
+            </StyledButton>
           </div>
           <div className="relative border border-gray-500 bg-gray-550/10">
             <Image
@@ -90,12 +106,21 @@ export default function Publish() {
               </ul>
             </div>
 
-            <div className="absolute bottom-0 left-0 flex h-12 w-full cursor-pointer items-center justify-center bg-gradient-p12 font-semibold">
+            <StyledButton
+              variant="gradient"
+              className="absolute bottom-0 left-0 flex h-12 w-full cursor-pointer items-center justify-center bg-gradient-p12 font-semibold"
+              onClick={() => {
+                setIsOpen(true);
+                setType('arcana');
+                setName('Test');
+              }}
+            >
               Publish
-            </div>
+            </StyledButton>
           </div>
         </div>
       </div>
+      <PublishProcessDialog />
     </div>
   );
 }

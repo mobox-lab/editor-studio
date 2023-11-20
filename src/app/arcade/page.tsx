@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import GamerLevel from '@/app/arcade/_components/GamerLevel';
 import Selection from '@/app/arcade/_components/Selection';
@@ -7,8 +8,16 @@ import ArcanaGames from '@/app/arcade/_components/ArcanaGames';
 import Category from '@/app/arcade/_components/Category';
 import Right from '@/../public/svg/right.svg?component';
 import Search from '@/components/ui/search';
+import { useGparkCardPage } from '@/hooks/arcade/useGparkCardPage';
+import { useEffect } from 'react';
 
 export default function Arcade() {
+  const { recommendCardData, isLoading } = useGparkCardPage();
+
+  useEffect(() => {
+    console.log(123);
+  }, []);
+
   return (
     <div>
       <div className="flex gap-5">
@@ -24,7 +33,7 @@ export default function Arcade() {
             <Search className="w-full" />
           </div>
           <div className="mt-3">
-            <Recommended />
+            <Recommended data={recommendCardData} isLoading={isLoading} />
           </div>
         </div>
         <div className="w-full">

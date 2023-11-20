@@ -4,8 +4,10 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn1.p12.games' },
       { protocol: 'https', hostname: '*.gpark.io' },
+      { protocol: 'https', hostname: '*.jaxine.xyz' },
     ],
   },
+  reactStrictMode: false,
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
     config.module.rules = [

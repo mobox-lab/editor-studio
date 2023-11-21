@@ -1,7 +1,6 @@
-'use client';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { GparkGameItem } from '@/api';
+import { useRouter } from 'next/navigation';
 
 type GparkGameProps = {
   data?: GparkGameItem;
@@ -12,7 +11,7 @@ export default function GparkGame({ data }: GparkGameProps) {
 
   return (
     <div
-      onClick={() => router.push('/game/' + data?.code)}
+      onClick={() => data?.code && router.push('/game/' + data?.code)}
       className="cursor-pointer border border-gray-500 hover:border-gray-350"
     >
       <div className="relative h-35 w-full bg-gray-500">
@@ -24,7 +23,7 @@ export default function GparkGame({ data }: GparkGameProps) {
         </div>
         <div className="ml-9 flex items-center justify-between">
           <p className="max-w-[140px] truncate pl-1.5 text-sm font-medium">{data?.displayName ?? '--'}</p>
-          <p className="text-xs text-gray-300">By {data?.nickname ?? '--'}</p>
+          <p className="max-w-[100px] truncate text-xs text-gray-300">By {data?.nickname ?? '--'}</p>
         </div>
       </div>
     </div>

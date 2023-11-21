@@ -70,6 +70,8 @@ const config: Config = {
       backgroundImage: {
         'gradient-p12': 'linear-gradient(to right, var(--gradient-from), var(--gradient-to))',
         'gradient-play': 'linear-gradient(to right, #00F0FF, #00FF94)',
+        'gradient-publish':
+          'linear-gradient(20deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.9) 25%, rgba(0, 0, 0, 0.70) 50%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0.2) 100%)',
       },
       keyframes: {
         breathing: {

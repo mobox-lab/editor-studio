@@ -24,13 +24,23 @@ export const useProfileRadioOptions = () => {
     const walletAddress = '0x9aB3C5644fC631B9996Ef96732Cd1ef1c5B3a2B2'; //TODO: API
     // const { walletAddress, ccProfileHandle, p12Name, nickname, ensName, spaceIdArb, spaceIdBnb } = profileData ?? {};
     const radioOpts: Array<RadioOption | RadioOption[] | null> = [
-      { key: 'address', label: shortenAddress(walletAddress), value: walletAddress },
+      {
+        key: 'custom',
+        suffix: 'Custom',
+        defaultValue: 'personalizationName',
+        isInput: true,
+      },
+      {
+        key: 'gpark',
+        suffix: 'GPark Name',
+        defaultValue: 'personalizationName',
+        isInput: true,
+      },
       {
         key: 'ccProfileHandle',
         label: 'Sync .cyber domain',
         value: '.cyber',
       },
-      { key: 'aspecta.id', label: 'aspecta.id', value: 'aspectaId' },
       { key: 'ensName', label: 'Sync .eth domain', value: '.eth' },
       {
         key: 'spaceIdBnb',

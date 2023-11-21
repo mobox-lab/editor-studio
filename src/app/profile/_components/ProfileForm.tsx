@@ -1,5 +1,6 @@
 'use client';
 
+import AvatarHoverSvg from '@/../public/svg/avatar-hover.svg?component';
 import DefaultUserSvg from '@/../public/svg/default_user.svg?component';
 import WarningSvg from '@/../public/svg/warning.svg?component';
 import { completeLoginUserInfoDialogAtom, forgetPasswordDialogAtom, verifyEmailDialogAtom } from '@/atoms/profile';
@@ -12,8 +13,8 @@ import { useSetAtom } from 'jotai';
 import { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import CompleteLoginInfoDialog from './dialog/CompleteLoginInfoDialog';
-import VerifyEmailDialog from './dialog/VerifyEmailDialog';
 import ForgetPasswordDialog from './dialog/ForgetPasswordDialog';
+import VerifyEmailDialog from './dialog/VerifyEmailDialog';
 
 const bioMaxLength = 250;
 export type ProfileFormData = {
@@ -74,8 +75,9 @@ export default function ProfileForm({ className }: { className?: string }) {
     <>
       <form className={clsxm('flex flex-col gap-7.5 px-6', className)} onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="flex items-center gap-7.5">
-          <div className="h-[136px] w-[136px] rounded-full bg-gray-500">
+          <div className="group relative h-[136px] w-[136px] cursor-pointer rounded-full bg-gray-500">
             <DefaultUserSvg className="h-full w-full" />
+            <AvatarHoverSvg className="invisible absolute inset-0 group-hover:visible" />
           </div>
           {/* Username */}
           <div className="flex flex-grow flex-col gap-3">

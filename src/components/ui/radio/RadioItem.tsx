@@ -88,7 +88,7 @@ export const RadioItem = ({
       {showDot && (
         <div
           className={clsxm(
-            'bg-gradient-p12 relative flex h-5 w-5 items-center justify-center rounded-full p-1',
+            'relative flex h-5 w-5 items-center justify-center rounded-full bg-gradient-p12 p-1',
             {
               'border-2 border-white/30 bg-transparent': !isSelected,
               'group-hover:border-white': !_dotIsSelected,
@@ -102,36 +102,36 @@ export const RadioItem = ({
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                className={clsxm('bg-gradient-p12 h-2 w-2 transform rounded-full', dotClass, innerDotClass)}
+                className={clsxm('h-2 w-2 transform rounded-full bg-gradient-p12', dotClass, innerDotClass)}
               ></motion.div>
             )}
           </div>
         </div>
       )}
-      <span
+      <div
         onClick={onClick}
         className={clsxm(
           'relative z-0 flex flex-grow items-center rounded-sm border border-white/30 px-3 py-2.5',
           { 'group-hover:border-white': !isSelected },
-          { 'border-none bg-white/20 group-hover:border group-hover:border-white/20': isInput },
+          { 'border-transparent bg-white/10 group-hover:border-gray-350': isInput },
           labelClass,
           innerLabelClass,
         )}
         style={innerLabelStyle}
       >
-        {prefix}
+        <span className="text-gray-300">{prefix}</span>
         {label}
         {isInput && (
           <input
             className={clsxm('w-full bg-transparent placeholder:text-white/50', inputClass)}
-            placeholder={placeholder ?? 'Please input'}
+            placeholder={placeholder ?? 'Please Enter'}
             defaultValue={defaultValue}
             value={inputValue}
             onChange={_onInputChange}
           />
         )}
-        {suffix}
-      </span>
+        <span className="whitespace-nowrap text-gray-300">{suffix}</span>
+      </div>
     </label>
   );
 };

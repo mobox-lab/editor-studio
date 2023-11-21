@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="136" height="136" viewBox="0 0 136 136" fill="none">
+  <rect x="1" y="135" width="134" height="134" rx="67" transform="rotate(-90 1 135)" stroke="url(#paint0_linear_659_935)" stroke-width="2"/>
+  <rect x="96" y="96" width="40" height="40" rx="20" fill="url(#paint1_linear_659_935)"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M120 106H112L109 109H105V126H127V109H123L120 106ZM122.5 117C122.5 120.59 119.59 123.5 116 123.5C112.41 123.5 109.5 120.59 109.5 117C109.5 113.41 112.41 110.5 116 110.5C119.59 110.5 122.5 113.41 122.5 117ZM116 121C118.209 121 120 119.209 120 117C120 114.791 118.209 113 116 113C113.791 113 112 114.791 112 117C112 119.209 113.791 121 116 121Z" fill="white"/>
+  <defs>
+    <linearGradient id="paint0_linear_659_935" x1="68" y1="136" x2="68" y2="272" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A072FF"/>
+      <stop offset="1" stop-color="#3592FF"/>
+    </linearGradient>
+    <linearGradient id="paint1_linear_659_935" x1="96.7339" y1="116" x2="135.266" y2="116.004" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A072FF"/>
+      <stop offset="1" stop-color="#3592FF"/>
+    </linearGradient>
+  </defs>
+</svg>

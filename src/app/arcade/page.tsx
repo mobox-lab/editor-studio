@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Search from '@/components/ui/search';
 import GamerLevel from '@/app/arcade/_components/GamerLevel';
 import Selection from '@/app/arcade/_components/Selection';
 import Recommended from '@/app/arcade/_components/Recommended';
@@ -7,16 +8,10 @@ import Continue from '@/app/arcade/_components/Continue';
 import ArcanaGames from '@/app/arcade/_components/ArcanaGames';
 import Category from '@/app/arcade/_components/Category';
 import Right from '@/../public/svg/right.svg?component';
-import Search from '@/components/ui/search';
 import { useGparkCardPage } from '@/hooks/arcade/useGparkCardPage';
-import { useEffect } from 'react';
 
 export default function Arcade() {
-  const { recommendCardData, isLoading } = useGparkCardPage();
-
-  useEffect(() => {
-    console.log(123);
-  }, []);
+  const { isLoading } = useGparkCardPage();
 
   return (
     <div>
@@ -33,7 +28,7 @@ export default function Arcade() {
             <Search className="w-full" />
           </div>
           <div className="mt-3">
-            <Recommended data={recommendCardData} isLoading={isLoading} />
+            <Recommended isLoading={isLoading} />
           </div>
         </div>
         <div className="w-full">
@@ -57,7 +52,7 @@ export default function Arcade() {
           <ArcanaGames />
         </div>
         <div className="mt-9">
-          <Category />
+          <Category isLoading={isLoading} />
         </div>
       </div>
     </div>

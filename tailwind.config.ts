@@ -11,9 +11,11 @@ const config: Config = {
       container: {
         center: true,
         padding: {
-          xl: '2.5rem',
           '2xl': '10.5rem',
         },
+      },
+      screens: {
+        xl: { min: '1200px' },
       },
       spacing: {
         1.5: '.375rem',

@@ -20,6 +20,7 @@ export type GparkGameItem = {
   type: number;
   uid: string;
   gcMode: string;
+  offset: number;
 };
 
 export type GparkCardItem = {
@@ -125,4 +126,16 @@ export type GparkGameRoomItem = {
 export type GparkGameRoomList = {
   maxId: string;
   dataList: GparkGameRoomItem[];
+};
+
+export type GparkCardContentListParams = {
+  cardId: number | string | null;
+  offset: number | null;
+  pageSize: number;
+};
+
+export type GparkCardContentList = {
+  dataList: GparkGameItem[];
+  end: boolean;
+  total: number;
 };

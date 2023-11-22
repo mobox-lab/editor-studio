@@ -1,10 +1,9 @@
 'use client';
-import Image from 'next/image';
 import { clsx } from 'clsx';
 import Tag from '@/components/ui/tag';
 import { useMemo, useState } from 'react';
-import { GparkGameAuthor, GparkGameDetail } from '@/api';
 import Like from '@/../public/svg/like.svg?component';
+import { GparkGameAuthor, GparkGameDetail } from '@/api';
 import StyledButton from '@/components/ui/button/StyledButton';
 
 export default function GamePanel({ data }: { data?: GparkGameDetail }) {
@@ -17,7 +16,7 @@ export default function GamePanel({ data }: { data?: GparkGameDetail }) {
       <div>
         <div className="relative h-[338px]">
           {imageList.length ? (
-            <Image src={imageList[selectedIndex]} style={{ objectFit: 'cover' }} alt="game-image" fill />
+            <img src={imageList[selectedIndex]} loading="lazy" className="h-full w-full object-cover" alt="cover" />
           ) : null}
         </div>
         <div className="flex h-20 gap-2 p-2">
@@ -27,7 +26,7 @@ export default function GamePanel({ data }: { data?: GparkGameDetail }) {
               onClick={() => setSelectedIndex(index)}
               className={clsx('relative h-16 w-27.5 cursor-pointer', { 'boeder-white border': selectedIndex === index })}
             >
-              <Image src={item} style={{ objectFit: 'cover' }} alt="game-image" fill />
+              <img src={item} className="h-full w-full object-cover" loading="lazy" alt="cover" />
             </div>
           ))}
         </div>
@@ -39,10 +38,10 @@ export default function GamePanel({ data }: { data?: GparkGameDetail }) {
             {/*<Tag>Mobox</Tag>*/}
             {/*<Tag>Vista</Tag>*/}
           </div>
-          <div className="mt-6 line-clamp-[8] text-xs/5 whitespace-pre-line">{data?.description}</div>
+          <div className="mt-6 line-clamp-[8] whitespace-pre-line text-xs/5">{data?.description}</div>
           <div className="absolute bottom-0 flex h-11 items-center gap-2">
             <div className="relative h-10.5 w-10.5 overflow-hidden rounded-full">
-              {author && <Image fill style={{ objectFit: 'cover' }} src={author.avatar} alt="avatar" />}
+              {author && <img className="h-full w-full object-cover" loading="lazy" src={author.avatar} alt="avatar" />}
             </div>
             <div className="">
               <div className="text-base/5">

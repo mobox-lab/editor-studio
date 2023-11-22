@@ -1,29 +1,30 @@
-import Image from 'next/image';
 import { GparkGameItem } from '@/api';
 import { useRouter } from 'next/navigation';
+import { clsx } from 'clsx';
 
 type GparkGameProps = {
   data?: GparkGameItem;
+  isLoading?: boolean;
 };
 
-export default function GparkGame({ data }: GparkGameProps) {
+export default function GparkGame({ data, isLoading }: GparkGameProps) {
   const router = useRouter();
 
   return (
     <div
       onClick={() => data?.code && router.push('/game/' + data?.code)}
-      className="cursor-pointer border border-gray-500 hover:border-gray-350"
+      className={clsx('cursor-pointer border border-gray-500 hover:border-gray-350', { 'animate-pulse': isLoading })}
     >
       <div className="relative h-35 w-full bg-gray-500">
-        {data?.imageUrl ? <Image src={data.imageUrl} style={{ objectFit: 'cover' }} alt="game-image" fill /> : null}
+        {data?.imageUrl ? <img src={data.imageUrl} className="h-full w-full object-cover" loading="lazy" alt="cover" /> : null}
       </div>
       <div className="relative p-2">
         <div className="absolute bottom-2 left-2 h-9 w-9 overflow-hidden rounded-lg border-2 border-gray-700 bg-gray-500">
-          {data?.iconUrl ? <Image src={data.iconUrl} style={{ objectFit: 'cover' }} alt="game-image" fill /> : null}
+          {data?.iconUrl ? <img src={data.iconUrl} className="h-full w-full object-cover" loading="lazy" alt="cover" /> : null}
         </div>
         <div className="ml-9 flex items-center justify-between">
-          <p className="max-w-[140px] truncate pl-1.5 text-sm font-medium">{data?.displayName ?? '--'}</p>
-          <p className="max-w-[100px] truncate text-xs text-gray-300">By {data?.nickname ?? '--'}</p>
+          <p className="h-5 max-w-[140px] truncate pl-1.5 text-sm font-medium">{data?.displayName}</p>
+          <p className="max-w-[100px] truncate text-xs text-gray-300">{data ? `By ${data.nickname}` : ''}</p>
         </div>
       </div>
     </div>

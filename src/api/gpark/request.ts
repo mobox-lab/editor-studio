@@ -8,8 +8,6 @@ instance.interceptors.request.use(
   (config) => {
     config.headers.Platform = 'web';
     config.headers.Self_package_name = GPARK_PACKAGE_NAME;
-    config.headers.Token =
-      'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyMTJjZTBiMS01NTY5LTQwY2EtYTFkYy0xNTczNTU2NTlmN2MiLCJpYXQiOjE3MDA1MzM5MDYsInN1YiI6IntcInVpZFwiOlwiYmNlZTNkYjNmN2QxNGQ4NGJmYjY1M2UyOTgyYzc0MDlcIixcImN1cnJlbnRCZWxvbmdcIjpcIk5BXCIsXCJlbnZcIjpcIm9ubGluZVwiLFwicGFja1wiOlwiZ3BhcmtcIn0iLCJleHAiOjE3MDE4Mjk5MDZ9.CWedThMCpURcLMISxW-Ue180N291vnQTNKLbFyWV3Fc';
     return config;
   },
   (error) => Promise.reject(error),

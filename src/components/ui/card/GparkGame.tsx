@@ -15,7 +15,7 @@ export default function GparkGame({ data }: GparkGameProps) {
       className="cursor-pointer border border-gray-500 hover:border-gray-350"
     >
       <div className="relative h-35 w-full bg-gray-500">
-        {data?.iconUrl ? <Image src={data.iconUrl} style={{ objectFit: 'cover' }} alt="game-image" fill /> : null}
+        {data?.imageUrl ? <Image src={data.imageUrl} style={{ objectFit: 'cover' }} alt="game-image" fill /> : null}
       </div>
       <div className="relative p-2">
         <div className="absolute bottom-2 left-2 h-9 w-9 overflow-hidden rounded-lg border-2 border-gray-700 bg-gray-500">

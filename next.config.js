@@ -2,9 +2,8 @@
 const nextConfig = {
   images: {
     remotePatterns: [
-      { protocol: 'https', hostname: 'cdn1.p12.games' },
-      { protocol: 'https', hostname: '*.gpark.io' },
-      { protocol: 'https', hostname: '*.jaxine.xyz' },
+      { protocol: 'https', hostname: '*' },
+      { protocol: 'http', hostname: '*' },
     ],
   },
   reactStrictMode: false,

@@ -20,3 +20,16 @@ export type P12GameInfo = {
 
   mwGameCode?: string;
 };
+
+export type P12SelectionGameInfo = {
+  id: number;
+  arcanaGameId: number;
+  mwGameCode: string;
+  mwGameId: string;
+  gameName: string;
+  gameDescription: string;
+  mainImage: string;
+  showName: string;
+  gameIcon: string;
+  externalLink: string;
+};

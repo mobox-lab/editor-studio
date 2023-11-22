@@ -17,6 +17,12 @@ const config: Config = {
       screens: {
         xl: { min: '1200px' },
       },
+      opacity: {
+        '15': '.15',
+      },
+      lineHeight: {
+        '4.5': '1.125rem',
+      },
       spacing: {
         1.5: '.375rem',
         4.5: '1.125rem',

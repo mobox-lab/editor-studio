@@ -1,8 +1,8 @@
 import { verifyEmailDialogAtom } from '@/atoms/profile';
 import StyledButton from '@/components/ui/button/StyledButton';
 import Dialog from '@/components/ui/dialog';
-import { useCodeInput } from '@/hooks/useCodeInput';
-import { useFormOnError } from '@/hooks/useFormOnError';
+import { useCodeInput } from '@/hooks/util/useCodeInput';
+import { useFormOnError } from '@/hooks/util/useFormOnError';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAtom } from 'jotai';
 import { useForm } from 'react-hook-form';

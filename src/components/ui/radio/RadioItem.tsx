@@ -123,7 +123,7 @@ export const RadioItem = ({
         {label}
         {isInput && (
           <input
-            className={clsxm('w-full bg-transparent placeholder:text-white/50', inputClass)}
+            className={clsxm('w-full bg-transparent placeholder:text-gray-300', inputClass)}
             placeholder={placeholder ?? 'Please Enter'}
             defaultValue={defaultValue}
             value={inputValue}

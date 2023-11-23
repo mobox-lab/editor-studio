@@ -5,7 +5,7 @@ import WarningSvg from '@/../public/svg/warning.svg?component';
 import { completeLoginUserInfoDialogAtom } from '@/atoms/profile';
 import StyledButton from '@/components/ui/button/StyledButton';
 import Dialog from '@/components/ui/dialog';
-import { useFormOnError } from '@/hooks/useFormOnError';
+import { useFormOnError } from '@/hooks/util/useFormOnError';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAtom } from 'jotai';

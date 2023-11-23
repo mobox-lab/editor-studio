@@ -16,7 +16,7 @@ const buttonStyles = tv({
       blue: 'bg-blue/20 hover:bg-blue/30 text-blue',
     },
     disabled: {
-      true: 'bg-white/10 text-white hover:brightness-100 hover:bg-white/10 hover:opacity-100 disabled:cursor-not-allowed cursor-not-allowed',
+      true: 'bg-gray-300/10 text-gray-300 hover:brightness-100 hover:bg-gray-300/10 hover:opacity-100 disabled:cursor-not-allowed cursor-not-allowed',
     },
     loading: {
       true: 'cursor-progress',

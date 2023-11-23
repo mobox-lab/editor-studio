@@ -9,9 +9,15 @@ import ArcanaGames from '@/app/arcade/_components/ArcanaGames';
 import Category from '@/app/arcade/_components/Category';
 import Right from '@/../public/svg/right.svg?component';
 import { useGparkCardPage } from '@/hooks/arcade/useGparkCardPage';
+import { useRouter } from 'next/navigation';
 
 export default function Arcade() {
+  const router = useRouter();
   const { isLoading } = useGparkCardPage();
+
+  const onSearchClick = (text: string) => {
+    router.push('/search?q=' + encodeURIComponent(text));
+  };
 
   return (
     <div>
@@ -25,7 +31,7 @@ export default function Arcade() {
             <div className="w-32 cursor-pointer rounded-sm bg-white/10 py-2.5 text-center text-xs/5 font-medium">
               My Games: 8
             </div>
-            <Search className="w-full" />
+            <Search onEnterUp={onSearchClick} className="w-full" />
           </div>
           <div className="mt-3">
             <Recommended isLoading={isLoading} />

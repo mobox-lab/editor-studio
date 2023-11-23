@@ -139,3 +139,52 @@ export type GparkCardContentList = {
   end: boolean;
   total: number;
 };
+
+export type GparkGameMyselfItem = {
+  appDownCount: number;
+  briefIntro: string;
+  circleId: string;
+  deleteTime: number;
+  duration: number;
+  fileSize: number;
+  gameId: string;
+  iconUrl: string;
+  lastPlayTime: number;
+  likeCount: number;
+  gameScore: number;
+  name: string;
+  packageName: string;
+  imageUrl: string;
+  resType: string;
+  serverTime: number;
+};
+
+export type GparkGameMyself = {
+  dataList: GparkGameMyselfItem[];
+  end: boolean;
+  total: number;
+  first: boolean;
+  pageNum: number;
+  pageSize: number;
+};
+
+export type GparkGameQueryItem = {
+  id: number;
+  code: string;
+  icon: string;
+  name: string;
+  packageName: string;
+  editorVersion: string;
+  editorVersionEncode: number;
+  status: number;
+  cover: string;
+  type: number;
+  platform: number;
+  slogan: string;
+  author: GparkGameAuthor;
+};
+
+export type GparkGameQueryFuzzy = {
+  count: number;
+  records: [];
+};

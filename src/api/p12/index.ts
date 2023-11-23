@@ -1,8 +1,6 @@
 import request from '@/api/p12/request';
 import { FetchP12GameListParams, P12EventRound, P12GameInfo, P12SelectionGameInfo, Response } from '@/api/types';
 
-export const fetchP12xxx = () => request.get<any, Response<any>>('/xxx');
-
 export const fetchP12ArcadeArcanaGameList = () => request.get<any, Response<P12GameInfo[]>>('/arcade/arcana-game-show-list');
 export const fetchP12GameList = ({ sortField, page = 1, size = 25 }: FetchP12GameListParams) =>
   request.get<any, Response<P12GameInfo[]>>('/arcana/game/list', { params: { sortField, page, size } });

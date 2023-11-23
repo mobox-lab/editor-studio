@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GPARK_API_PREFIX, GPARK_PACKAGE_NAME } from '@/constants/env';
+import { GPARK_API_PREFIX, GPARK_PACKAGE_NAME, GPARK_USER_TOKEN } from '@/constants/env';
 
 const instance = axios.create({ baseURL: GPARK_API_PREFIX, timeout: 15_000 });
 
@@ -7,6 +7,7 @@ const instance = axios.create({ baseURL: GPARK_API_PREFIX, timeout: 15_000 });
 instance.interceptors.request.use(
   (config) => {
     config.headers.Platform = 'web';
+    config.headers.Token = GPARK_USER_TOKEN;
     config.headers.Self_package_name = GPARK_PACKAGE_NAME;
     return config;
   },

@@ -12,7 +12,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 export default function RightLeaderboard() {
-  const defaultList = useMemo<P12GameInfo[]>(() => Array.from({ length: 6 }), []);
+  const defaultList = useMemo(() => Array.from({ length: 8 }), []);
 
   useFetchP12CurrentEventRound();
 
@@ -118,7 +118,7 @@ export default function RightLeaderboard() {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="sticky top-0 z-10 flex items-center justify-between  gap-3 bg-gray-800">
+      <div className="sticky top-0 z-10 flex items-center justify-between gap-3 bg-gray-800">
         Leaderboard
         <Dropdown items={dropdownItems} selectedValue={selectedRound} onSelectItem={handleSelectItem} />
       </div>

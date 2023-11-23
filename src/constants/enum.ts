@@ -6,3 +6,10 @@ export enum SortField {
   VOTED = 'voted',
   DEFAULT = 'default',
 }
+
+export enum WORK_TYPE {
+  PREMIUM = 'premium',
+  MOBOX = 'mobox',
+  LATEST = 'latest',
+  DEFAULT = 'default',
+}

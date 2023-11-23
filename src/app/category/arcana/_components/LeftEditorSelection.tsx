@@ -3,6 +3,7 @@ import { P12GameInfo } from '@/api';
 import { categoryPremiumListAtom } from '@/atoms/category/arcana';
 import StyledButton from '@/components/ui/button/StyledButton';
 import ArcanaGame from '@/components/ui/card/ArcanaGame';
+import { WORK_TYPE } from '@/constants/enum';
 import { useFetchP12RecommendList } from '@/hooks/category/useFetchP12RecommendList';
 import { useAtomValue } from 'jotai';
 import _ from 'lodash-es';
@@ -12,7 +13,7 @@ export default function LeftEditorSelection() {
   const { isLoading } = useFetchP12RecommendList();
   const premiumData = useAtomValue(categoryPremiumListAtom);
   const [premiumItems, setPremiumItems] = useState<P12GameInfo[]>([]);
-  const defaultList = useMemo<P12GameInfo[]>(() => Array.from({ length: 6 }), []);
+  const defaultList = useMemo(() => Array.from({ length: 8 }), []);
 
   useEffect(() => {
     setPremiumItems(_.shuffle(premiumData));
@@ -35,7 +36,7 @@ export default function LeftEditorSelection() {
         {isLoading
           ? defaultList.map((item, i) => <ArcanaGame key={i} isLoading />)
           : premiumItems?.length
-            ? premiumItems.map((item) => <ArcanaGame key={item.id} data={item} />)
+            ? premiumItems.map((item) => <ArcanaGame type={WORK_TYPE.PREMIUM} key={item.id} data={item} />)
             : null}
       </div>
     </div>

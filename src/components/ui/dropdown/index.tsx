@@ -7,7 +7,7 @@ import Popover from '../popover';
 
 const dropdownStyles = tv({
   slots: {
-    container: 'flex cursor-pointer select-none items-center justify-between gap-1.5 rounded-sm bg-white/10 px-3 py-2.5 pr-3.5',
+    container: 'flex cursor-pointer select-none items-center justify-between gap-1.5 rounded-sm bg-white/10 px-3 py-2 pr-3.5',
     arrow: 'h-2.5 w-2.5 fill-white',
     popContainer: 'flex flex-col p-1.5',
   },
@@ -59,7 +59,7 @@ const Dropdown: FC<DropdownProps> = ({ items, type, selectedValue, onSelectItem,
                 onSelectItem(item);
                 setIsOpen(false);
               }}
-              className="flex cursor-pointer items-center gap-1.5 rounded-sm px-2.5 py-2 hover:bg-white/10"
+              className="flex max-w-[6.75rem] cursor-pointer items-center gap-1.5 truncate whitespace-nowrap rounded-sm px-2.5 py-2 hover:bg-white/10"
             >
               {item.label}
             </div>

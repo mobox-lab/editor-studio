@@ -1,21 +1,77 @@
 'use client';
+import VideoSvg from '@/../public/svg/video.svg?component';
 import { P12GameInfo } from '@/api';
+import { WORK_TYPE } from '@/constants/enum';
+import { useFileType } from '@/hooks/util/useFileType';
 import { clsxm } from '@/utils';
 import { shortenShowName } from '@/utils/shorten';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
+import Corner from '../corner';
 
 type ArcanaGameProps = {
+  type?: WORK_TYPE;
+
   data?: P12GameInfo;
   isLoading?: boolean;
   className?: string;
   showWeekInfo?: boolean;
 };
-export default function ArcanaGame({ data, className, showWeekInfo = true, isLoading }: ArcanaGameProps) {
+export default function ArcanaGame({
+  data,
+  className,
+  showWeekInfo = true,
+  isLoading,
+  type = WORK_TYPE.DEFAULT,
+}: ArcanaGameProps) {
   const router = useRouter();
-  const { mwGameCode, mainImage, gameName, gameDescription, gameVotes, showName, walletAddress } = data ?? {};
+  const {
+    mwGameCode,
+    mainImage,
+    gameName,
+    gameDescription,
+    gameVotes,
+    showName,
+    weeklyRank,
+    rank,
+    weeklyVotes,
+    walletAddress,
+  } = data ?? {};
+  const fileType = useFileType(mainImage ?? '');
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const realShowName = useMemo(() => shortenShowName(showName ?? walletAddress), [showName, walletAddress]);
+  const _rank = useMemo(() => (showWeekInfo ? weeklyRank : rank), [rank, showWeekInfo, weeklyRank]);
+  const _votes = useMemo(() => (showWeekInfo ? weeklyVotes : gameVotes), [gameVotes, showWeekInfo, weeklyVotes]);
+
+  const renderLeftCorner = useCallback(() => {
+    if (type === WORK_TYPE.PREMIUM) return <Corner type="gold">Selected</Corner>;
+    return (
+      <div className="absolute flex items-center gap-1.5 rounded-ee-lg bg-black/20 p-1 font-semibold backdrop-blur-lg">
+        {_rank ? (
+          _rank <= 3 ? (
+            <img src={`/img/arcana/rank_${_rank}.webp`} alt="" className="h-4.5 w-4.5" />
+          ) : (
+            <span className="text-xs/3 font-bold">No.{_rank}</span>
+          )
+        ) : null}
+        <p className="flex items-center gap-0.5 text-sm/4 font-semibold text-red-300">
+          <img alt="votesNum" className="h-3.5 w-3.5" src="/svg/vote_icon.svg" />
+          {_votes ?? 0}
+        </p>
+      </div>
+    );
+  }, [_rank, _votes, type]);
+
+  const renderCover = useCallback(() => {
+    if (!mainImage) return null;
+    return fileType === 'video' ? (
+      <video ref={videoRef} className="pointer-events-none -z-10 h-full w-full object-cover" src={mainImage ?? ''} loop muted />
+    ) : (
+      <Image src={mainImage} style={{ objectFit: 'cover' }} className="-z-10" alt="game-image" fill />
+    );
+  }, [fileType, mainImage]);
 
   return (
     <div
@@ -25,12 +81,21 @@ export default function ArcanaGame({ data, className, showWeekInfo = true, isLoa
         { 'h-44 animate-pulse border-none bg-gray-600': isLoading },
         className,
       )}
+      onMouseEnter={() => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(() => {});
+        }
+      }}
+      onMouseLeave={() => {
+        if (videoRef.current) {
+          videoRef.current.pause();
+        }
+      }}
     >
       <div className="relative h-31.5 w-full">
-        {gameVotes ? (
-          <div className="absolute left-0 top-0 rounded-br bg-black/40 px-1.5 py-1 text-sm text-red-300">{gameVotes}</div>
-        ) : null}
-        {mainImage ? <Image src={mainImage} style={{ objectFit: 'cover' }} alt="game-image" fill /> : null}
+        {!isLoading && fileType === 'video' && <VideoSvg className="absolute right-2 top-2 h-4.5 w-4.5" />}
+        {!isLoading && renderLeftCorner()}
+        {renderCover()}
       </div>
       <div className="relative px-2 py-1.5">
         {mainImage ? (

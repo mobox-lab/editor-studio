@@ -7,7 +7,7 @@ export function useGparkCardContentScroll(cardId: string | null) {
   const pageSize = useMemo(() => 40, []);
   const { data, hasNextPage, isFetchingNextPage, isLoading, fetchNextPage } = useInfiniteQuery({
     enabled: !!cardId,
-    initialPageParam: 0,
+    initialPageParam: -1,
     queryKey: ['gpark_card_content_scroll', cardId],
     queryFn: ({ pageParam }) => fetchGparkCardContentScroll({ cardId, pageSize, offset: pageParam }),
     getNextPageParam: ({ data, code }) => {

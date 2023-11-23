@@ -18,7 +18,6 @@ const config: Config = {
         xl: { min: '1200px' },
       },
       spacing: {
-        1.5: '.375rem',
         4.5: '1.125rem',
         5.5: '1.375rem',
         7.5: '1.875rem',

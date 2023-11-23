@@ -1,5 +1,3 @@
-export type P12xxx = {};
-
 export type P12GameInfo = {
   id: number;
   screenshots: string[];

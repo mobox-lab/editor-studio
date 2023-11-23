@@ -27,13 +27,11 @@ export const useProfileRadioOptions = () => {
       {
         key: 'custom',
         suffix: 'Custom',
-        defaultValue: 'personalizationName',
         isInput: true,
       },
       {
         key: 'gpark',
         suffix: 'GPark Name',
-        defaultValue: 'personalizationName',
         isInput: true,
       },
       {

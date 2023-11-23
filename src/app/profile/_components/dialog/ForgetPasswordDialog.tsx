@@ -3,7 +3,7 @@ import ShowPasswordSvg from '@/../public/svg/show_password.svg?component';
 import { forgetPasswordDialogAtom } from '@/atoms/profile';
 import StyledButton from '@/components/ui/button/StyledButton';
 import Dialog from '@/components/ui/dialog';
-import { useFormOnError } from '@/hooks/useFormOnError';
+import { useFormOnError } from '@/hooks/util/useFormOnError';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAtom } from 'jotai';
 import { useState } from 'react';

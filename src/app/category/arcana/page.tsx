@@ -1,15 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
 import LeftEditorSelection from './_components/LeftEditorSelection';
 import RightLeaderboard from './_components/RightLeaderboard';
 
-export default function CategoryArcana(props: any) {
-  useEffect(() => {
-    console.log('props: ', props);
-  }, [props]);
+export default function CategoryArcana() {
   return (
-    <div className="gap-5.5 grid grid-cols-2">
+    <div className="grid grid-cols-2 gap-5.5">
       <LeftEditorSelection />
       <RightLeaderboard />
     </div>

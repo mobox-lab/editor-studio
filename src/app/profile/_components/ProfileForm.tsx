@@ -107,7 +107,8 @@ export default function ProfileForm({ className }: { className?: string }) {
           <h2 className="text-sm font-medium">Bio</h2>
           <textarea
             rows={3}
-            className="w-full resize-none rounded bg-white/10 p-3 text-xs/5"
+            className="w-full resize-none rounded bg-white/10 p-3 text-xs/5 placeholder:text-gray-300"
+            placeholder="Please Enter"
             {...register('bio', {
               maxLength: { value: bioMaxLength, message: `Bio should be less than ${bioMaxLength} characters` },
             })}
@@ -155,12 +156,13 @@ export default function ProfileForm({ className }: { className?: string }) {
               </div>
             ) : (
               <StyledButton
-                variant="warning"
+                // variant="warning"
+                disabled
                 type="button"
-                className="gap-1.5 bg-legendary/30 py-2.5"
+                className="gap-1.5 py-2.5"
                 onClick={() => setVerifyEmailDialogOpen(true)}
               >
-                <WarningSvg />
+                {/* <WarningSvg /> */}
                 <p className="text-sm/5 font-semibold">Complete and verify your email</p>
               </StyledButton>
             )}

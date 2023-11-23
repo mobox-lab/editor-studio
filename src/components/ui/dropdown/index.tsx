@@ -1,7 +1,7 @@
 import Arrow from '@/../public/svg/arrow.svg?component';
 import { clsxm } from '@/utils';
 import { motion } from 'framer-motion';
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import Popover from '../popover';
 
@@ -22,23 +22,29 @@ const dropdownStyles = tv({
   },
 });
 
+export type OptionValue = string | number | null;
 export type DropdownItem = {
   label: string | JSX.Element;
-  value: string | number;
+  value: OptionValue;
 };
 
 type DropdownProps = {
   type?: 'default' | 'warning';
   items: DropdownItem[];
-  selectedItem: DropdownItem | null;
+  selectedValue: OptionValue;
   onSelectItem: (item: DropdownItem | null) => void;
   className?: string;
   popContainerClass?: string;
 };
 
-const Dropdown: FC<DropdownProps> = ({ items, type, selectedItem, onSelectItem, className, popContainerClass }) => {
+const Dropdown: FC<DropdownProps> = ({ items, type, selectedValue, onSelectItem, className, popContainerClass }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { container, arrow, popContainer } = dropdownStyles({ type });
+
+  const selectedLabel = useMemo(() => {
+    return items.find((item) => item.value === selectedValue)?.label;
+  }, [items, selectedValue]);
+
   return (
     <Popover
       open={isOpen}
@@ -62,8 +68,8 @@ const Dropdown: FC<DropdownProps> = ({ items, type, selectedItem, onSelectItem, 
       )}
     >
       <div className={container({ className })}>
-        {selectedItem ? selectedItem.label : 'Select an item'}
-        <motion.div animate={{ rotate: isOpen ? 180 : 0 }}>
+        {selectedLabel ? selectedLabel : 'Select an item'}
+        <motion.div animate={{ rotate: isOpen ? 0 : 180 }}>
           <Arrow className={clsxm(arrow(), { 'fill-gray-250': !isOpen })} />
         </motion.div>
       </div>

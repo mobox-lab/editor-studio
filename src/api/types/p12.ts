@@ -1,4 +1,4 @@
-export type P12xxx = {};
+import { SortField } from '@/constants/enum';
 
 export type P12GameInfo = {
   id: number;
@@ -32,4 +32,18 @@ export type P12SelectionGameInfo = {
   showName: string;
   gameIcon: string;
   externalLink: string;
+};
+
+export type P12EventRound = {
+  eventId: number;
+  week: number;
+  eventStartTime: string;
+  eventEndTime: string;
+  eventStatus: string;
+};
+
+export type FetchP12GameListParams = {
+  sortField: SortField;
+  page?: number;
+  size?: number;
 };

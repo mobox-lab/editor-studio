@@ -2,20 +2,30 @@
 
 import AvatarHoverSvg from '@/../public/svg/avatar-hover.svg?component';
 import DefaultUserSvg from '@/../public/svg/default_user.svg?component';
+import DiscordSvg from '@/../public/svg/discord.svg?component';
+import TelegramSvg from '@/../public/svg/telegram.svg?component';
+import TwitterSvg from '@/../public/svg/twitter.svg?component';
 import WarningSvg from '@/../public/svg/warning.svg?component';
-import { completeLoginUserInfoDialogAtom, forgetPasswordDialogAtom, verifyEmailDialogAtom } from '@/atoms/profile';
+import {
+  completeLoginUserInfoDialogAtom,
+  forgetPasswordDialogAtom,
+  p12ProfileAtom,
+  verifyEmailDialogAtom,
+} from '@/atoms/profile';
 import StyledButton from '@/components/ui/button/StyledButton';
 import RadioGroup from '@/components/ui/radio/RadioGroup';
+import { useFetchP12Profile } from '@/hooks/profile/useFetchP12Profile';
 import { useProfileRadioOptions } from '@/hooks/profile/useProfileRadioOptions';
 import { useProfileSubmit } from '@/hooks/profile/useProfileSubmit';
 import { useFormOnError } from '@/hooks/util/useFormOnError';
 import { clsxm } from '@/utils';
-import { useSetAtom } from 'jotai';
-import { useCallback, useState } from 'react';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import CompleteLoginInfoDialog from './dialog/CompleteLoginInfoDialog';
 import ForgetPasswordDialog from './dialog/ForgetPasswordDialog';
 import VerifyEmailDialog from './dialog/VerifyEmailDialog';
+import clsx from 'clsx';
 
 const bioMaxLength = 250;
 export type ProfileFormData = {
@@ -25,11 +35,11 @@ export type ProfileFormData = {
 };
 export default function ProfileForm({ className }: { className?: string }) {
   const profileData = {
-    address: '0x9aB3C5644fC631B9996Ef96732Cd1ef1c5B3a2B2',
-    bio: 'Let go! Vote for your favorite works. Get a daily bonus reward for each vote.',
     loginUsername: 'cosine',
     email: undefined,
   };
+  const { isLoading } = useFetchP12Profile();
+  const p12Profile = useAtomValue(p12ProfileAtom);
   const radioOptions = useProfileRadioOptions();
   const [selectedRadioKey, setSelectedRadioKey] = useState<string | undefined>(undefined);
   const {
@@ -41,18 +51,23 @@ export default function ProfileForm({ className }: { className?: string }) {
     watch,
     setError,
     clearErrors,
-  } = useForm<ProfileFormData>({
-    defaultValues: {
-      bio: profileData?.bio ?? '',
-      displayName: profileData?.address ?? '',
-    },
-  });
+  } = useForm<ProfileFormData>();
   const { onSubmit } = useProfileSubmit(selectedRadioKey);
   const onError = useFormOnError();
-
+  console.log(`( p12Profile )===============>`, p12Profile);
   const setCompleteInfoDialogOpen = useSetAtom(completeLoginUserInfoDialogAtom);
   const setVerifyEmailDialogOpen = useSetAtom(verifyEmailDialogAtom);
   const setForgetPasswordDialogOpen = useSetAtom(forgetPasswordDialogAtom);
+
+  // reset default values
+  useEffect(() => {
+    if (!p12Profile) return;
+    const { bio, showName, twitter, discord, walletAddress } = p12Profile ?? {};
+    setValue('bio', bio ?? '');
+    setValue('displayName', showName ?? walletAddress ?? '');
+    // setValue('discordHandle', discord ?? '');
+    // setValue('twitterHandle', twitter ?? '');
+  }, [p12Profile, setValue]);
 
   // watch bio length
   const bio = watch('bio');
@@ -108,7 +123,10 @@ export default function ProfileForm({ className }: { className?: string }) {
           <h2 className="text-sm font-medium">Bio</h2>
           <textarea
             rows={3}
-            className="w-full resize-none rounded bg-white/10 p-3 text-xs/5 placeholder:text-gray-300"
+            className={clsx('w-full resize-none rounded bg-white/10 p-3 text-xs/5 placeholder:text-gray-300', {
+              'animate-pulse placeholder:text-transparent': isLoading,
+            })}
+            disabled={isLoading}
             placeholder="Please Enter"
             {...register('bio', {
               maxLength: { value: bioMaxLength, message: `Bio should be less than ${bioMaxLength} characters` },
@@ -148,9 +166,9 @@ export default function ProfileForm({ className }: { className?: string }) {
           {/* Email */}
           <div className="flex flex-grow flex-col gap-3">
             <h2 className="text-sm font-medium">Email</h2>
-            {profileData?.email ? (
+            {profileData.email ? (
               <div className="relative z-0 flex justify-between gap-4 rounded-sm bg-white/10 px-3 py-2.5 text-xs/5">
-                {profileData?.email}
+                {profileData.email}
                 <span className="cursor-pointer font-semibold text-blue" onClick={() => setVerifyEmailDialogOpen(true)}>
                   Update email
                 </span>
@@ -170,54 +188,23 @@ export default function ProfileForm({ className }: { className?: string }) {
           </div>
         </div>
         {/* Social Links */}
-        {/* <div className="flex flex-grow flex-col gap-3">
-        <h2 className="text-sm font-medium">Social Links</h2>
-        <div className="grid grid-cols-3 items-start gap-3 fill-white text-xs/5">
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-wrap items-center gap-1 rounded-sm bg-white/10 px-3 py-2.5">
-              <TwitterSvg className="h-5 w-5" />
-              <div
-                className="flex flex-grow cursor-pointer items-center gap-0.5"
-                onClick={() => {
-                  // setTwitterBindOpen(true);
-                }}
-              >
-                {profileData?.twitter ? `@${profileData?.twitter}` : 'Connect twitter'}
-              </div>
-            </div>
-            {errors?.twitterHandle ? (
-              <p className="w-full flex-grow text-xs text-red">{errors?.twitterHandle.message}</p>
-            ) : null}
-          </div>
-          <div
-            className="flex cursor-pointer items-center gap-1 rounded-sm bg-white/10 px-3 py-2.5"
-            onClick={() => {
-              // setTelegramAuthOpen(true);
-            }}
-          >
-            <TelegramSvg className="h-5 w-5" />
-            Connect telegram
-          </div>
-          <div className="flex flex-col gap-2">
-            <div
-              className="flex cursor-pointer items-center gap-1 rounded-sm bg-white/10 px-3 py-2.5"
-              onClick={() => {
-                // setDiscordBindOpen(true);
-                // if (discordData) {
-                //   return;
-                // }
-                // openLink(DiscordBindLink);
-              }}
-            >
-              <DiscordSvg className="h-5 w-5" />
-              Connect discord
-            </div>
-            {errors?.discordHandle ? (
-              <p className="w-full flex-grow text-xs text-red">{errors?.discordHandle.message}</p>
-            ) : null}
+        <div className="flex flex-grow flex-col gap-3">
+          <h2 className="text-sm font-medium">Social Links</h2>
+          <div className="grid grid-cols-3 items-start gap-3 fill-white text-xs/5">
+            <StyledButton className="flex items-center gap-1 px-3 py-2.5" disabled>
+              <TwitterSvg className="h-5 w-5 fill-gray-300" />
+              <div className="flex flex-grow items-center gap-0.5">Link Twitter</div>
+            </StyledButton>
+            <StyledButton className="flex items-center justify-start gap-1 px-3 py-2.5" disabled>
+              <TelegramSvg className="h-5 w-5 fill-gray-300" />
+              Link Telegram
+            </StyledButton>
+            <StyledButton className="flex items-center justify-start gap-1 px-3 py-2.5" disabled>
+              <DiscordSvg className="h-5 w-5 fill-gray-300" />
+              Link Discord
+            </StyledButton>
           </div>
         </div>
-      </div> */}
         <StyledButton variant="gradient" className="w-[118px] self-end py-3">
           Submit
         </StyledButton>

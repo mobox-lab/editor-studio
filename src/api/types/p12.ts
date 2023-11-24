@@ -47,3 +47,34 @@ export type FetchP12GameListParams = {
   page?: number;
   size?: number;
 };
+
+export type P12SocialMedia = {
+  source: 'telegram' | 'aspecta' | 'discord';
+  firstName: string;
+  lastName?: string;
+  username?: string;
+  avatar?: string;
+  // aspecta required
+  sourceId?: string;
+};
+
+export type P12ProfileResult = Partial<{
+  editorium?: boolean;
+  walletAddress: string;
+  showName: string | null;
+  nickname: string | null;
+  p12Name: string | null;
+  ensName: string | null;
+  spaceIdBnb: string | null;
+  spaceIdArb: string | null;
+  ccProfileHandle: string | null;
+  avatar: string | null;
+  createdAt: string; // '2023-08-21T03:18:39.744Z'
+  twitter: string | null;
+  discord: string | null;
+  bio: string | null;
+  isCheat: boolean;
+  isCheatVerify: boolean;
+  mwAccountInfo: any[]; // TODO: Complete type
+  socialMedias: P12SocialMedia[]; // TODO: Complete type
+}>;

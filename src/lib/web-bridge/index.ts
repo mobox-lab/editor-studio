@@ -72,7 +72,7 @@ class WebBridge {
       console.log('尚未初始化！');
     };
 
-    new QWebChannel(window.qt.webChannelTransport, (channel: any) => {
+    new QWebChannel(window.qt.webChannelTransport, (channel) => {
       if (!Object.keys(channel.objects).includes(qtObjName)) {
         callback();
         return console.error('[QTWEBCHANNEL]: Unknown QT Object !');

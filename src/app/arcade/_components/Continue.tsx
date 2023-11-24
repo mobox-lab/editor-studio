@@ -4,7 +4,6 @@ import { useGparkGameMyself } from '@/hooks/arcade/useGparkGameMyself';
 
 export default function Continue() {
   const { data, isLoading } = useGparkGameMyself();
-  console.log('data: ', data);
 
   return (
     <div className="h-[438px] overflow-auto">

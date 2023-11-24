@@ -12,4 +12,8 @@ declare global {
     const content: FC<SVGProps<SVGElement>>;
     export default content;
   }
+
+  declare interface Window {
+    qt?: any;
+  }
 }

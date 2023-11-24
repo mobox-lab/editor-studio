@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import Search from '@/components/ui/search';
+import { useRouter } from 'next/navigation';
 import GamerLevel from '@/app/arcade/_components/GamerLevel';
 import Selection from '@/app/arcade/_components/Selection';
 import Recommended from '@/app/arcade/_components/Recommended';
@@ -9,7 +10,6 @@ import ArcanaGames from '@/app/arcade/_components/ArcanaGames';
 import Category from '@/app/arcade/_components/Category';
 import Right from '@/../public/svg/right.svg?component';
 import { useGparkCardPage } from '@/hooks/arcade/useGparkCardPage';
-import { useRouter } from 'next/navigation';
 
 export default function Arcade() {
   const router = useRouter();

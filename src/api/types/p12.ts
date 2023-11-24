@@ -78,3 +78,11 @@ export type P12ProfileResult = Partial<{
   mwAccountInfo: any[]; // TODO: Complete type
   socialMedias: P12SocialMedia[]; // TODO: Complete type
 }>;
+
+export type P12ChainNamesResult = {
+  walletAddress: string;
+  ccProfileHandle: string | null;
+  ensName: string | null;
+  spaceIdArb: string | null;
+  spaceIdBnb: string | null;
+};

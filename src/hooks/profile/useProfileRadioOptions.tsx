@@ -1,15 +1,32 @@
 import { RadioOption } from '@/components/ui/radio/RadioGroup';
 import { useMemo } from 'react';
+import { useMutationP12UpdateChainNames } from './useMutationP12UpdateChainNames';
+import { useThrottle } from '../util/useThrottle';
+import { useAtomValue } from 'jotai';
+import { p12ProfileAtom } from '@/atoms/profile';
+import { toast } from 'react-toastify';
 
 export const useProfileRadioOptions = () => {
+  const { mutate: updateChainNames } = useMutationP12UpdateChainNames();
+  const syncChainNames = useThrottle(updateChainNames, 1000);
+  const profileData = useAtomValue(p12ProfileAtom);
+
   return useMemo(() => {
-    const walletAddress = '0x9aB3C5644fC631B9996Ef96732Cd1ef1c5B3a2B2'; //TODO: API
-    // const { walletAddress, ccProfileHandle, p12Name, nickname, ensName, spaceIdArb, spaceIdBnb } = profileData ?? {};
+    const { ccProfileHandle, nickname, ensName, spaceIdArb, spaceIdBnb } = profileData ?? {};
     const radioOpts: Array<RadioOption | RadioOption[] | null> = [
       {
-        key: 'custom',
-        suffix: 'Custom',
+        key: 'nickname',
         isInput: true,
+        value: nickname ?? '',
+        suffix: 'Custom',
+        beforeOnChange: (value: string) => {
+          if (value.includes('.')) {
+            // not allowed to input "."
+            toast.error(`Nickname shouldn't include dot, please try again.`);
+            return false;
+          }
+          return true;
+        },
       },
       {
         key: 'gpark',
@@ -18,21 +35,29 @@ export const useProfileRadioOptions = () => {
       },
       {
         key: 'ccProfileHandle',
-        label: 'Sync .cyber domain',
-        value: '.cyber',
+        label: ccProfileHandle ?? 'Sync .cyber domain',
+        value: ccProfileHandle ?? '.cyber',
+        ...(ccProfileHandle ? {} : { onClick: (e: any) => syncChainNames() }),
       },
-      { key: 'ensName', label: 'Sync .eth domain', value: '.eth' },
+      {
+        key: 'ensName',
+        label: ensName ?? 'Sync .eth domain',
+        value: ensName ?? '.eth',
+        ...(ensName ? {} : { onClick: (e: any) => syncChainNames() }),
+      },
       {
         key: 'spaceIdBnb',
-        label: 'Sync .bnb domain',
-        value: '.bnb',
+        label: spaceIdBnb ?? 'Sync .bnb domain',
+        value: spaceIdBnb ?? '.bnb',
+        ...(spaceIdBnb ? {} : { onClick: (e: any) => syncChainNames() }),
       },
       {
         key: 'spaceIdArb',
-        label: 'Sync .arb domain',
-        value: '.arb',
+        label: spaceIdArb ?? 'Sync .arb domain',
+        value: spaceIdArb ?? '.arb',
+        ...(spaceIdArb ? {} : { onClick: (e: any) => syncChainNames() }),
       },
     ];
     return radioOpts;
-  }, []);
+  }, [profileData, syncChainNames]);
 };

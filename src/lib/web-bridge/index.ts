@@ -1,5 +1,5 @@
-import QWebChannel from './qwebchannel';
 import { isDev } from '@/constants/env';
+import { QWebChannel } from './qwebchannel';
 import { assert, isQtClient, log } from './utils';
 import { addDispatcher, createSender, removeDispatcher } from './helper';
 
@@ -9,15 +9,23 @@ type Action = {
   action: string;
   data: string;
   id?: number;
-  promise?: any;
+  promise?: {
+    resolve: (payload?: any) => void;
+    reject: (payload?: any) => void;
+  };
+};
+
+type Event = {
+  event: string;
+  callback: Callback;
 };
 
 class WebBridge {
-  eventQueue: any[];
-  sendQueue: any[];
-  send: any;
-  on: any;
-  off: any;
+  eventQueue: Event[];
+  sendQueue: Action[];
+  send: (payload: Action) => Promise<any>;
+  on: (eventName: string, callback: Callback) => void;
+  off: (eventName: string, callback: Callback) => void;
 
   constructor(qtObjName: string, callback: Callback = (_?: any) => {}) {
     // check if initialization parameters are normal
@@ -113,7 +121,7 @@ class QTApiClient {
   callbackId: number;
 
   constructor(qtObjName: string, sendActionName: string, listenEventName: string, callback = (_?: any) => {}) {
-    this.webBridge = new WebBridge(qtObjName, (callback = (_) => {}));
+    this.webBridge = new WebBridge(qtObjName, callback);
     this.sendActionName = sendActionName;
     this.listenEventName = listenEventName;
     this.callbackList = {};
@@ -127,7 +135,6 @@ class QTApiClient {
         resolve,
         reject,
       };
-
       this.webBridge.send({
         action: this.sendActionName,
         data: JSON.stringify(request),
@@ -137,7 +144,6 @@ class QTApiClient {
 
   addResponseListener() {
     this.webBridge.on(this.listenEventName, (responseStr: string) => {
-      console.log(responseStr);
       let response = JSON.parse(responseStr);
       if (response.hasOwnProperty('id')) {
         const promiseObj = this.callbackList[response.id];

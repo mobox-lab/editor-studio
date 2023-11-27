@@ -3,7 +3,6 @@
 import { P12SelectionGameInfo } from '@/api';
 import { useP12SelectionGames } from '@/hooks/arcade/useP12SelectionGames';
 import { openLink } from '@/utils';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { useInterval } from 'react-use';
@@ -38,11 +37,11 @@ export default function Selection() {
           }}
         >
           <div className="relative h-80 w-full">
-            <Image src={selectedGame?.mainImage} style={{ objectFit: 'cover' }} alt="game-image" fill />
+            <img className="h-full w-full object-cover" src={selectedGame?.mainImage} alt="game-image" />
           </div>
           <div className="relative p-4">
             <div className="absolute bottom-4 left-4 h-15 w-15 overflow-hidden rounded-lg border-2 border-gray-700">
-              <Image src={selectedGame?.gameIcon} style={{ objectFit: 'cover' }} alt="game-image" fill />
+              <img className="h-full w-full object-cover" src={selectedGame?.gameIcon} alt="game-image" />
             </div>
             <div className="ml-15 flex items-center justify-between">
               <p className="pl-3 text-base/5 font-semibold">{selectedGame?.gameName}</p>
@@ -60,7 +59,7 @@ export default function Selection() {
                     item?.externalLink ? openLink(item.externalLink) : router.push(`/game/${item?.mwGameCode}`);
                   }}
                 >
-                  <Image src={item?.mainImage} style={{ objectFit: 'cover' }} alt="game-image" fill />
+                  <img className="h-full w-full object-cover" src={selectedGame?.mainImage} alt="game-image" />
                 </div>
               ))
             : null}

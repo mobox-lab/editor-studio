@@ -52,6 +52,7 @@ interface PropertyMessage {
 
 interface QWebChannelConstructor {
   (this: QWebChannelInstance, transport: WebChannelTransport, initCallback: InitCallback): void;
+
   new (transport: WebChannelTransport, initCallback: InitCallback): QWebChannelInstance;
 }
 
@@ -70,5 +71,3 @@ interface QWebChannelInstance {
 }
 
 declare const QWebChannel: QWebChannelConstructor;
-
-export default QWebChannel;

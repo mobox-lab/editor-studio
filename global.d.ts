@@ -16,8 +16,8 @@ declare global {
   declare interface Window {
     qt: {
       webChannelTransport: {
-        send: (data: any) => void;
-        onmessage: (message: MessageFromQt) => void;
+        send: (payload: string) => void;
+        onmessage: (payload: { [key: string]: any }) => void;
       };
     };
   }

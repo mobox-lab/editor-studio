@@ -1,13 +1,19 @@
+import { PublishedObject } from '@/lib/web-bridge/qwebchannel';
+
 type Callback = (data?: any) => void;
 
 type Action = {
   action: string;
   data: string;
-  promise?: any;
+  id?: number;
+  promise?: {
+    resolve: (payload?: any) => void;
+    reject: (payload?: any) => void;
+  };
 };
 
-export function createSender(QtServer: any) {
-  return ({ action = '', data = '', promise = null }: Action) => {
+export function createSender(QtServer: PublishedObject) {
+  return ({ action, data, promise }: Action) => {
     return new Promise((resolve, reject) => {
       if (promise && promise.reject && promise.resolve) {
         resolve = promise.resolve;
@@ -31,7 +37,7 @@ export function createSender(QtServer: any) {
   };
 }
 
-export function addDispatcher(QtServer: any) {
+export function addDispatcher(QtServer: PublishedObject) {
   return (event: string, callback: Callback) => {
     if (!Object.keys(QtServer).includes(event)) {
       return new Error('[LISTENER]: Unknown event name!');
@@ -48,7 +54,7 @@ export function addDispatcher(QtServer: any) {
   };
 }
 
-export function removeDispatcher(QtServer: any) {
+export function removeDispatcher(QtServer: PublishedObject) {
   return (event: string, callback: Callback) => {
     if (!Object.keys(QtServer).includes(event)) {
       return new Error('[LISTENER]: Unknown event name!');

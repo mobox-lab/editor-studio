@@ -79,6 +79,15 @@ export type P12ProfileResult = Partial<{
   socialMedias: P12SocialMedia[]; // TODO: Complete type
 }>;
 
+export type P12ProfileParams = {
+  bio?: string | null;
+  discord?: string | null;
+  nickname?: string | null;
+  p12Name?: string | null;
+  showName?: string | null;
+  twitter?: string | null;
+};
+
 export type P12ChainNamesResult = {
   walletAddress: string;
   ccProfileHandle: string | null;
@@ -86,3 +95,15 @@ export type P12ChainNamesResult = {
   spaceIdArb: string | null;
   spaceIdBnb: string | null;
 };
+
+export type CheckNameParams = {
+  name: string;
+  type: string; // p12Name | nickname
+};
+
+export enum CheckResult {
+  NOT_EXIST = 0,
+  EXIST = 1, // OR > 1 , cnt
+}
+
+export type CheckNameResult = CheckResult;

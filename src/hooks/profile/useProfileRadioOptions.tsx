@@ -29,7 +29,7 @@ export const useProfileRadioOptions = () => {
         },
       },
       {
-        key: 'gpark',
+        key: 'gparkName', // TODO: API
         suffix: 'GPark Name',
         isInput: true,
       },

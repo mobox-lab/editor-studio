@@ -19,7 +19,7 @@ export default function LastGame({ data }: { data?: GparkGameMyselfItem }) {
       {data ? (
         <>
           <div className="relative h-25 w-full">
-            <img className="h-full w-full object-cover" loading="lazy" src={data.imageUrl} alt="game-image" />
+            <img className="h-full w-full object-cover" loading="lazy" src={data.cover} alt="game-image" />
           </div>
           <div className="relative p-2">
             <div className="absolute bottom-2 left-2 h-9 w-9 overflow-hidden rounded-lg border-2 border-gray-700">

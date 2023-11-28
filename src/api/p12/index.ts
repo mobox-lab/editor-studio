@@ -36,3 +36,9 @@ export const updateP12ChainNames = () => request.post<any, Response<P12ChainName
 
 export const checkNameAvailable = (data: CheckNameParams) =>
   request.post<any, Response<CheckNameResult>>('/app/profile/check/name', data);
+
+export const uploadP12Image = (file: any) => {
+  const formData = new FormData();
+  formData.append('file', file);
+  return request.post<any, Response<string>>('/app/upload/image', formData);
+};

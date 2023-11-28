@@ -2,10 +2,14 @@
 import Image from 'next/image';
 import VoteIcon from '@/../public/svg/vote_icon.svg?component';
 import StyledButton from '@/components/ui/button/StyledButton';
+import { arcanaEditCreationDialogOpen } from '@/atoms/category/arcana';
+import { useSetAtom } from 'jotai';
 
 export default function MyGameItem() {
+  const setOpen = useSetAtom(arcanaEditCreationDialogOpen);
+
   return (
-    <div className="relative cursor-pointer border border-gray-500 hover:border-gray-350">
+    <div className="relative cursor-pointer border border-gray-500 hover:border-gray-350" onClick={() => setOpen(true)}>
       <div className="relative h-31.5 w-full">
         {/* <div className="absolute left-0 top-0 rounded-br bg-black/40 px-1.5 py-1 text-sm text-red-300">10303</div> */}
         <Image
@@ -28,9 +32,9 @@ export default function MyGameItem() {
           <p className="pl-1.5 text-sm font-medium">BarbieLand</p>
         </div>
         <div className="mt-2 flex gap-1.5">
-          <div className="text-xs/4.5 rounded-sm bg-blue/20 px-2 py-[1px] text-blue">Online</div>
-          <div className="text-xs/4.5 rounded-sm bg-blue/20 px-2 py-[1px] text-blue">v1.0.1</div>
-          <div className="text-xs/4.5 rounded-sm bg-blue/20 px-2 py-[1px] text-blue">10/27/2023 11:32</div>
+          <div className="rounded-sm bg-blue/20 px-2 py-[1px] text-xs/4.5 text-blue">Online</div>
+          <div className="rounded-sm bg-blue/20 px-2 py-[1px] text-xs/4.5 text-blue">v1.0.1</div>
+          <div className="rounded-sm bg-blue/20 px-2 py-[1px] text-xs/4.5 text-blue">10/27/2023 11:32</div>
         </div>
         <div className="mt-3 grid grid-cols-3">
           <div>

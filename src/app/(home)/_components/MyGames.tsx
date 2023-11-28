@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import MyGameItem from '@/app/(home)/_components/MyGameItem';
 import Right from '@/../public/svg/right.svg?component';
+import EditCreationDialog from '@/components/ui/dialog/EditCreationDialog';
 
 export default function MyGames() {
   return (
@@ -21,6 +22,7 @@ export default function MyGames() {
         <div>Table</div>
         <div>Table</div>
       </div>
+      <EditCreationDialog />
     </div>
   );
 }

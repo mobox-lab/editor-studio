@@ -12,4 +12,13 @@ declare global {
     const content: FC<SVGProps<SVGElement>>;
     export default content;
   }
+
+  declare interface Window {
+    qt: {
+      webChannelTransport: {
+        send: (payload: string) => void;
+        onmessage: (payload: { [key: string]: any }) => void;
+      };
+    };
+  }
 }

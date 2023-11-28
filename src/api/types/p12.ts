@@ -47,3 +47,63 @@ export type FetchP12GameListParams = {
   page?: number;
   size?: number;
 };
+
+export type P12SocialMedia = {
+  source: 'telegram' | 'aspecta' | 'discord';
+  firstName: string;
+  lastName?: string;
+  username?: string;
+  avatar?: string;
+  // aspecta required
+  sourceId?: string;
+};
+
+export type P12ProfileResult = Partial<{
+  editorium?: boolean;
+  walletAddress: string;
+  showName: string | null;
+  nickname: string | null;
+  p12Name: string | null;
+  ensName: string | null;
+  spaceIdBnb: string | null;
+  spaceIdArb: string | null;
+  ccProfileHandle: string | null;
+  avatar: string | null;
+  createdAt: string; // '2023-08-21T03:18:39.744Z'
+  twitter: string | null;
+  discord: string | null;
+  bio: string | null;
+  isCheat: boolean;
+  isCheatVerify: boolean;
+  mwAccountInfo: any[]; // TODO: Complete type
+  socialMedias: P12SocialMedia[]; // TODO: Complete type
+}>;
+
+export type P12ProfileParams = {
+  bio?: string | null;
+  discord?: string | null;
+  nickname?: string | null;
+  p12Name?: string | null;
+  showName?: string | null;
+  twitter?: string | null;
+};
+
+export type P12ChainNamesResult = {
+  walletAddress: string;
+  ccProfileHandle: string | null;
+  ensName: string | null;
+  spaceIdArb: string | null;
+  spaceIdBnb: string | null;
+};
+
+export type CheckNameParams = {
+  name: string;
+  type: string; // p12Name | nickname
+};
+
+export enum CheckResult {
+  NOT_EXIST = 0,
+  EXIST = 1, // OR > 1 , cnt
+}
+
+export type CheckNameResult = CheckResult;

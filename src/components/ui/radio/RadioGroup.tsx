@@ -22,8 +22,6 @@ export interface RadioOption {
   labelStyle?: CSSProperties;
   dotClass?: string;
   dotContainerClass?: string;
-
-  disabledGradientBorder?: boolean;
 }
 
 interface RadioGroupProps {
@@ -91,7 +89,10 @@ const RadioGroup = forwardRef(
             const opts = option as RadioOption[];
             const realValues = opts.map((opt) => {
               const { value, isInput, key, prefix, suffix } = opt;
-              const realValue = (prefix ?? '') + (isInput ? inputValues[key ?? 'default'] || '' : value) + (suffix ?? '');
+              const realValue =
+                // (prefix ?? '') +
+                isInput ? inputValues[key ?? 'default'] || '' : value;
+              //  + (suffix ?? '');
               return realValue;
             });
             return (

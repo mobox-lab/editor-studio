@@ -46,9 +46,11 @@ export const RadioItem = ({
     beforeOnChange,
     onClick,
     className,
-    disabledGradientBorder,
   } = option;
-  const realValue = (prefix ?? '') + (isInput ? inputValues[key ?? 'default'] || '' : value) + (suffix ?? '');
+  const realValue =
+    // (prefix ?? '') +
+    (isInput ? inputValues[key ?? 'default'] : value) ?? '';
+  //  + (suffix ?? '');
   const isSelected = currentValue === realValue;
   const inputValue = inputValues[key ?? 'default'] || '';
   const _dotIsSelected = dotIsSelected ?? isSelected;

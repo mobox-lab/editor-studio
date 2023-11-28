@@ -16,7 +16,7 @@ export default function GparkGame({ data, isLoading }: GparkGameProps) {
       className={clsx('cursor-pointer border border-gray-500 hover:border-gray-350', { 'animate-pulse': isLoading })}
     >
       <div className="relative h-35 w-full bg-gray-500">
-        {data?.imageUrl ? <img src={data.imageUrl} className="h-full w-full object-cover" loading="lazy" alt="cover" /> : null}
+        {data?.cover ? <img src={data.cover} className="h-full w-full object-cover" loading="lazy" alt="cover" /> : null}
       </div>
       <div className="relative p-2">
         <div className="absolute bottom-2 left-2 h-9 w-9 overflow-hidden rounded-lg border-2 border-gray-700 bg-gray-500">

@@ -21,6 +21,7 @@ export type GparkGameItem = {
   uid: string;
   gcMode: string;
   offset: number;
+  cover: string
 };
 
 export type GparkCardItem = {
@@ -157,6 +158,7 @@ export type GparkGameMyselfItem = {
   imageUrl: string;
   resType: string;
   serverTime: number;
+  cover: string;
 };
 
 export type GparkGameMyself = {

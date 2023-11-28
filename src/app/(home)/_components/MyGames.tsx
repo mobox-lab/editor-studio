@@ -12,10 +12,14 @@ export default function MyGames() {
           <Right className="inline h-3.5 w-3.5 fill-blue align-baseline" />
         </Link>
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="mt-3 grid grid-cols-3 gap-4">
         <MyGameItem />
         <MyGameItem />
         <MyGameItem />
+      </div>
+      <div className="mt-6 grid grid-cols-2">
+        <div>Table</div>
+        <div>Table</div>
       </div>
     </div>
   );

@@ -5,11 +5,14 @@ import {
   FetchP12GameListParams,
   P12ChainNamesResult,
   P12EventRound,
+  P12GameDetail,
   P12GameInfo,
   P12ProfileParams,
   P12ProfileResult,
   P12SelectionGameInfo,
   Response,
+  UpdateP12GameInfoResult,
+  UpdateP12GameParams,
 } from '@/api/types';
 
 export const fetchP12ArcadeArcanaGameList = () => request.get<any, Response<P12GameInfo[]>>('/arcade/arcana-game-show-list');
@@ -17,6 +20,10 @@ export const fetchP12GameList = ({ sortField, page = 1, size = 25 }: FetchP12Gam
   request.get<any, Response<P12GameInfo[]>>('/arcana/game/list', { params: { sortField, page, size } });
 export const fetchP12ArcadeSelectionGameList = () => request.get<any, Response<P12SelectionGameInfo[]>>('/arcade/selection');
 export const fetchP12GameRecommendList = () => request.get<any, Response<P12GameInfo[]>>('/arcana/game/recommend');
+
+export const fetchP12GameDetail = (id: number) => request.get<any, Response<P12GameDetail>>('/arcana/game/' + id);
+export const updateP12GameInfo = ({ id, ...data }: UpdateP12GameParams) =>
+  request.post<any, Response<UpdateP12GameInfoResult>>('/arcana/game/' + id, data);
 
 export const fetchP12EventRound = () => request.get<any, Response<P12EventRound>>('/arcana/event-round/round');
 export const fetchP12EventRoundList = ({

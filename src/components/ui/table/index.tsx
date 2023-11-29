@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useReactTable, flexRender, getCoreRowModel } from '@tanstack/react-table';
 import Empty from '../empty';
 import { LoadingSvg } from '@/components/svg/LoadingSvg';
@@ -22,9 +22,9 @@ export default function Table({ dataSource, columns, className, loading, headCla
   const { rows } = getRowModel();
 
   return (
-    <div className={classNames('react-table', className)}>
+    <div className={clsx('react-table', className)}>
       <table className="table-auto">
-        <thead className={classNames('react-table-thead', headClassName)}>
+        <thead className={clsx('react-table-thead', headClassName)}>
           {getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (

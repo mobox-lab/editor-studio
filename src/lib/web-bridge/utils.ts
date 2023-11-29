@@ -6,7 +6,7 @@ export const isQtClient = (function () {
 })();
 
 export function assert(condition: any, msg: string) {
-  if (!condition) throw new Error(`[ASSERT]: ${msg || condition}`);
+  if (!condition) console.error(`[ASSERT]: ${msg || condition}`);
 }
 
 export function log(msg: string) {

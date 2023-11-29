@@ -40,8 +40,7 @@ class WebBridge {
       );
     }
 
-    // 开发环境中，若不在QtWebEngine中则进行模拟
-    if (isDev && !isQtClient) {
+    if (!isQtClient) {
       window.qt = {
         webChannelTransport: {
           send() {

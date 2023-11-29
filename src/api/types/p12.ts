@@ -21,6 +21,40 @@ export type P12GameInfo = {
   mwGameCode?: string;
 };
 
+export type P12GameDetail = {
+  id: number;
+  rank?: number; // Voting for 0 does not make it to the leaderboard
+  gameName: string;
+  gameDescription: string | null;
+  gameVotes: number;
+  mainImage: string | null;
+  screenshots: string[];
+  // user info
+  bio?: string;
+  showName: string | null;
+  twitter: string | null;
+  twitterVerify: boolean;
+  walletAddress: string;
+
+  weeklyRank?: number;
+  weeklyVotes?: number;
+};
+
+export type UpdateP12GameParams = {
+  id: number;
+  gameDescription: string;
+  gameName: string;
+  screenshots: string[];
+};
+
+export type UpdateP12GameInfoResult = {
+  id: number;
+  gameDescription: string | null;
+  gameName: string;
+  screenshots: string[] | null;
+  walletAddress: string;
+};
+
 export type P12SelectionGameInfo = {
   id: number;
   arcanaGameId: number;

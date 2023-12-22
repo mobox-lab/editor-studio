@@ -35,6 +35,7 @@ instance.interceptors.response.use(
     const res = await refreshToken('player');
     if (!res) return error.response;
     refreshing = await retryRequest(queue, instance);
+    config.headers.Token = res.token;
     return instance(config);
   },
 );

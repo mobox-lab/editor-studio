@@ -28,10 +28,12 @@ instance.interceptors.response.use(
     if (data.data[0] === 'TokenExpiredError') {
       const res = await refreshToken('p12');
       if (!res) return error.response;
+      config.headers.Authorization = 'Bearer ' + res.token;
     }
     if (data.data[0] === 'EditorExpiredError') {
       const res = await refreshToken('editor');
       if (!res) return error.response;
+      config.headers.Token = res.token;
     }
     refreshing = await retryRequest(queue, instance);
     return instance(config);

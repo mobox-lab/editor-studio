@@ -67,7 +67,7 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
           </div>
           {firstThree.map((item, index) => {
             const { icon, alt } = rankConfig?.[index + 1] ?? {};
-            const realShowName = shortenShowName(item.arcanaPower.showName ?? item.walletAddress, 14);
+            const realShowName = shortenShowName(item.arcanaPower?.showName ?? item.walletAddress, 14);
             const devNft = item.p12GenesisNFT.find((o) => o.nftType === 'developer');
             return (
               <div className="mt-3 flex items-center text-sm" key={item.walletAddress}>

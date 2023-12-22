@@ -9,7 +9,7 @@ import BadgeBackground from '@/components/ui/animation/BadgeBackground';
 
 export default function GamerLevel() {
   const { data } = useFetchSBT('gamer');
-  const nftConfig = useMemo(() => (data && data.nftClaim > 0 ? GAMER_BADGES[data.nftLevel] : undefined), [data]);
+  const nftConfig = useMemo(() => (data && data.nftLevel !== undefined ? GAMER_BADGES[data.nftLevel] : undefined), [data]);
   const canClaim = useMemo(() => data?.nftType && data.nftClaim === NFT_CLAIM.UNCLAIMED, [data?.nftClaim, data?.nftType]);
 
   return (
@@ -18,7 +18,7 @@ export default function GamerLevel() {
       <div className="relative mt-3 h-93 w-100 border border-gray-400">
         <BadgeBackground level={nftConfig?.rarity} />
         <div className="flex">
-          <div className="border-r border-white/[.16]">
+          <div className="border-r border-white/[.16] flex flex-col justify-between">
             <div className="relative p-4">
               {nftConfig ? (
                 <img src={nftConfig?.asset256} alt="nft" width={220} height={220} />
@@ -38,7 +38,7 @@ export default function GamerLevel() {
             )}
           </div>
           <div className="px-4 py-7.5">
-            <p className={clsx('text-[26px]/[26px] font-medium', nftConfig?.color ?? 'text-gray-300')}>
+            <p className={clsx('text-[18px]]/[26px] font-medium', nftConfig?.color ?? 'text-gray-300')}>
               {nftConfig?.rarity ?? 'NULL'}
             </p>
             <div className="mt-7.5">

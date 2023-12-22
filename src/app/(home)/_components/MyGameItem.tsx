@@ -8,6 +8,7 @@ import RemoveIcon from '@/../public/svg/remove.svg?component';
 import SubmitIcon from '@/../public/svg/submit.svg?component';
 import { DataListType } from '@/api/types/p12';
 import { arcanaEditCreationDialogOpen, arcanaEditCreationIdAtom } from '@/atoms/category/arcana';
+import Empty from '@/components/ui/empty';
 import Message from '@/components/ui/message';
 import ToastIcon from '@/components/ui/toast/ToastIcon';
 import { useMutationIsPublication } from '@/hooks/arcana/useMutationIsPublication';
@@ -18,8 +19,15 @@ import { useSetAtom } from 'jotai';
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
+import EmptySVG from '@/../public/svg/empty.svg?component';
 
-export default function MyGameItem({ gameInfo, refetchGameList }: { gameInfo: DataListType; refetchGameList?: () => void }) {
+export default function MyGameItem({
+  gameInfo,
+  refetchGameList,
+}: {
+  gameInfo: DataListType | null;
+  refetchGameList?: () => void;
+}) {
   const setOpen = useSetAtom(arcanaEditCreationDialogOpen);
   const setGameId = useSetAtom(arcanaEditCreationIdAtom);
 
@@ -72,6 +80,13 @@ export default function MyGameItem({ gameInfo, refetchGameList }: { gameInfo: Da
     }
   };
 
+  if (!gameInfo) {
+    return (
+      <div className="relative flex min-h-[280px] cursor-pointer items-center justify-center border border-gray-500">
+        <EmptySVG />
+      </div>
+    );
+  }
   return (
     <div className="relative cursor-pointer border border-gray-500">
       <div className="relative h-31.5 w-full">
@@ -86,7 +101,7 @@ export default function MyGameItem({ gameInfo, refetchGameList }: { gameInfo: Da
         </div>
         <div className="mt-2 flex gap-1.5">
           <div className="rounded-sm bg-blue/20 px-2 py-[1px] text-xs/4.5 text-blue">
-            {gameInfo.state === 1 ? 'Online' : 'Offline'}
+            {gameInfo.isSubmitted ? 'Online' : 'Offline'}
           </div>
           <div className="rounded-sm bg-blue/20 px-2 py-[1px] text-xs/4.5 text-blue">v{gameInfo.version}</div>
           {/* <div className="rounded-sm bg-blue/20 px-2 py-[1px] text-xs/4.5 text-blue">10/27/2023 11:32</div> */}

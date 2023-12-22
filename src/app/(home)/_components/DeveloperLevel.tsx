@@ -18,7 +18,7 @@ export default function DeveloperLevel() {
       <div className="relative mt-3 w-100 border border-gray-400">
         <BadgeBackground level={nftConfig?.rarity} />
         <div className="flex">
-          <div className="border-r border-white/[.16]">
+          <div className="flex flex-col justify-between border-r border-white/[.16]">
             <div className="relative p-4">
               {nftConfig ? (
                 <img src={nftConfig?.asset256} alt="nft" width={220} height={220} />
@@ -38,7 +38,7 @@ export default function DeveloperLevel() {
             )}
           </div>
           <div className="px-4 py-7.5">
-            <p className={clsx('text-[26px]/[26px] font-medium', nftConfig?.color ?? 'text-gray-300')}>
+            <p className={clsx('text-[18px]/[26px] font-medium', nftConfig?.color ?? 'text-gray-300')}>
               {nftConfig?.rarity ?? 'NULL'}
             </p>
             <div className="mt-7.5">

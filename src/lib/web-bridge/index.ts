@@ -1,7 +1,9 @@
-import { isDev } from '@/constants/env';
 import { QWebChannel } from './qwebchannel';
 import { assert, isQtClient, log } from './utils';
-import { addDispatcher, createSender, removeDispatcher } from './helper';
+import { addDispatcher, createSender, removeDispatcher, saveQtConfigData } from './helper';
+import { GPARK_EDITOR_TOKEN, GPARK_PLAYER_TOKEN, isDev, P12_TOKEN, PGE_ENGINE_VERSION } from '@/constants/env';
+
+export const NotInQtWebEngine = 'NotInQtWebEngine';
 
 type Callback = (data?: any) => void;
 
@@ -23,7 +25,7 @@ type Event = {
 class WebBridge {
   eventQueue: Event[];
   sendQueue: Action[];
-  send: (payload: Action) => Promise<any>;
+  send: (payload: Action) => void;
   on: (eventName: string, callback: Callback) => void;
   off: (eventName: string, callback: Callback) => void;
 
@@ -49,6 +51,12 @@ class WebBridge {
           onmessage() {},
         },
       };
+      saveQtConfigData({
+        p12Token: P12_TOKEN,
+        playerToken: GPARK_PLAYER_TOKEN,
+        editorToken: GPARK_EDITOR_TOKEN,
+        engineVersion: PGE_ENGINE_VERSION,
+      });
     }
 
     //初始化未完成之前先暂存
@@ -69,10 +77,7 @@ class WebBridge {
     };
 
     this.on = (event: string, callback: Callback) => {
-      this.eventQueue.push({
-        event: event,
-        callback: callback,
-      });
+      this.eventQueue.push({ event: event, callback: callback });
     };
 
     this.off = (event: string, callback: Callback) => {
@@ -87,6 +92,7 @@ class WebBridge {
 
       const QtServer = channel.objects[qtObjName];
 
+      saveQtConfigData(QtServer);
       this.send = createSender(QtServer);
       this.on = addDispatcher(QtServer);
       this.off = removeDispatcher(QtServer);
@@ -127,17 +133,15 @@ class QTApiClient {
     this.callbackId = 0;
   }
 
-  send(request: Action) {
-    return new Promise((resolve, reject) => {
+  send<T>(request: { action: string; data?: any; id?: number }) {
+    return new Promise<T>((resolve, reject) => {
       request.id = this.callbackId++;
-      this.callbackList[request.id] = {
-        resolve,
-        reject,
-      };
-      this.webBridge.send({
-        action: this.sendActionName,
-        data: JSON.stringify(request),
-      });
+      this.callbackList[request.id] = { resolve, reject };
+      console.log('Launcher request: ', request);
+      this.webBridge.send({ action: this.sendActionName, data: JSON.stringify(request) });
+      if (!isQtClient) {
+        setTimeout(() => resolve(NotInQtWebEngine as any), 3000);
+      }
     });
   }
 
@@ -146,7 +150,7 @@ class QTApiClient {
       let response = JSON.parse(responseStr);
       if (response.hasOwnProperty('id')) {
         const promiseObj = this.callbackList[response.id];
-        promiseObj.resolve(response.data);
+        promiseObj?.resolve(response.data);
         delete this.callbackList[response.id];
       }
     });

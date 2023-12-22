@@ -1,3 +1,4 @@
+import { STORAGE_KEY } from '@/constants/storage';
 import { PublishedObject } from '@/lib/web-bridge/qwebchannel';
 
 type Callback = (data?: any) => void;
@@ -20,6 +21,7 @@ export function createSender(QtServer: PublishedObject) {
         reject = promise.reject;
       }
 
+      console.log('Action: ', { action, data, promise });
       if (!Object.keys(QtServer).includes(action)) {
         return reject(new Error('[SENDER]: Unknown action name !'));
       }
@@ -69,4 +71,15 @@ export function removeDispatcher(QtServer: PublishedObject) {
     }
     QtServer[event].disconnect(callback);
   };
+}
+
+export function saveQtConfigData(QtServer: PublishedObject) {
+  const p12Token = QtServer.p12Token;
+  const playerToken = QtServer.playerToken;
+  const editorToken = QtServer.editorToken;
+  const engineVersion = QtServer.engineVersion;
+  localStorage.setItem(STORAGE_KEY.P12_TOKEN, p12Token);
+  localStorage.setItem(STORAGE_KEY.PLAYER_TOKEN, playerToken);
+  localStorage.setItem(STORAGE_KEY.EDITOR_TOKEN, editorToken);
+  localStorage.setItem(STORAGE_KEY.QT_CONFIG, JSON.stringify({ engineVersion: engineVersion, pgeTag: p12Token ? 2 : 1 }));
 }

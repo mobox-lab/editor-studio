@@ -1,0 +1,25 @@
+{
+  "cSpell.words": [
+    "Aspecta",
+    "Bitget",
+    "bitkeep",
+    "clsxm",
+    "cybertrek",
+    "ddin",
+    "Editorium",
+    "gpark",
+    "Leaderboard",
+    "LINEA",
+    "metaverse",
+    "Mobox",
+    "MOMO",
+    "roadmap",
+    "toastify",
+    "Voteme",
+    "webm",
+    "zetachain"
+  ],
+  "css.lint.unknownAtRules": "ignore",
+  "editor.formatOnSave": true,
+  "tailwindCSS.experimental.classRegex": [["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]]
+}

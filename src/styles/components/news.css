@@ -1,0 +1,26 @@
+.new-dialog__reset a {
+  @apply text-blue transition hover:text-blue-450;
+}
+.new-dialog__reset p {
+  @apply mb-3 text-sm text-white;
+}
+.new-dialog__reset p img {
+  @apply w-full;
+}
+.new-dialog__reset s {
+  text-decoration: line-through;
+}
+.new-dialog__reset b,
+strong {
+  font-weight: 600;
+}
+.new-dialog__reset i,
+em {
+  font-style: italic;
+}
+.new-dialog__reset ul {
+  list-style: disc inside;
+}
+.new-dialog__reset ol {
+  list-style: decimal inside;
+}

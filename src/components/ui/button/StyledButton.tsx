@@ -9,7 +9,7 @@ const buttonStyles = tv({
     variant: {
       default: 'bg-white/10 hover:bg-white/20',
       gradient: 'bg-gradient-p12 hover:brightness-110',
-      'gradient-play': 'bg-gradient-play hover:brightness-110',
+      'gradient-play': 'bg-gradient-play text-black hover:brightness-110',
       warning: 'bg-legendary/30 text-legendary hover:brightness-110',
       error: 'bg-red hover:brightness-110',
       bordered: 'border hover:bg-white/10',
@@ -39,12 +39,11 @@ const StyledButton: ForwardRefComponent<HTMLButtonElement, ButtonProps> = memo(
       <button
         className={buttonStyles({
           variant,
-          disabled: disabled || loading,
+          disabled,
           loading,
           className,
         })}
-        loading={loading}
-        disabled={disabled}
+        disabled={disabled || loading}
         ref={ref}
         {...(props as any)}
       >

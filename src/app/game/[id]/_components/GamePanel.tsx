@@ -1,15 +1,28 @@
 'use client';
 import { clsx } from 'clsx';
-import Tag from '@/components/ui/tag';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Like from '@/../public/svg/like.svg?component';
 import { GparkGameAuthor, GparkGameDetail } from '@/api';
 import StyledButton from '@/components/ui/button/StyledButton';
 
-export default function GamePanel({ data }: { data?: GparkGameDetail }) {
+type GamePanelProps = {
+  data?: GparkGameDetail;
+  isLoading?: boolean;
+  handleRunningGame?: () => void;
+};
+
+export default function GamePanel({ data, isLoading, handleRunningGame }: GamePanelProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const imageList = useMemo(() => data?.images.map((item) => item.url) ?? [], [data?.images]);
   const author = useMemo<GparkGameAuthor | undefined>(() => data?.author ?? undefined, [data?.author]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSelectedIndex((prevIndex) => (prevIndex + 1) % imageList.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [imageList.length]);
 
   return (
     <div className="grid grid-cols-2 border border-gray-500 bg-gray-550/10">
@@ -34,11 +47,7 @@ export default function GamePanel({ data }: { data?: GparkGameDetail }) {
       <div>
         <div className="relative h-[338px] px-6 pt-6">
           <h1 className="h-9 text-3xl font-semibold">{data?.name}</h1>
-          <div className="mt-3 flex gap-1.5">
-            {/*<Tag>Mobox</Tag>*/}
-            {/*<Tag>Vista</Tag>*/}
-          </div>
-          <div className="mt-6 line-clamp-[8] whitespace-pre-line text-xs/5">{data?.description}</div>
+          <div className="mt-6 h-48 overflow-y-scroll whitespace-pre-line text-xs/5">{data?.description}</div>
           <div className="absolute bottom-0 flex h-11 items-center gap-2">
             <div className="relative h-10.5 w-10.5 overflow-hidden rounded-full">
               {author && <img className="h-full w-full object-cover" loading="lazy" src={author.avatar} alt="avatar" />}
@@ -46,19 +55,19 @@ export default function GamePanel({ data }: { data?: GparkGameDetail }) {
             <div className="">
               <div className="text-base/5">
                 <span className="font-medium">{author?.name}</span>&nbsp;
-                {/*<span className="text-link">@tomori</span>*/}
               </div>
               <div className="mt-0.5 text-xs/5">{author?.introduction}</div>
             </div>
           </div>
         </div>
-        <div className="mt-2 flex gap-3 px-6 py-2">
-          <StyledButton variant="gradient-play" className="flex-1 py-3.5 text-base/5 font-bold text-black">
+        <div className="mt-2 px-6 py-2">
+          <StyledButton
+            variant="gradient-play"
+            loading={isLoading}
+            onClick={handleRunningGame}
+            className="w-[400px] flex-1 py-3.5 text-base/5 font-bold text-black"
+          >
             Play Now
-          </StyledButton>
-          <StyledButton variant="gradient" className="flex w-36 cursor-default gap-1.5 py-3 font-bold">
-            <Like />
-            {data?.sns.likeCount ?? 0}
           </StyledButton>
         </div>
       </div>

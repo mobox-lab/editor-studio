@@ -1,14 +1,18 @@
 import axios from 'axios';
+import { PendingTask } from '@/api';
 import { P12_API_PREFIX } from '@/constants/env';
+import { STORAGE_KEY } from '@/constants/storage';
+import { refreshToken, retryRequest } from '@/api/utils';
 
 const instance = axios.create({ baseURL: P12_API_PREFIX, timeout: 15_000 });
+const queue: PendingTask[] = [];
+let refreshing = false;
 
 // Add request interceptor
 instance.interceptors.request.use(
   (config) => {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZGRyZXNzIjoiMHg2Nzk2NThCZTAzNDc1RDBBNTM5M2M3MGVhMEU5QTExNThEZmFlMUZmIiwibm9uY2UiOiJ3VGx5M0V5T0g4TXFQOVR2UyIsInBsYXRmb3JtIjowLCJpYXQiOjE3MDA4MDU0NjAsImV4cCI6MTcwMTQxMDI2MH0.i59br9CU1fYjcP8vACytKBjFFEGKK1tn0jqf11ugzi4'; // temp token
-    config.headers.Authorization = token ? 'Bearer ' + token : '';
+    const accessToken = localStorage.getItem(STORAGE_KEY.P12_TOKEN);
+    config.headers.Authorization = accessToken ? 'Bearer ' + accessToken : '';
     return config;
   },
   (error) => Promise.reject(error),
@@ -16,10 +20,21 @@ instance.interceptors.request.use(
 // Add response interceptor
 instance.interceptors.response.use(
   (response) => response.data,
-  (error) => {
-    const { response } = error;
-    const { data } = response ?? {};
-    return Promise.reject(data);
+  async (error) => {
+    const { data, config } = error.response;
+    if (data.code !== 401 || data.data[0] === 'TokenNotExist' || data.data[0] === 'JsonWebTokenError') return error.response;
+    if (refreshing) return new Promise((resolve) => queue.push({ config, resolve }));
+    refreshing = true;
+    if (data.data[0] === 'TokenExpiredError') {
+      const res = await refreshToken('p12');
+      if (!res) return error.response;
+    }
+    if (data.data[0] === 'EditorExpiredError') {
+      const res = await refreshToken('editor');
+      if (!res) return error.response;
+    }
+    refreshing = await retryRequest(queue, instance);
+    return instance(config);
   },
 );
 

@@ -1,11 +1,9 @@
 'use client';
 
-import AvatarHoverSvg from '@/../public/svg/avatar-hover.svg?component';
 import DefaultUserSvg from '@/../public/svg/default_user.svg?component';
 import DiscordSvg from '@/../public/svg/discord.svg?component';
 import TelegramSvg from '@/../public/svg/telegram.svg?component';
 import TwitterSvg from '@/../public/svg/twitter.svg?component';
-import WarningSvg from '@/../public/svg/warning.svg?component';
 import {
   completeLoginUserInfoDialogAtom,
   forgetPasswordDialogAtom,
@@ -19,13 +17,13 @@ import { useProfileRadioOptions } from '@/hooks/profile/useProfileRadioOptions';
 import { useProfileSubmit } from '@/hooks/profile/useProfileSubmit';
 import { useFormOnError } from '@/hooks/util/useFormOnError';
 import { clsxm } from '@/utils';
+import clsx from 'clsx';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import CompleteLoginInfoDialog from './dialog/CompleteLoginInfoDialog';
 import ForgetPasswordDialog from './dialog/ForgetPasswordDialog';
 import VerifyEmailDialog from './dialog/VerifyEmailDialog';
-import clsx from 'clsx';
 
 const bioMaxLength = 250;
 export type ProfileFormData = {
@@ -35,10 +33,10 @@ export type ProfileFormData = {
 };
 export default function ProfileForm({ className }: { className?: string }) {
   const profileData = {
-    loginUsername: 'cosine',
+    loginUsername: undefined,
     email: undefined,
   };
-  const { isLoading } = useFetchP12Profile();
+  const { isLoading: p12FetchLoading } = useFetchP12Profile();
   const p12Profile = useAtomValue(p12ProfileAtom);
   const radioOptions = useProfileRadioOptions();
   const [selectedRadioKey, setSelectedRadioKey] = useState<string | undefined>(undefined);
@@ -52,9 +50,8 @@ export default function ProfileForm({ className }: { className?: string }) {
     setError,
     clearErrors,
   } = useForm<ProfileFormData>();
-  const { onSubmit } = useProfileSubmit(selectedRadioKey);
+  const { onSubmit, isLoading: submitLoading } = useProfileSubmit(selectedRadioKey);
   const onError = useFormOnError();
-  console.log(`( p12Profile )===============>`, p12Profile);
   const setCompleteInfoDialogOpen = useSetAtom(completeLoginUserInfoDialogAtom);
   const setVerifyEmailDialogOpen = useSetAtom(verifyEmailDialogAtom);
   const setForgetPasswordDialogOpen = useSetAtom(forgetPasswordDialogAtom);
@@ -91,9 +88,9 @@ export default function ProfileForm({ className }: { className?: string }) {
     <>
       <form className={clsxm('flex flex-col gap-7.5 px-6', className)} onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="flex items-center gap-7.5">
-          <div className="group relative h-[136px] w-[136px] cursor-pointer rounded-full bg-gray-500">
+          <div className="group relative h-[136px] w-[136px] rounded-full bg-gray-500">
             <DefaultUserSvg className="h-full w-full" />
-            <AvatarHoverSvg className="invisible absolute inset-0 group-hover:visible" />
+            {/* <AvatarHoverSvg className="invisible absolute inset-0 group-hover:visible" /> */}
           </div>
           {/* Username */}
           <div className="flex flex-grow flex-col gap-3">
@@ -124,9 +121,9 @@ export default function ProfileForm({ className }: { className?: string }) {
           <textarea
             rows={3}
             className={clsx('w-full resize-none rounded bg-white/10 p-3 text-xs/5 placeholder:text-gray-300', {
-              'animate-pulse placeholder:text-transparent': isLoading,
+              'animate-pulse placeholder:text-transparent': p12FetchLoading,
             })}
-            disabled={isLoading}
+            disabled={p12FetchLoading}
             placeholder="Please Enter"
             {...register('bio', {
               maxLength: { value: bioMaxLength, message: `Bio should be less than ${bioMaxLength} characters` },
@@ -153,12 +150,13 @@ export default function ProfileForm({ className }: { className?: string }) {
               </div>
             ) : (
               <StyledButton
-                variant="warning"
+                // variant="warning"
+                disabled
                 type="button"
-                className="gap-1.5 bg-legendary/30 py-2.5"
+                className="gap-1.5 py-2.5"
                 onClick={() => setCompleteInfoDialogOpen(true)}
               >
-                <WarningSvg />
+                {/* <WarningSvg /> */}
                 <p className="text-sm/5 font-semibold">Complete Login Information</p>
               </StyledButton>
             )}
@@ -205,7 +203,7 @@ export default function ProfileForm({ className }: { className?: string }) {
             </StyledButton>
           </div>
         </div>
-        <StyledButton variant="gradient" className="w-[118px] self-end py-3">
+        <StyledButton variant="gradient" loading={submitLoading} className="w-[118px] self-end py-3">
           Submit
         </StyledButton>
       </form>

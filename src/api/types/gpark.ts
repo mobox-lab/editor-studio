@@ -21,7 +21,7 @@ export type GparkGameItem = {
   uid: string;
   gcMode: string;
   offset: number;
-  cover: string
+  cover: string;
 };
 
 export type GparkCardItem = {
@@ -189,4 +189,52 @@ export type GparkGameQueryItem = {
 export type GparkGameQueryFuzzy = {
   count: number;
   records: [];
+};
+
+export type GparkUserInfo = {
+  nickname?: string; //  
+  portrait?: string; // 
+  uid?: string; // 
+  userNumber?: string; //  
+  signature?: string; // 
+};
+export type GparkUserInfoParams = {
+  nickname?: string; //  
+  signature?: string; // 
+};
+export type GparkUserImage = {
+  wholeBodyImage?: string;
+};
+
+export type GparkStartupExtension = {
+  IsHorizontal: boolean;
+  PathId: string;
+  attribute: number;
+  gameId: string;
+  useAvatar: number;
+  version: string;
+};
+
+export type GparkMWGameDetail = {
+  canPlay: number;
+  displayName: string;
+  editorVersion: string;
+  editorVersionEncode: number;
+  expand: string;
+  gameCode: string;
+  gameTags: number[];
+  gameType: number;
+  packageName: string;
+};
+
+export type GparkTsGameConfig = {
+  appKey: string;
+  avatar: string;
+  gamePackageName: string;
+  gender: number;
+  nickname: string;
+  openCode: string;
+  openCodeExpire: number;
+  openId: string;
+  uuid: string;
 };

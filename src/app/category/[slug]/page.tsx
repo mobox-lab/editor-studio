@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import GparkGame from '@/components/ui/card/GparkGame';
 import { categorySearchTextAtom } from '@/atoms/category/search';
 import { useFilterSearchGames } from '@/hooks/category/useFilterSearchGames';
-import { useGparkCardContentScroll } from '@/hooks/arcade/useGparkCardContentScroll';
+import { useGparkCardContentScroll } from '@/hooks/gpark/useGparkCardContentScroll';
 
 export default function CategorySlug() {
   const searchParams = useSearchParams();

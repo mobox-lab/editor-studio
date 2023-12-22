@@ -1,4 +1,5 @@
-import { SortField } from '@/constants/enum';
+import { NFT_CLAIM, SBT_LEVEL, SortField } from '@/constants/enum';
+import { Address } from 'viem';
 
 export type P12GameInfo = {
   id: number;
@@ -141,3 +142,79 @@ export enum CheckResult {
 }
 
 export type CheckNameResult = CheckResult;
+
+export type NewsItem = {
+  status: string;
+  newsType: any;
+  title: string;
+  description: string;
+  text: string;
+  externalLink: string;
+  coverImage: string;
+  createTime: number;
+  updateTime: number;
+};
+
+export type EditorDevRankItem = {
+  walletAddress: string;
+  developerPower: number;
+  arcanaPower: ArcanaPower;
+  p12GenesisNFT: SBTInfo[];
+  _count: {
+    arcanaGames: number;
+  };
+};
+
+export type ArcanaPower = {
+  showName: string | null;
+  bio: string | null;
+};
+
+export type SBTInfo = {
+  walletAddress: Address;
+  power: number;
+  vote: number;
+  rank: number;
+  nftLevel: SBT_LEVEL;
+  nftType: 'gamer' | 'developer';
+  nftClaim: NFT_CLAIM;
+  nftId: null | string;
+  nftSource: string[];
+};
+
+export type GameListBodyType = {
+  pageSize: number;
+  offset: number;
+};
+
+export type GameListType = {
+  totalCount: number;
+  dataList: DataListType[];
+};
+
+export type DataListType = {
+  cover: string;
+  icon: string;
+  name: string;
+  state: number;
+  version: string;
+  channel: number;
+  sourceGameId: string;
+  gameCode: string;
+  latestVersion: string;
+  isSubmitted?: boolean;
+  p12GameId?: number;
+};
+
+export type ToggleStatusParams = {
+  id: number;
+  status?: boolean;
+};
+
+export type ToggleStatusResult = {
+  id: number;
+  gameName: string;
+  gameVotes: number;
+  isSubmitted: boolean;
+  walletAddress: string;
+};

@@ -1,8 +1,8 @@
-import { CheckResult, P12ProfileParams } from '@/api';
+import { CheckResult, P12ProfileParams, qtClient } from '@/api';
 import { ProfileFormData } from '@/app/profile/_components/ProfileForm';
 import { p12ProfileAtom } from '@/atoms/profile';
 import { useAtom } from 'jotai';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useThrottle } from '../util/useThrottle';
 import { useMutationCheckName } from './useMutationCheckName';
@@ -10,6 +10,7 @@ import { useMutationEditP12Profile } from './useMutationEditP12Profile';
 
 export const useProfileSubmit = (selectedRadioKey?: string) => {
   const [profileData, setProfileData] = useAtom(p12ProfileAtom);
+  const [isLoading, setLoading] = useState(false);
 
   const { mutateAsync: mutateEditProfile } = useMutationEditP12Profile();
   const updateProfile = useThrottle(mutateEditProfile, 700);
@@ -20,6 +21,7 @@ export const useProfileSubmit = (selectedRadioKey?: string) => {
   const onSubmit = useCallback(
     async (values: ProfileFormData) => {
       try {
+        setLoading(true);
         const { showName, twitter, discord } = profileData ?? {};
         const { displayName, bio } = values;
         const newProfile: P12ProfileParams = { bio, showName, twitter, discord };
@@ -38,15 +40,18 @@ export const useProfileSubmit = (selectedRadioKey?: string) => {
               showName: displayName,
             });
           } else if (!available) {
+            setLoading(false);
             !isUsing && toast.error(`${displayNameKey} check failed.`);
             return;
           } else {
+            setLoading(false);
             !isUsing && toast.error(`${displayNameKey} already exists, please change.`);
             return;
           }
         } else {
           if (['.eth', '.bnb', '.arb', 'aspecta.id', '.cyber'].includes(displayName)) {
             // Has not ensName spaceIdBnb spaceIdArb
+            setLoading(false);
             toast.error(`Have not ${displayName}, please click to sync`);
             return;
           } else {
@@ -66,8 +71,11 @@ export const useProfileSubmit = (selectedRadioKey?: string) => {
         // });
         await updateProfile(newProfile);
         setProfileData((prev) => ({ ...prev, ...newProfile }));
+        setLoading(false);
         toast.success('Save changes successfully.');
+        qtClient.refreshProfile();
       } catch (e: any) {
+        setLoading(false);
         toast.error('Save changes failed.', e.message);
       }
     },
@@ -77,7 +85,8 @@ export const useProfileSubmit = (selectedRadioKey?: string) => {
   return useMemo(
     () => ({
       onSubmit,
+      isLoading,
     }),
-    [onSubmit],
+    [isLoading, onSubmit],
   );
 };

@@ -5,7 +5,7 @@ import Search from '@/components/ui/search';
 import GparkGame from '@/components/ui/card/GparkGame';
 import Right from '@/../public/svg/right.svg?component';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useGparkQueryFuzzy } from '@/hooks/arcade/useGparkQueryFuzzy';
+import { useGparkQueryFuzzy } from '@/hooks/gpark/useGparkQueryFuzzy';
 
 export default function SearchPage() {
   const router = useRouter();

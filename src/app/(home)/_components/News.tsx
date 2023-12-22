@@ -1,26 +1,39 @@
 'use client';
+import { NewsItem } from '@/api';
+import { p12NewDialogOpenAtom, p12NewInfoAtom } from '@/atoms/p12';
+import { openExternalLink } from '@/utils';
+import dayjs from 'dayjs';
+import { useSetAtom } from 'jotai';
 import Image from 'next/image';
 
-export default function News() {
+export default function News({ newsInfo }: { newsInfo: NewsItem }) {
+  const setP12NewInfo = useSetAtom(p12NewInfoAtom);
+  const setP12NewOpen = useSetAtom(p12NewDialogOpenAtom);
+  const formatUnix = (timestamp: number) => {
+    const formattedDate = dayjs(timestamp).format('MMM DD YYYY');
+    return formattedDate;
+  };
   return (
-    <div className="relative cursor-pointer border border-gray-500 hover:border-gray-350">
+    <div
+      className="relative cursor-pointer border border-gray-500 hover:border-gray-350"
+      onClick={() => {
+        if (newsInfo.externalLink) {
+          openExternalLink(newsInfo.externalLink);
+        } else {
+          setP12NewOpen(true);
+          setP12NewInfo(newsInfo);
+        }
+      }}
+    >
       <div className="relative h-[163px] w-full">
-        <Image
-          src="https://qn-mw-game.gpark.io/GameRelease/P_6f38f7b5a0bf56f3ecc21232ee73a1c512f8a09f/1.0.0/87945/661dd5ff2d33714897122be1522cb6870e22d2e9"
-          style={{ objectFit: 'cover' }}
-          alt="game-image"
-          fill
-        />
+        <Image src={newsInfo.coverImage} style={{ objectFit: 'cover' }} alt="game-image" fill />
       </div>
       <div className="relative px-2 py-1.5">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold">BarbieLand</p>
-          <p className="text-xs text-gray-300">Aug 16 2023</p>
+        <div className="flex items-center justify-between gap-2">
+          <p className="line-clamp-2 max-h-10 overflow-hidden text-sm font-semibold">{newsInfo.title}</p>
+          <p className="whitespace-nowrap text-xs text-gray-300">{formatUnix(newsInfo.updateTime)}</p>
         </div>
-        <div className="line-clamp-2 h-8 text-xs/4">
-          Ambrus Studio was founded by Johnson, ex-CEO of Asia, Riot Games. First Ga Ambrus Studio was founded by Johnson,
-          ex-CEO of Asia, Riot Games. First Ga Ambrus Studio was founded by Johnson, ex-CEO of Asia, Riot Games. First Ga...
-        </div>
+        <div className="line-clamp-2 h-8 text-xs/4">{<div dangerouslySetInnerHTML={{ __html: newsInfo?.text }}></div>}</div>
       </div>
     </div>
   );

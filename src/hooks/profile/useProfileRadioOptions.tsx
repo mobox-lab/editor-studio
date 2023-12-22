@@ -18,7 +18,7 @@ export const useProfileRadioOptions = () => {
         key: 'nickname',
         isInput: true,
         value: nickname ?? '',
-        suffix: 'Custom',
+        className: 'col-span-2',
         beforeOnChange: (value: string) => {
           if (value.includes('.')) {
             // not allowed to input "."
@@ -27,11 +27,6 @@ export const useProfileRadioOptions = () => {
           }
           return true;
         },
-      },
-      {
-        key: 'gparkName', // TODO: API
-        suffix: 'GPark Name',
-        isInput: true,
       },
       {
         key: 'ccProfileHandle',

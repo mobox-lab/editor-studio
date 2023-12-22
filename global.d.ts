@@ -14,6 +14,7 @@ declare global {
   }
 
   declare interface Window {
+    eruda?: any;
     qt: {
       webChannelTransport: {
         send: (payload: string) => void;

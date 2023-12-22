@@ -1,10 +1,10 @@
 'use client';
 
-import { arcanaEditCreationDialogOpen } from '@/atoms/category/arcana';
+import { arcanaEditCreationDialogOpen, arcanaEditCreationIdAtom } from '@/atoms/category/arcana';
 import { useFetchP12GameDetail } from '@/hooks/arcana/useFetchP12GameDetail';
 import { useMutationP12UpdateGame } from '@/hooks/arcana/useMutationP12UpdateGame';
 import { useFormOnError } from '@/hooks/util/useFormOnError';
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Dialog from '.';
@@ -17,17 +17,16 @@ type GameDetailForm = {
 };
 export default function EditCreationDialog() {
   const [isOpen, setIsOpen] = useAtom(arcanaEditCreationDialogOpen);
-  const editingCreationId = 39;
-  // const editingCreationId = useAtomValue(editingCreationIdAtom);
+  const editingCreationId = useAtomValue(arcanaEditCreationIdAtom);
   const { data, isLoading } = useFetchP12GameDetail({
     id: editingCreationId,
-    onSuccess: () => {
-      // ReactGA.event({
-      //   action: EventName.EditWork,
-      //   category: EventCategory.Editorium,
-      //   label: editingCreationId?.toString(),
-      // });
-    },
+    // onSuccess: () => {
+    // ReactGA.event({
+    //   action: EventName.EditWork,
+    //   category: EventCategory.Editorium,
+    //   label: editingCreationId?.toString(),
+    // });
+    // },
   });
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
 
@@ -49,7 +48,7 @@ export default function EditCreationDialog() {
   const onSubmit = (values: GameDetailForm) => {
     if (!editingCreationId) return;
     const { gameDescription, gameName } = values;
-    console.log({ id: editingCreationId, gameDescription, gameName, screenshots: selectedImages });
+    // console.log({ id: editingCreationId, gameDescription, gameName, screenshots: selectedImages });
     mutate(
       { id: editingCreationId, gameDescription, gameName, screenshots: selectedImages },
       {
@@ -120,7 +119,7 @@ export default function EditCreationDialog() {
     <Dialog
       open={isOpen}
       onOpenChange={setIsOpen}
-      title={`Edit Work #${editingCreationId}`}
+      title={`Edit ${data?.gameName}`}
       render={({ close }) => (
         <div className="w-[600px] p-6">
           <h3 className="text-sm font-medium">Images</h3>

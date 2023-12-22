@@ -5,6 +5,8 @@ const nextConfig = {
       { protocol: 'https', hostname: '**.p12.games' },
       { protocol: 'https', hostname: '**.gpark.io' },
       { protocol: 'https', hostname: '**.jaxine.xyz' },
+      { protocol: 'https', hostname: '**.metaworld.fun' },
+      { protocol: 'https', hostname: '**.233niu.cn' },
     ],
   },
   reactStrictMode: false,

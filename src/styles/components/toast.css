@@ -3,9 +3,9 @@
 }
 
 .Toastify__toast-body {
-  @apply items-center;
+  @apply items-stretch;
 }
 
 .Toastify__toast-icon {
-  @apply m-0 w-7 items-start;
+  @apply mr-2 w-auto;
 }

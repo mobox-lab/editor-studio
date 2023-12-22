@@ -2,7 +2,11 @@ import request from '@/api/p12/request';
 import {
   CheckNameParams,
   CheckNameResult,
+  EditorDevRankItem,
   FetchP12GameListParams,
+  GameListBodyType,
+  GameListType,
+  NewsItem,
   P12ChainNamesResult,
   P12EventRound,
   P12GameDetail,
@@ -11,14 +15,19 @@ import {
   P12ProfileResult,
   P12SelectionGameInfo,
   Response,
+  SBTInfo,
+  ToggleStatusParams,
+  ToggleStatusResult,
   UpdateP12GameInfoResult,
   UpdateP12GameParams,
 } from '@/api/types';
+import { Address } from 'viem';
+import { STORAGE_KEY } from "@/constants/storage";
 
-export const fetchP12ArcadeArcanaGameList = () => request.get<any, Response<P12GameInfo[]>>('/arcade/arcana-game-show-list');
+export const fetchP12GparkArcanaGameList = () => request.get<any, Response<P12GameInfo[]>>('/pge/arcana-game-show-list');
 export const fetchP12GameList = ({ sortField, page = 1, size = 25 }: FetchP12GameListParams) =>
   request.get<any, Response<P12GameInfo[]>>('/arcana/game/list', { params: { sortField, page, size } });
-export const fetchP12ArcadeSelectionGameList = () => request.get<any, Response<P12SelectionGameInfo[]>>('/arcade/selection');
+export const fetchP12GparkSelectionGameList = () => request.get<any, Response<P12SelectionGameInfo[]>>('/pge/selection');
 export const fetchP12GameRecommendList = () => request.get<any, Response<P12GameInfo[]>>('/arcana/game/recommend');
 
 export const fetchP12GameDetail = (id: number) => request.get<any, Response<P12GameDetail>>('/arcana/game/' + id);
@@ -49,3 +58,21 @@ export const uploadP12Image = (file: any) => {
   formData.append('file', file);
   return request.post<any, Response<string>>('/app/upload/image', formData);
 };
+
+export const fetchP12SBT = (nftType: 'gamer' | 'developer') =>
+  request.get<any, Response<SBTInfo>>('/pge/power-sbt', { params: { nftType } });
+
+export const fetchP12News = () => request.get<any, Response<NewsItem[]>>('/pge/editor-news');
+
+export const fetchP12DevRank = () => request.get<any, Response<EditorDevRankItem[]>>('/pge/dev-power-rank');
+
+export const fetchEditorGameList = (data: GameListBodyType) =>
+  request.post<any, Response<GameListType>>('/pge/my-games', data, {
+    headers: { Token: localStorage.getItem(STORAGE_KEY.EDITOR_TOKEN) },
+  });
+
+export const toggleGameStatus = ({ id, ...data }: ToggleStatusParams) =>
+  request.post<any, Response<ToggleStatusResult>>('/arcana/game/status/' + id, data);
+
+export const fetchIsPublication = (address?: Address) =>
+  request.get<any, Response<boolean>>('/arcana/power-vote/publication?address=' + address);

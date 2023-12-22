@@ -10,7 +10,6 @@ import {
   useInteractions,
   useRole,
 } from '@floating-ui/react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { ReactNode, cloneElement, memo, useEffect, useState } from 'react';
 
 type DialogProps = {
@@ -20,9 +19,11 @@ type DialogProps = {
   showCloseButton?: boolean;
   render: (props: { close: () => void }) => ReactNode;
   children?: JSX.Element;
-  title?: string;
+  title?: string | JSX.Element;
   isDismiss?: boolean;
   headerClass?: string;
+  titleClass?: string;
+  closeArrowClass?: string;
 };
 
 function Dialog({
@@ -35,6 +36,8 @@ function Dialog({
   onOpenChange,
   isDismiss = false,
   headerClass,
+  titleClass,
+  closeArrowClass,
 }: DialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const onChange = (status: boolean) => {
@@ -57,35 +60,34 @@ function Dialog({
     <>
       {children && cloneElement(children, getReferenceProps({ ref: setReference, ...children.props }))}
       <FloatingPortal>
-        <AnimatePresence>
-          {isOpen && (
-            <FloatingOverlay lockScroll className="z-10 grid place-items-center bg-black/80">
-              <FloatingFocusManager context={context}>
-                <motion.div
-                  className={clsxm('border border-gray-400 bg-gray-600', className)}
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.85 }}
-                  transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-                  {...getFloatingProps({ ref: setFloating })}
+        {isOpen && (
+          <FloatingOverlay lockScroll className="z-10 grid place-items-center bg-black/80">
+            <FloatingFocusManager context={context}>
+              <div
+                className={clsxm('border border-gray-400 bg-gray-600', className)}
+                {...getFloatingProps({ ref: setFloating })}
+              >
+                <div
+                  className={clsxm(
+                    'flex items-center justify-between bg-gray-750 px-2 py-2.5 text-sm font-semibold',
+                    headerClass,
+                  )}
                 >
-                  <div
-                    className={clsxm(
-                      'flex items-center justify-between bg-gray-750 px-2 py-2.5 text-sm font-semibold',
-                      headerClass,
-                    )}
-                  >
-                    <h1>{title}</h1>
-                    {showCloseButton && <CloseSvg onClick={() => onChange(false)} />}
-                  </div>
-                  {render({
-                    close: () => onChange(false),
-                  })}
-                </motion.div>
-              </FloatingFocusManager>
-            </FloatingOverlay>
-          )}
-        </AnimatePresence>
+                  <h1 className={titleClass}>{title}</h1>
+                  {showCloseButton && (
+                    <CloseSvg
+                      onClick={() => onChange(false)}
+                      className={clsxm('h-3 w-3 cursor-pointer stroke-white/50', closeArrowClass)}
+                    />
+                  )}
+                </div>
+                {render({
+                  close: () => onChange(false),
+                })}
+              </div>
+            </FloatingFocusManager>
+          </FloatingOverlay>
+        )}
       </FloatingPortal>
     </>
   );

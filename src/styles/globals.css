@@ -33,17 +33,25 @@ body {
 }
 
 .rotate-container {
-    position: relative;
+  position: relative;
 }
 
 .rotate-container input {
-    display: none;
+  display: none;
 }
 
 .rotate-container div {
-    transition: transform 0.5s;
+  transition: transform 0.5s;
 }
 
 .rotate-container input:checked + div {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+@layer components {
+  .border-dragon {
+    border: 26px solid;
+    border-image: url('/img/gpark/dragon-border.svg');
+    border-image-slice: 26;
+  }
 }

@@ -1,18 +1,17 @@
-import React, { cloneElement, useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import {
-  offset,
-  useFloating,
-  shift,
-  flip,
-  autoUpdate,
-  useInteractions,
-  useClick,
-  useDismiss,
-  useRole,
   FloatingFocusManager,
   Placement,
+  autoUpdate,
+  flip,
+  offset,
+  shift,
+  useClick,
+  useDismiss,
+  useFloating,
+  useInteractions,
+  useRole,
 } from '@floating-ui/react';
+import React, { cloneElement, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type PopoverProps = {
@@ -61,23 +60,17 @@ function Popover({
   return (
     <>
       {cloneElement(children, getReferenceProps({ ref: setReference, ...children.props }))}
-      <AnimatePresence>
-        {isOpen && (
-          <FloatingFocusManager context={context} modal={false}>
-            <motion.div
-              className={twMerge('z-10 rounded-sm border border-gray-350 bg-gray-600', className)}
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1, originY: 0 }}
-              exit={{ opacity: 0, scale: 0.85 }}
-              transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-              style={{ ...floatingStyles }}
-              {...getFloatingProps({ ref: setFloating })}
-            >
-              {render({ close: () => onChange(false) })}
-            </motion.div>
-          </FloatingFocusManager>
-        )}
-      </AnimatePresence>
+      {isOpen && (
+        <FloatingFocusManager context={context} modal={false}>
+          <div
+            className={twMerge('z-10 rounded-sm border border-gray-350 bg-gray-600', className)}
+            style={{ ...floatingStyles }}
+            {...getFloatingProps({ ref: setFloating })}
+          >
+            {render({ close: () => onChange(false) })}
+          </div>
+        </FloatingFocusManager>
+      )}
     </>
   );
 }

@@ -5,6 +5,8 @@ const config: Config = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/hooks/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/constants/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -22,13 +24,16 @@ const config: Config = {
       },
       lineHeight: {
         '4.5': '1.125rem',
+        '5.5': '1.375rem',
       },
       spacing: {
         4.5: '1.125rem',
         5.5: '1.375rem',
         7.5: '1.875rem',
         10.5: '2.625rem',
+        13: '3.25rem',
         15: '3.75rem',
+        17: '4.25rem',
         25: '6.25rem',
         27.5: '6.875rem',
         30: '7.5rem',
@@ -84,7 +89,7 @@ const config: Config = {
       keyframes: {
         breathing: {
           '0%': { opacity: '0' },
-          '100%': { opacity: '0.12' },
+          '100%': { opacity: '0.14' },
         },
       },
       animation: {

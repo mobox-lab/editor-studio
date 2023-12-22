@@ -72,7 +72,11 @@ const config: Config = {
         },
         red: {
           300: '#F2B8B0',
+          400: '#F55D70',
           DEFAULT: '#FF2358',
+        },
+        green: {
+          400: '#64AB85',
         },
         p12: {
           'gradient-from': 'var(--gradient-from)',
@@ -85,6 +89,8 @@ const config: Config = {
         'gradient-publish':
           'linear-gradient(20deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.9) 25%, rgba(0, 0, 0, 0.70) 50%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0.2) 100%)',
         'gradient-corner-gold': 'linear-gradient(270deg, #FFF5BF 0%, #FFAA4B 100%)',
+        'gradient-red': 'linear-gradient(180deg, #8C2329 7.27%, #B03B42 48.64%, #C03840 89.17%)',
+        'gradient-green': 'linear-gradient(180deg, #1E6744 4.55%, #388657 52.28%, #499467 99.04%)',
       },
       keyframes: {
         breathing: {

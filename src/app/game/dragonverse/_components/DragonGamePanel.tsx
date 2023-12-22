@@ -1,4 +1,5 @@
 'use client';
+import KeySvg from '@/../public/svg/key.svg?component';
 import { GparkGameDetail } from '@/api';
 import StyledButton from '@/components/ui/button/StyledButton';
 import Tag from '@/components/ui/tag';
@@ -71,14 +72,18 @@ export default function DragonGamePanel({ data, isLoading, handleRunningGame }: 
             </div>
           </div> */}
         </div>
-        <div className="mb-3 mt-17 px-6">
+        <div className="mb-3 mt-17 flex gap-3 px-6">
           <StyledButton
-            variant="gradient-play"
+            variant="gradient-red"
             loading={isLoading}
             onClick={handleRunningGame}
-            className="h-12 w-[400px] flex-1 text-base/5 font-bold text-black"
+            className="h-12 w-[322px] flex-1 text-lg/5 font-bold"
           >
             Play Now
+          </StyledButton>
+          <StyledButton className="h-12 px-6">
+            <KeySvg className="mr-1.5" />
+            Get DragonKey
           </StyledButton>
         </div>
       </div>

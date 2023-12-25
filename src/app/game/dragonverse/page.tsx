@@ -30,8 +30,8 @@ export default function GparkGame() {
   return (
     <div>
       <div className="absolute inset-x-0 top-0 -z-10 h-[986px] w-full">
-        <div className="absolute h-full w-full bg-black/80 backdrop-blur" />
-        <img className="absolute -z-10 h-full w-full object-cover" src="/img/gpark/dragon-cover.webp" alt="" />
+        <div className="fixed inset-0 -z-10 bg-black"></div>
+        <img className="absolute -z-10 h-full w-full object-cover" src="/img/gpark/dragon-BG.webp" alt="" />
       </div>
       <div className="text-base font-medium">
         <span

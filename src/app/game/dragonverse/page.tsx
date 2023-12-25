@@ -11,6 +11,7 @@ import DragonGamePanel from './_components/DragonGamePanel';
 import DragonReleaseNote from './_components/DragonReleaseNote';
 import DragonRoomItem from './_components/DragonRoomItem';
 import DragonVerseNeo from './_components/DragonVerseNeo';
+import { useIsP12User } from '@/hooks/editor/useP12Account';
 
 export default function GparkGame() {
   const gameId = launcherConfig.dragonVerseGameId;
@@ -25,7 +26,7 @@ export default function GparkGame() {
     sortType: 0,
     version: startup.version,
   });
-
+  const isP12User = useIsP12User();
   return (
     <div>
       <div className="absolute inset-x-0 top-0 -z-10 h-[986px] w-full">
@@ -56,7 +57,7 @@ export default function GparkGame() {
           )}
         </div>
       </div>
-      <DragonVerseNeo />
+      {isP12User && <DragonVerseNeo />}
       <div className="mt-7.5">
         <h3 className="text-base font-medium">Release Note</h3>
         <DragonReleaseNote className="mt-3" />

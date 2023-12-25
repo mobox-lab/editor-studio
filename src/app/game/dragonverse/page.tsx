@@ -10,6 +10,7 @@ import { useMemo } from 'react';
 import DragonGamePanel from './_components/DragonGamePanel';
 import DragonReleaseNote from './_components/DragonReleaseNote';
 import DragonRoomItem from './_components/DragonRoomItem';
+import DragonVerseNeo from './_components/DragonVerseNeo';
 
 export default function GparkGame() {
   const gameId = launcherConfig.dragonVerseGameId;
@@ -27,7 +28,7 @@ export default function GparkGame() {
 
   return (
     <div>
-      <div className="fixed inset-0 -z-10 h-full w-full">
+      <div className="absolute inset-x-0 top-0 -z-10 h-[986px] w-full">
         <div className="absolute h-full w-full bg-black/80 backdrop-blur" />
         <img className="absolute -z-10 h-full w-full object-cover" src="/img/gpark/dragon-cover.webp" alt="" />
       </div>
@@ -55,6 +56,7 @@ export default function GparkGame() {
           )}
         </div>
       </div>
+      <DragonVerseNeo />
       <div className="mt-7.5">
         <h3 className="text-base font-medium">Release Note</h3>
         <DragonReleaseNote className="mt-3" />

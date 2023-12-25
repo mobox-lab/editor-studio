@@ -30,11 +30,14 @@ const config: Config = {
         4.5: '1.125rem',
         5.5: '1.375rem',
         7.5: '1.875rem',
+        9.5: '2.375rem',
         10.5: '2.625rem',
         13: '3.25rem',
         15: '3.75rem',
         17: '4.25rem',
+        21.5: '5.375rem',
         25: '6.25rem',
+        25.5: '6.375rem',
         27.5: '6.875rem',
         30: '7.5rem',
         31: '7.75rem',
@@ -72,7 +75,12 @@ const config: Config = {
         },
         red: {
           300: '#F2B8B0',
+          400: '#F55D70',
           DEFAULT: '#FF2358',
+        },
+        green: {
+          400: '#64AB85',
+          DEFAULT: '#1EDB8C',
         },
         p12: {
           'gradient-from': 'var(--gradient-from)',
@@ -85,6 +93,8 @@ const config: Config = {
         'gradient-publish':
           'linear-gradient(20deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.9) 25%, rgba(0, 0, 0, 0.70) 50%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0.2) 100%)',
         'gradient-corner-gold': 'linear-gradient(270deg, #FFF5BF 0%, #FFAA4B 100%)',
+        'gradient-red': 'linear-gradient(180deg, #8C2329 7.27%, #B03B42 48.64%, #C03840 89.17%)',
+        'gradient-green': 'linear-gradient(180deg, #1E6744 4.55%, #388657 52.28%, #499467 99.04%)',
       },
       keyframes: {
         breathing: {

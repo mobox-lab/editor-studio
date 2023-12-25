@@ -13,10 +13,30 @@ import { SBT_LEVEL } from '@/constants/enum';
 import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
 import StyledButton from '@/components/ui/button/StyledButton';
+import { useEffect, useState } from 'react';
+import { DataListType } from '@/api';
 
 export default function MyGames({ isP12User = false }: { isP12User?: boolean }) {
   const { data, refetch } = useFetchEditorGameListTop3();
   const { firstThree, rest } = useFetchRank();
+
+  const [fillData, setFillData] = useState<(null | DataListType)[]>([null, null, null]);
+
+  useEffect(() => {
+    if (data) {
+      if (data.length < 3) {
+        const newData: (null | DataListType)[] = [...data];
+        newData.length = 3;
+        newData.fill(null, data.length);
+        setFillData(newData);
+      } else {
+        setFillData(data);
+      }
+    } else {
+      setFillData([null, null, null]);
+    }
+  }, [data]);
+
   return (
     <div className="w-full">
       <div className="flex items-center justify-between">
@@ -26,17 +46,13 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
           <Right className="inline h-3.5 w-3.5 fill-blue align-baseline" />
         </Link>
       </div>
-      {(data?.length || 0) > 0 ? (
-        <div className="mt-3 grid grid-cols-3 gap-4">
-          {data?.map((item) => {
-            return <MyGameItem key={item.sourceGameId} gameInfo={item} refetchGameList={refetch} />;
-          })}
-        </div>
-      ) : (
-        <div className="flex-center mt-3 h-[278px]">
-          <Empty />
-        </div>
-      )}
+
+      <div className="mt-3 grid grid-cols-3 gap-4">
+        {fillData?.map((item) => {
+          return <MyGameItem key={item?.sourceGameId} gameInfo={item} refetchGameList={refetch} />;
+        })}
+      </div>
+
       {!isP12User && (
         <div className="mt-4 flex items-center justify-center gap-4">
           <StyledButton

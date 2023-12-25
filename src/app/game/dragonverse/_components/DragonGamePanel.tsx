@@ -3,6 +3,7 @@ import KeySvg from '@/../public/svg/key.svg?component';
 import { GparkGameDetail } from '@/api';
 import StyledButton from '@/components/ui/button/StyledButton';
 import Tag from '@/components/ui/tag';
+import { openExternalLink } from '@/utils';
 import { clsx } from 'clsx';
 import { useEffect, useMemo, useState } from 'react';
 import DragonBorder from './DragonBorder';
@@ -81,7 +82,7 @@ export default function DragonGamePanel({ data, isLoading, handleRunningGame }: 
           >
             Play Now
           </StyledButton>
-          <StyledButton className="h-12 px-6">
+          <StyledButton className="h-12 px-6" onClick={() => openExternalLink('https://dragonverseneo.mobox.app/')}>
             <KeySvg className="mr-1.5" />
             Get DragonKey
           </StyledButton>

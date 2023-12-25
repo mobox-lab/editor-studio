@@ -35,7 +35,9 @@ const config: Config = {
         13: '3.25rem',
         15: '3.75rem',
         17: '4.25rem',
+        21.5: '5.375rem',
         25: '6.25rem',
+        25.5: '6.375rem',
         27.5: '6.875rem',
         30: '7.5rem',
         31: '7.75rem',
@@ -78,6 +80,7 @@ const config: Config = {
         },
         green: {
           400: '#64AB85',
+          DEFAULT: '#1EDB8C',
         },
         p12: {
           'gradient-from': 'var(--gradient-from)',

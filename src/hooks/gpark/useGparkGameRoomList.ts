@@ -8,11 +8,12 @@ export function useGparkGameRoomStatus() {
 }
 
 export function useGparkGameRoomList(params: GparkGameRoomListParams) {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ['gpark_game_room_list', params],
     queryFn: () => fetchGparkGameRoomList(params),
     enabled: !!params.version,
     select: (res) => (res.code === 200 ? res.data : undefined),
+    refetchInterval: 30_000,
   });
-  return useMemo(() => ({ data, isLoading }), [data, isLoading]);
+  return useMemo(() => ({ data, isLoading, refetch }), [data, isLoading, refetch]);
 }

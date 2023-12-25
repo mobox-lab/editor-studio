@@ -49,10 +49,7 @@ export default function DragonRoomItem({ data }: { data: GparkGameRoomItem }) {
         <div className="relative h-7 w-7 overflow-hidden rounded-full">
           <Image fill style={{ objectFit: 'cover' }} src={member.avatar} alt="avatar" />
         </div>
-        <div className="flex text-sm font-semibold">
-          <span className="max-w-[80px] truncate">{member.nickname}</span>
-          &apos;s Room
-        </div>
+        <div className="flex text-sm font-semibold">Room {data.roomId}</div>
       </div>
       {data.status ? (
         <div

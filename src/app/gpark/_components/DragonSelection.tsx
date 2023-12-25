@@ -15,7 +15,16 @@ export default function DragonSelection() {
           onClick={() => router.push(`/game/dragonverse`)}
         >
           <div className="relative h-80 w-full">
-            <img className="h-full w-full object-cover" src="/img/gpark/dragon-cover.webp" alt="game-image" />
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              disablePictureInPicture
+              className="h-full w-full object-cover"
+              preload="auto"
+              src="https://cdn1.p12.games/dragonverse/dragon-banner.webm"
+            />
           </div>
           <div className="relative p-4">
             <div className="absolute bottom-4 left-4 h-15 w-15 overflow-hidden rounded-lg border-2 border-gray-700">

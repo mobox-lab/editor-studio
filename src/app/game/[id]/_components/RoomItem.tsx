@@ -7,7 +7,7 @@ import useRunningGame from '@/hooks/gpark/useRunningGame';
 import LoadingSvg from '@/../public/svg/loading.svg?component';
 import { useGparkGameRoomStatus } from '@/hooks/gpark/useGparkGameRoomList';
 
-export default function RoomItem({ data }: { data: GparkGameRoomItem }) {
+export default function RoomItem({ data, refetchRoomList }: { data: GparkGameRoomItem; refetchRoomList?: () => void }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { mutateAsync } = useGparkGameRoomStatus();
   const member = useMemo(() => data.members?.[0] ?? {}, [data.members]);
@@ -20,6 +20,7 @@ export default function RoomItem({ data }: { data: GparkGameRoomItem }) {
       const { data: res } = await mutateAsync(data.roomId);
       if (res.roomStatus === RoomStatus.CanJoin) {
         await handleRunningGame({ gameId: data.gameId, roomId: data.roomId });
+        setTimeout(() => refetchRoomList?.(), 10_000);
         return;
       }
       if (res.roomStatus === RoomStatus.Full) {

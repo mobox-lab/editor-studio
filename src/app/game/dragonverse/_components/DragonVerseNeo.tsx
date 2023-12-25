@@ -1,8 +1,18 @@
 import StyledButton from '@/components/ui/button/StyledButton';
+import Segmented from '@/components/ui/segmented';
+import { SortField } from '@/constants/enum';
 import { clsxm } from '@/utils';
+import { useState } from 'react';
 import DragonBorder from './DragonBorder';
 
+const opts = [
+  { label: 'ALL', value: SortField.DEFAULT },
+  { label: 'Active Proposals', value: SortField.LATEST },
+  { label: 'Executed Proposals', value: SortField.POPULAR }, // TODO: NEO API
+];
 export default function DragonVerseNeo({ className }: { className?: string }) {
+  const [type, setType] = useState<SortField>(SortField.DEFAULT);
+
   return (
     <div className={clsxm('relative mt-12 border border-gray-400 bg-gray-550/10 p-6 px-7.5 py-11', className)}>
       <DragonBorder className="inset-2 -z-10" />
@@ -24,20 +34,25 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
           <span className="text-xl/6 text-yellow">7,238,012</span> DragonBit Votes
         </div>
       </div>
-      <div className="mt-9 flex gap-4">
+      <div className="mt-9 flex items-end gap-4">
         <StyledButton variant="gradient-red" className="flex w-[362px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold">
           Voting Hall <div className="text-xs/3 font-semibold">Snapshot</div>
         </StyledButton>
-        <StyledButton className="flex w-[362px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold">
+        <StyledButton className="flex h-15 w-[362px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold">
           + New Proposal
         </StyledButton>
-        <StyledButton
-          variant="gradient-green"
-          className="flex w-[110px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold"
-        >
-          GET
-        </StyledButton>
+        <Segmented
+          className="h-9.5 whitespace-nowrap"
+          defaultValue={type}
+          onChange={(value) => {
+            setType(value as SortField);
+          }}
+          options={opts}
+        />
       </div>
+      <StyledButton variant="gradient-green" className="flex w-[110px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold">
+        GET
+      </StyledButton>
     </div>
   );
 }

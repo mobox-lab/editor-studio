@@ -50,7 +50,7 @@ export default function Home() {
         </div>
       )}
 
-      <div className="mt-7.5">
+      <div className="mt-7">
         <div className="flex items-center justify-between">
           <div className="font-semibold leading-6">News & Updates</div>
           {/* <Link href="/">

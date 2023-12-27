@@ -55,13 +55,13 @@ export default function MyGameItem({
       const isPublication = await isPublicationAsync(address);
       if (isPublication) {
         await toggleGameStatusAsync({ id, status: true });
-        toast.success(`Submit work #${id} successfully.`);
+        toast.success(`Submit creation #${id} successfully.`);
         refetchGameList?.();
       } else {
         openExternalLink('https://arcana.p12.games/');
       }
     } catch (error) {
-      toast.error(`Submit work #${id} failed. Please try again..`);
+      toast.error(`Submit creation #${id} failed. Please try again..`);
     } finally {
       setSubmitLoading(false);
     }
@@ -72,14 +72,10 @@ export default function MyGameItem({
     setRemoveLoading(true);
     try {
       await toggleGameStatusAsync({ id, status: false });
-      toast.success(<Message title="Remove successfully" message="Your creation has been removed successfully." />, {
-        icon: <ToastIcon type="success" className="mt-0 h-7 w-7" />,
-      });
+      toast.success(`Remove creation #${id} successfully.`);
       refetchGameList?.();
     } catch (error) {
-      toast.error(<Message title="Remove failed" message="Remove creation failed, Please try again." />, {
-        icon: <ToastIcon type="error" className="mt-0 h-7 w-7" />,
-      });
+      toast.error(`Remove creation #${id} failed. Please try again..`);
     } finally {
       setRemoveLoading(false);
     }
@@ -104,7 +100,7 @@ export default function MyGameItem({
           </div>
         )}
         <div className={clsx('flex items-center justify-between', { 'ml-9': gameInfo?.channel === 2 })}>
-          <p className="pl-1.5 text-sm font-medium">{gameInfo.name}</p>
+          <p className={clsx('text-sm font-medium', { 'pl-1.5 ': gameInfo?.channel === 2 })}>{gameInfo.name}</p>
         </div>
         <div className="mt-2 flex gap-1.5">
           <div className="rounded-sm bg-blue/20 px-2 py-[1px] text-xs/4.5 text-blue">
@@ -148,9 +144,9 @@ export default function MyGameItem({
             </div>
           </div>
         ) : gameInfo.channel === 4 ? (
-          <div className="relative flex h-9 items-center bg-white/10">
+          <div className="relative flex h-9 items-center bg-white/10 px-3">
             <div className="flex items-center gap-2">
-              {gameInfo.isSubmitted ? (
+              {/* {gameInfo.isSubmitted ? (
                 <div
                   className="flex min-w-[87px] items-center justify-center pl-3"
                   onClick={() => {
@@ -167,7 +163,7 @@ export default function MyGameItem({
                     <LoadingSvg className="animate-spin" />
                   ) : (
                     <div className="flex items-center gap-1 text-sm font-semibold">
-                      <RemoveIcon className="h-5" /> Remove
+                      <RemoveIcon className="h-6" /> Remove
                     </div>
                   )}
                 </div>
@@ -192,9 +188,9 @@ export default function MyGameItem({
                     </div>
                   )}
                 </div>
-              )}
-              <div className="h-3 w-[1px] bg-white"></div>
-              <div className="flex items-center gap-1 pr-3 text-sm font-semibold" onClick={onEdit}>
+              )} */}
+              {/* <div className="h-3 w-[1px] bg-white"></div> */}
+              <div className="flex items-center gap-1 text-sm font-semibold" onClick={onEdit}>
                 <EditIcon className="h-5" /> Edit
               </div>
             </div>

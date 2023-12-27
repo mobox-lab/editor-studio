@@ -8,12 +8,12 @@ export const useMutationP12UpdateGame = () => {
     mutationFn: (data: UpdateP12GameParams) => updateP12GameInfo(data),
     onSuccess: ({ data }) => {
       sendEvent('ed_edit_save', '编辑游戏：保存', { action: 1, result: 1 });
-      toast.success('Update the work successfully.');
+      toast.success('Save creation information successfully.');
       return data;
     },
     onError: () => {
       sendEvent('ed_edit_save', '编辑游戏：保存', { action: 1, result: 0 });
-      toast.error('Update the work failed. Please try again.');
+      toast.error('Save creation information failed. Please try again.');
     },
   });
 };

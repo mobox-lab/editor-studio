@@ -81,7 +81,7 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
         </div>
       )}
 
-      <div className="mt-6 grid min-h-[140px] grid-cols-2 divide-x divide-gray-500">
+      <div className="mt-6 grid min-h-[120px] grid-cols-2 divide-x divide-gray-500">
         <div className="pr-4">
           <div className="flex items-center text-xs text-gray-300">
             <div className="w-10">NO.</div>
@@ -127,7 +127,7 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
             <div className="w-12 text-right">Games</div>
             <div className="flex-1 text-right">WAU</div>
           </div>
-          <div className="mt-3 max-h-[110px] overflow-auto">
+          <div className="mt-3 max-h-[100px] overflow-auto">
             {rest.map((item, index) => {
               const realShowName = shortenShowName(item.arcanaPower?.showName ?? item.walletAddress, 14);
               const devNft = item.p12GenesisNFT.find((o) => o.nftType === 'developer');

@@ -5,8 +5,7 @@ import Segmented from '@/components/ui/segmented';
 import { DragonProposalSortField } from '@/constants/enum';
 import { useFetchP12DragonGovernInfo } from '@/hooks/dragon/useFetchP12DragonGovernInfo';
 import { useFetchP12DragonProposals } from '@/hooks/dragon/useFetchP12DragonProposals';
-import { clsxm, openExternalLink } from '@/utils';
-import clsx from 'clsx';
+import { clsxm, openExternalLink, sendEvent } from '@/utils';
 import { useMemo, useState } from 'react';
 import { Keyboard } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
@@ -18,6 +17,13 @@ const opts = [
   { label: 'Active Proposals', value: DragonProposalSortField.ACTIVE_PROPOSALS },
   { label: 'Executed Proposals', value: DragonProposalSortField.EXECUTED_PROPOSALS }, // TODO: NEO API
 ];
+
+const tabIndexMap: Record<DragonProposalSortField, number> = {
+  [DragonProposalSortField.ALL]: 0,
+  [DragonProposalSortField.ACTIVE_PROPOSALS]: 1,
+  [DragonProposalSortField.EXECUTED_PROPOSALS]: 2,
+};
+
 export default function DragonVerseNeo({ className }: { className?: string }) {
   const [type, setType] = useState<DragonProposalSortField>(DragonProposalSortField.ALL);
   const { data: governInfo, isLoading } = useFetchP12DragonGovernInfo();
@@ -57,13 +63,19 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
           <StyledButton
             variant="gradient-red"
             className="flex w-[362px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold"
-            onClick={() => openExternalLink('https://testnet.snapshot.org/#/dracoens.eth')}
+            onClick={() => {
+              sendEvent('gp_gov_hall', '跳转到snapshot', { source: 0 });
+              openExternalLink('https://testnet.snapshot.org/#/dracoens.eth');
+            }}
           >
             Voting Hall <div className="text-xs/3 font-semibold">Snapshot</div>
           </StyledButton>
           <StyledButton
             className="flex h-15 w-[362px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold"
-            onClick={() => openExternalLink('https://testnet.snapshot.org/#/dracoens.eth/create')}
+            onClick={() => {
+              sendEvent('gp_gov_hall', '跳转到snapshot', { source: 1 });
+              openExternalLink('https://testnet.snapshot.org/#/dracoens.eth/create');
+            }}
           >
             + New Proposal
           </StyledButton>
@@ -71,6 +83,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             className="h-9.5 whitespace-nowrap text-sm/4 font-semibold"
             defaultValue={type}
             onChange={(value) => {
+              sendEvent('gp_gov_tab', '切换proposal分类', { tab_name: tabIndexMap[value as DragonProposalSortField] });
               setType(value as DragonProposalSortField);
             }}
             options={opts}
@@ -131,14 +144,18 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             <StyledButton
               variant="gradient-green"
               className="ml-3 flex w-[110px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold"
-              onClick={() => openExternalLink('https://www.mobox.io/#/iframe/momo')}
+              onClick={() => {
+                sendEvent('gp_gov_vemobox', '获取vemobox');
+                openExternalLink('https://www.mobox.io/#/iframe/momo');
+              }}
             >
               GET
             </StyledButton>
           </div>
           <div className="flex items-center gap-3 border border-gray-400 p-3 pr-5">
             <img className="h-21.5 w-21.5" draggable={false} alt="ve-mobox" src="/img/gpark/mobox-burn.png" />
-            <div className="flex w-[274px] flex-col gap-3">
+            <p className="text-2xl/6 font-semibold text-gray-300">Coming Soon...</p>
+            {/* <div className="flex w-[274px] flex-col gap-3">
               <h4 className="text-xl/6 font-semibold">Via Burn mechanism</h4>
               <p className="line-clamp-2 text-sm/6 font-medium">Burn $MBOX to acquire DragonBit at a 10x multiplier.</p>
             </div>
@@ -148,7 +165,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
               className="ml-3 flex h-11 w-[110px] flex-col items-center gap-0.5 border-gray-400 py-3 text-base/4 font-bold"
             >
               Coming...
-            </StyledButton>
+            </StyledButton> */}
           </div>
         </div>
       </div>

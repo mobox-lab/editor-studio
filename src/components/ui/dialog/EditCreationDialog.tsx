@@ -3,14 +3,15 @@
 import { arcanaEditCreationDialogOpen, arcanaEditCreationIdAtom } from '@/atoms/category/arcana';
 import { useFetchP12GameDetail } from '@/hooks/arcana/useFetchP12GameDetail';
 import { useMutationP12UpdateGame } from '@/hooks/arcana/useMutationP12UpdateGame';
+import { useFetchEditorGameList, useFetchEditorGameListTop3 } from '@/hooks/editor/useFetchGameList';
 import { useFormOnError } from '@/hooks/util/useFormOnError';
+import { sendEvent } from '@/utils';
 import { useAtom, useAtomValue } from 'jotai';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Dialog from '.';
 import StyledButton from '../button/StyledButton';
 import ImageSelector from '../imageSelector';
-import { useFetchEditorGameList, useFetchEditorGameListTop3 } from '@/hooks/editor/useFetchGameList';
 
 type GameDetailForm = {
   gameName: string;
@@ -46,6 +47,10 @@ export default function EditCreationDialog() {
     setError,
     clearErrors,
   } = useForm<GameDetailForm>();
+
+  const gameNameValue = watch('gameName');
+  const gameDescValue = watch('gameDescription');
+
   const { mutate } = useMutationP12UpdateGame();
 
   const onSubmit = (values: GameDetailForm) => {
@@ -56,15 +61,8 @@ export default function EditCreationDialog() {
       { id: editingCreationId, gameDescription, gameName, screenshots: selectedImages },
       {
         onSuccess: () => {
-          let changeValue = 0;
-          if (data?.gameName !== gameName) changeValue += 100;
-          if (data?.gameDescription !== gameDescription) changeValue += 10;
-          if (data?.screenshots.toString() !== selectedImages.toString()) changeValue += 1;
-          // ReactGA.event({
-          //   action: EventName.WorkSave,
-          //   category: EventCategory.Editorium,
-          //   label: changeValue.toString(),
-          // });
+          if (data?.gameName !== gameName) sendEvent('ed_edit_name', '编辑游戏：修改名字');
+          if (data?.gameDescription !== gameDescription) sendEvent('ed_edit_intro', '编辑游戏：修改简介');
           setIsOpen(false);
           refetch();
           refetchEditorGameList();
@@ -170,6 +168,9 @@ export default function EditCreationDialog() {
                   type="button"
                   variant="bordered"
                   onClick={() => {
+                    if (data?.gameName !== gameNameValue) sendEvent('ed_edit_name', '编辑游戏：修改名字');
+                    if (data?.gameDescription !== gameDescValue) sendEvent('ed_edit_intro', '编辑游戏：修改简介');
+                    sendEvent('ed_edit_save', '编辑游戏：保存', { action: 0 });
                     close();
                   }}
                   className="w-[7.375rem] py-3"

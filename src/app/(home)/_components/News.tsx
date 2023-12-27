@@ -1,7 +1,7 @@
 'use client';
 import { NewsItem } from '@/api';
 import { p12NewDialogOpenAtom, p12NewInfoAtom } from '@/atoms/p12';
-import { openExternalLink } from '@/utils';
+import { openExternalLink, sendEvent } from '@/utils';
 import dayjs from 'dayjs';
 import { useSetAtom } from 'jotai';
 import Image from 'next/image';
@@ -17,6 +17,7 @@ export default function News({ newsInfo }: { newsInfo: NewsItem }) {
     <div
       className="relative cursor-pointer border border-gray-500 hover:border-gray-350"
       onClick={() => {
+        sendEvent('ed_news', '开发者新闻', { news_title: newsInfo?.title });
         if (newsInfo.externalLink) {
           openExternalLink(newsInfo.externalLink);
         } else {
@@ -33,7 +34,9 @@ export default function News({ newsInfo }: { newsInfo: NewsItem }) {
           <p className="line-clamp-2 max-h-10 overflow-hidden text-sm font-semibold">{newsInfo.title}</p>
           <p className="whitespace-nowrap text-xs text-gray-300">{formatUnix(newsInfo.updateTime)}</p>
         </div>
-        <div className="line-clamp-2 h-8 text-xs/4">{<div dangerouslySetInnerHTML={{ __html: newsInfo?.description }}></div>}</div>
+        <div className="line-clamp-2 h-8 text-xs/4">
+          {<div dangerouslySetInnerHTML={{ __html: newsInfo?.description }}></div>}
+        </div>
       </div>
     </div>
   );

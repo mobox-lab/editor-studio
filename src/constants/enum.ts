@@ -41,9 +41,9 @@ export enum NFT_CLAIM {
 }
 
 export enum DragonProposalSortField {
-  ALL,
-  ACTIVE_PROPOSALS,
-  EXECUTED_PROPOSALS,
+  ALL = 'all',
+  ACTIVE_PROPOSALS = 'active',
+  EXECUTED_PROPOSALS = 'executed',
 }
 
 export enum DragonProposalState {

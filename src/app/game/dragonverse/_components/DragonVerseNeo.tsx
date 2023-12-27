@@ -17,6 +17,13 @@ const opts = [
   { label: 'Active Proposals', value: DragonProposalSortField.ACTIVE_PROPOSALS },
   { label: 'Executed Proposals', value: DragonProposalSortField.EXECUTED_PROPOSALS }, // TODO: NEO API
 ];
+
+const tabIndexMap: Record<DragonProposalSortField, number> = {
+  [DragonProposalSortField.ALL]: 0,
+  [DragonProposalSortField.ACTIVE_PROPOSALS]: 1,
+  [DragonProposalSortField.EXECUTED_PROPOSALS]: 2,
+};
+
 export default function DragonVerseNeo({ className }: { className?: string }) {
   const [type, setType] = useState<DragonProposalSortField>(DragonProposalSortField.ALL);
   const { data: governInfo, isLoading } = useFetchP12DragonGovernInfo();
@@ -76,7 +83,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             className="h-9.5 whitespace-nowrap text-sm/4 font-semibold"
             defaultValue={type}
             onChange={(value) => {
-              sendEvent('gp_gov_tab', '切换proposal分类', { tab_name: value as DragonProposalSortField });
+              sendEvent('gp_gov_tab', '切换proposal分类', { tab_name: tabIndexMap[value as DragonProposalSortField] });
               setType(value as DragonProposalSortField);
             }}
             options={opts}

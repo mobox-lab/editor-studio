@@ -3,6 +3,7 @@ import { CSSProperties, Fragment, MouseEventHandler, ReactNode, Ref, forwardRef,
 import { RadioItem } from './RadioItem';
 
 export type OptionValueType = string;
+
 export interface RadioOption {
   label?: string | ReactNode;
   key?: string;
@@ -16,6 +17,7 @@ export interface RadioOption {
   defaultValue?: string;
   inputClass?: string;
   placeholder?: string;
+  inputOnForce?: () => void;
   // classes
   className?: string;
   labelClass?: string;

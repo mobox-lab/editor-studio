@@ -1,6 +1,8 @@
+import { clsx } from 'clsx';
+import { sendEvent } from '@/utils';
 import { GparkGameItem } from '@/api';
 import { useRouter } from 'next/navigation';
-import { clsx } from 'clsx';
+import { launcherConfig } from '@/constants/launcher-config';
 
 type GparkGameProps = {
   data?: GparkGameItem;
@@ -10,9 +12,14 @@ type GparkGameProps = {
 export default function GparkGame({ data, isLoading }: GparkGameProps) {
   const router = useRouter();
 
+  const onClick = () => {
+    sendEvent('gp_game_detail', '打开游戏详情页', { game_id: launcherConfig.dragonVerseGameId, source: 2 });
+    data?.code && router.push('/game/' + data?.code);
+  };
+
   return (
     <div
-      onClick={() => data?.code && router.push('/game/' + data?.code)}
+      onClick={onClick}
       className={clsx('cursor-pointer border border-gray-500 hover:border-gray-350', { 'animate-pulse': isLoading })}
     >
       <div className="relative h-35 w-full bg-gray-500">

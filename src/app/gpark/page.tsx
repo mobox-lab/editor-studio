@@ -8,6 +8,8 @@ import ArcanaGames from '@/app/gpark/_components/ArcanaGames';
 import { useGparkCardPage } from '@/hooks/gpark/useGparkCardPage';
 import { useIsP12User, useP12Address } from '@/hooks/editor/useP12Account';
 import { useIsMounted } from '@/hooks/util/useIsMounted';
+import StyledButton from '@/components/ui/button/StyledButton';
+import { qtClient } from '@/api';
 
 export default function Gpark() {
   const { isLoading } = useGparkCardPage();
@@ -27,7 +29,7 @@ export default function Gpark() {
         isP12User ? (
           <div className="mt-7.5">
             <h2 className="text-center text-base font-medium">Arcana Games</h2>
-            <p className="text-center text-sm/6 text-gray-300">curated scene designs from the P12 community</p>
+            <p className="text-center text-sm/6 text-gray-300">Selected contents from P12 Community</p>
             <div className="relative mt-3 h-[180px]">
               <ArcanaGames />
             </div>

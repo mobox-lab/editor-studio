@@ -1,7 +1,6 @@
 'use client';
 import { clsx } from 'clsx';
 import { useEffect, useMemo, useState } from 'react';
-import Like from '@/../public/svg/like.svg?component';
 import { GparkGameAuthor, GparkGameDetail } from '@/api';
 import StyledButton from '@/components/ui/button/StyledButton';
 

@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import Dialog from '.';
 import StyledButton from '../button/StyledButton';
 import ImageSelector from '../imageSelector';
+import { useFetchEditorGameList, useFetchEditorGameListTop3 } from '@/hooks/editor/useFetchGameList';
 
 type GameDetailForm = {
   gameName: string;
@@ -18,6 +19,8 @@ type GameDetailForm = {
 export default function EditCreationDialog() {
   const [isOpen, setIsOpen] = useAtom(arcanaEditCreationDialogOpen);
   const editingCreationId = useAtomValue(arcanaEditCreationIdAtom);
+  const { refetch } = useFetchEditorGameListTop3();
+  const { refetch: refetchEditorGameList } = useFetchEditorGameList();
   const { data, isLoading } = useFetchP12GameDetail({
     id: editingCreationId,
     // onSuccess: () => {
@@ -63,6 +66,8 @@ export default function EditCreationDialog() {
           //   label: changeValue.toString(),
           // });
           setIsOpen(false);
+          refetch();
+          refetchEditorGameList();
         },
       },
     );

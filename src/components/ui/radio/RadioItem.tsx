@@ -46,6 +46,7 @@ export const RadioItem = ({
     beforeOnChange,
     onClick,
     className,
+    inputOnForce,
   } = option;
   const realValue =
     // (prefix ?? '') +
@@ -130,6 +131,7 @@ export const RadioItem = ({
             defaultValue={defaultValue}
             value={inputValue}
             onChange={_onInputChange}
+            onFocus={inputOnForce}
           />
         )}
         <span className="whitespace-nowrap text-gray-300">{suffix}</span>

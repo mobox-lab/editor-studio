@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useMemo } from 'react';
-import { openExternalLink } from '@/utils';
+import { openExternalLink, sendEvent } from '@/utils';
 import { NFT_CLAIM } from '@/constants/enum';
 import { GAMER_BADGES } from '@/constants/bages';
 import Right from '@/../public/svg/right.svg?component';
@@ -18,7 +18,7 @@ export default function GamerLevel() {
       <div className="relative mt-3 h-93 w-100 border border-gray-400">
         <BadgeBackground level={nftConfig?.rarity} />
         <div className="flex">
-          <div className="border-r border-white/[.16] flex flex-col justify-between">
+          <div className="flex flex-col justify-between border-r border-white/[.16]">
             <div className="relative p-4">
               {nftConfig ? (
                 <img src={nftConfig?.asset256} alt="nft" width={220} height={220} />
@@ -28,7 +28,10 @@ export default function GamerLevel() {
             </div>
             {canClaim ? (
               <p
-                onClick={() => openExternalLink(nftConfig?.claim ?? '')}
+                onClick={() => {
+                  sendEvent('gp_sbt_claim', '跳转galxe claim');
+                  openExternalLink(nftConfig?.claim ?? '');
+                }}
                 className="flex-center h-12 cursor-pointer bg-gradient-play text-base font-bold text-black"
               >
                 YOU CAN CLAIM!
@@ -38,7 +41,7 @@ export default function GamerLevel() {
             )}
           </div>
           <div className="px-4 py-7.5">
-            <p className={clsx('text-[18px]]/[26px] font-medium', nftConfig?.color ?? 'text-gray-300')}>
+            <p className={clsx('text-[22px]/[26px] font-bold font-ddin', nftConfig?.color ?? 'text-gray-300')}>
               {nftConfig?.rarity ?? 'NULL'}
             </p>
             <div className="mt-7.5">
@@ -55,7 +58,10 @@ export default function GamerLevel() {
             <div className="mt-7.5 text-xs font-medium">
               <div
                 className="text-link flex items-center text-blue"
-                onClick={() => openExternalLink('https://assets.p12.games/')}
+                onClick={() => {
+                  sendEvent('gp_sbt_assets_link', '跳转assets外链', { sbt_status: nftConfig?.rarity ? 1 : canClaim ? 2 : 3 });
+                  openExternalLink('https://assets.p12.games/');
+                }}
               >
                 My Assets <Right className="fill-blue" />
               </div>

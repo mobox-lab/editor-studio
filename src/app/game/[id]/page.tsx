@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { GparkStartupExtension } from '@/api';
-import Right from '@/../public/svg/right.svg?component';
+import Back from '@/../public/svg/back.svg?component';
 import useRunningGame from '@/hooks/gpark/useRunningGame';
 import RoomItem from '@/app/game/[id]/_components/RoomItem';
 import GamePanel from '@/app/game/[id]/_components/GamePanel';
@@ -29,8 +29,8 @@ export default function GparkGame({ params }: { params: { id: string } }) {
           className="cursor-pointer fill-gray-300 font-normal text-gray-300 hover:fill-white hover:text-white"
           onClick={() => router.back()}
         >
-          <Right className="mb-0.5 mr-1 inline w-4 rotate-180" />
-          Gpark
+          <Back className="mb-0.5 mr-2 inline w-9 hover:fill-white/20" />
+          GPark
         </span>
         <span className="text-gray-300">&nbsp;/&nbsp;</span>
         {data?.name}

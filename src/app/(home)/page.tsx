@@ -6,7 +6,7 @@ import StyledButton from '@/components/ui/button/StyledButton';
 import Empty from '@/components/ui/empty';
 import { useFetchNews } from '@/hooks/editor/useFetchNews';
 import { useIsP12User } from '@/hooks/editor/useP12Account';
-import { openExternalLink } from '@/utils';
+import { openExternalLink, sendEvent } from '@/utils';
 import NewInfoDialog from './_components/NewInfoDialog';
 import News from './_components/News';
 
@@ -32,7 +32,10 @@ export default function Home() {
               <StyledButton
                 variant="bordered"
                 className="h-12 flex-1"
-                onClick={() => openExternalLink('https://arcana.p12.games/')}
+                onClick={() => {
+                  sendEvent('ed_arcana_link', 'Arcana外链');
+                  openExternalLink('https://arcana.p12.games/');
+                }}
               >
                 Arcana
               </StyledButton>

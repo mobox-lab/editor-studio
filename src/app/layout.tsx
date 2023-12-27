@@ -10,12 +10,13 @@ import type { Metadata } from 'next';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/index.css';
 import DevTools from '@/components/common/DevTools';
+import EditCreationDialog from '@/components/ui/dialog/EditCreationDialog';
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-poppins' });
 
 export const metadata: Metadata = {
-  title: 'P12 Gpark Studio',
-  description: 'P12 Gpark Studio',
+  title: 'P12 GPark Studio',
+  description: 'P12 GPark Studio',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <Providers>
           <main className="py-7.5 pt-5 xl:container">{children}</main>
           <ToastContainer theme="dark" toastClassName="toast-container" icon={<ToastIcon />} autoClose={3000} hideProgressBar />
+          <EditCreationDialog />
         </Providers>
         {(isDev || isErudaDebug) && <DevTools />}
       </body>

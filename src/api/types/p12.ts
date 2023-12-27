@@ -1,4 +1,4 @@
-import { NFT_CLAIM, SBT_LEVEL, SortField } from '@/constants/enum';
+import { DragonProposalState, NFT_CLAIM, SBT_LEVEL, SortField } from '@/constants/enum';
 import { Address } from 'viem';
 
 export type P12GameInfo = {
@@ -217,4 +217,28 @@ export type ToggleStatusResult = {
   gameVotes: number;
   isSubmitted: boolean;
   walletAddress: string;
+};
+
+export type DragonGovernInfo = {
+  activeProposal: number;
+  closedProposal: number;
+  voterLength: number;
+  votesCount: number;
+};
+
+export type FetchDragonProposalParams = {
+  page?: number;
+  size?: number;
+};
+
+export type DragonProposal = {
+  choices: string[];
+  discussion: string;
+  end: number;
+  id: string;
+  start: number;
+  state: DragonProposalState;
+  title: string;
+  votes: number;
+  author: string;
 };

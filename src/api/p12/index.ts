@@ -2,7 +2,10 @@ import request from '@/api/p12/request';
 import {
   CheckNameParams,
   CheckNameResult,
+  DragonGovernInfo,
+  DragonProposal,
   EditorDevRankItem,
+  FetchDragonProposalParams,
   FetchP12GameListParams,
   GameListBodyType,
   GameListType,
@@ -22,7 +25,7 @@ import {
   UpdateP12GameParams,
 } from '@/api/types';
 import { Address } from 'viem';
-import { STORAGE_KEY } from "@/constants/storage";
+import { STORAGE_KEY } from '@/constants/storage';
 
 export const fetchP12GparkArcanaGameList = () => request.get<any, Response<P12GameInfo[]>>('/pge/arcana-game-show-list');
 export const fetchP12GameList = ({ sortField, page = 1, size = 25 }: FetchP12GameListParams) =>
@@ -76,3 +79,19 @@ export const toggleGameStatus = ({ id, ...data }: ToggleStatusParams) =>
 
 export const fetchIsPublication = (address?: Address) =>
   request.get<any, Response<boolean>>('/arcana/power-vote/publication?address=' + address);
+
+export const fetchDragonGovernInfo = (address?: Address) =>
+  request.get<any, Response<DragonGovernInfo>>('/modragonGovern/modragon-govern/basicInfo');
+
+export const fetchAllDragonProposals = ({ page = 1, size = 16 }: FetchDragonProposalParams) =>
+  request.get<any, Response<DragonProposal[]>>('/modragonGovern/modragon-govern/allProposals', {
+    params: { first: size, skip: size * (page - 1) },
+  });
+export const fetchActiveDragonProposals = ({ page = 1, size = 16 }: FetchDragonProposalParams) =>
+  request.get<any, Response<DragonProposal[]>>('/modragonGovern/modragon-govern/activeProposals', {
+    params: { first: size, skip: size * (page - 1) },
+  });
+export const fetchExecuteDragonProposals = ({ page = 1, size = 16 }: FetchDragonProposalParams) =>
+  request.get<any, Response<DragonProposal[]>>('/modragonGovern/modragon-govern/uniqueProposals', {
+    params: { first: size, skip: size * (page - 1) },
+  });

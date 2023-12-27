@@ -6,6 +6,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useThrottle } from '../util/useThrottle';
 import { useMutationEditGparkUserInfo } from './useMutationEditGparkUserInfo';
+import { sendEvent } from '@/utils';
 
 export const useGparkProfileSubmit = () => {
   const [profileData, setProfileData] = useAtom(gparkProfileAtom);
@@ -21,6 +22,7 @@ export const useGparkProfileSubmit = () => {
         const { displayName, bio } = values;
         const newProfile: GparkUserInfoParams = { nickname: displayName, signature: bio };
         await updateProfile(newProfile);
+        sendEvent('pf_save', '保存个人信息', { action: 1 });
         setProfileData((prev) => ({ ...prev, ...newProfile }));
         setLoading(false);
         toast.success('Save changes successfully.');

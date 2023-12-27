@@ -1,10 +1,11 @@
-import { RadioOption } from '@/components/ui/radio/RadioGroup';
 import { useMemo } from 'react';
+import { RadioOption } from '@/components/ui/radio/RadioGroup';
 import { useMutationP12UpdateChainNames } from './useMutationP12UpdateChainNames';
 import { useThrottle } from '../util/useThrottle';
 import { useAtomValue } from 'jotai';
 import { p12ProfileAtom } from '@/atoms/profile';
 import { toast } from 'react-toastify';
+import { sendEvent } from '@/utils';
 
 export const useProfileRadioOptions = () => {
   const { mutate: updateChainNames } = useMutationP12UpdateChainNames();
@@ -19,6 +20,7 @@ export const useProfileRadioOptions = () => {
         isInput: true,
         value: nickname ?? '',
         className: 'col-span-2',
+        inputOnForce: () => sendEvent('pf_username', '修改用户名'),
         beforeOnChange: (value: string) => {
           if (value.includes('.')) {
             // not allowed to input "."

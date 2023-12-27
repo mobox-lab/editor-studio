@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useThrottle } from '../util/useThrottle';
 import { useMutationCheckName } from './useMutationCheckName';
 import { useMutationEditP12Profile } from './useMutationEditP12Profile';
+import { sendEvent } from '@/utils';
 
 export const useProfileSubmit = (selectedRadioKey?: string) => {
   const [profileData, setProfileData] = useAtom(p12ProfileAtom);
@@ -70,6 +71,7 @@ export const useProfileSubmit = (selectedRadioKey?: string) => {
         //   label: changeValue.toString(),
         // });
         await updateProfile(newProfile);
+        sendEvent('pf_save', '保存个人信息', { action: 1 });
         setProfileData((prev) => ({ ...prev, ...newProfile }));
         setLoading(false);
         toast.success('Save changes successfully.');

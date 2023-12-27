@@ -5,7 +5,7 @@ export default function Empty({ className }: { className?: string }) {
   return (
     <div className={clsx('flex flex-col items-center justify-center', className)}>
       <EmptySVG />
-      <p className="mt-4 text-base text-gray-300">No Data</p>
+      <p className="mt-4 text-sm text-gray-300">No Data</p>
     </div>
   );
 }

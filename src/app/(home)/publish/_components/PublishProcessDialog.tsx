@@ -35,7 +35,7 @@ export default function PublishProcessDialog() {
           <div className="mt-4 text-xl font-semibold text-legendary">Are you really sure?</div>
           <div className="mt-8 text-center text-sm/6">
             Confirm submitting your project <span className="font-semibold text-legendary">{`" ${name} "`}</span> to{' '}
-            <span className="font-semibold text-legendary">{type === 'gpark' ? 'Gpark' : 'Arcana'}</span>. This action is
+            <span className="font-semibold text-legendary">{type === 'gpark' ? 'GPark' : 'Arcana'}</span>. This action is
             irreversible, but you can duplicate and submit a new project.
           </div>
 

@@ -1,33 +1,59 @@
 'use client';
 
-type DragonProposalProps = {};
+import { DragonProposal } from '@/api';
+import { DragonProposalState } from '@/constants/enum';
+import { clsxm, openExternalLink, shortenAddress } from '@/utils';
+import dayjs from 'dayjs';
 
-export default function DragonProposal({}: DragonProposalProps) {
+type DragonProposalProps = {
+  data?: DragonProposal;
+};
+
+function DragonState({ state }: { state?: DragonProposalState }) {
+  if (state === DragonProposalState.ACTIVE) return <div className="bg-green/20 px-2.5 text-xs/4.5 text-green">Active</div>;
+  return <div className="bg-blue/20 px-2.5 text-xs/4.5 text-blue">Closed</div>;
+}
+
+export default function DragonProposal({ data }: DragonProposalProps) {
   return (
-    <div className="cursor-pointer border border-gray-400 p-4 pb-3 backdrop-blur-sm hover:bg-white/[0.08]">
-      <p className="text-sm/6 font-medium">
-        In the middle of the map scene, insert a massive burning sword (similar to Sargeras inserting a sword in Azeroth),
-        giving rise to a new corrupted dragon species as the antagonists for the gam....
-      </p>
+    <div
+      onClick={() => {
+        openExternalLink(`https://testnet.snapshot.org/#/dracoens.eth/proposal/${data?.id}`);
+      }}
+      className="flex h-[358px] cursor-pointer flex-col border border-gray-400 p-4 pb-3 backdrop-blur-sm hover:bg-white/[0.08]"
+    >
+      <p className="text-sm/6 font-medium">{data?.title}</p>
       <div className="mt-4 border-t border-gray-400" />
       <p className="mt-3 text-base/6 font-semibold">
-        <span className="text-yellow">27</span> Votes
+        <span className="text-yellow">{data?.votes?.toLocaleString()}</span> Votes
       </p>
-      <div className="mt-7.5 flex items-center gap-2">
-        <div className="text-green bg-green/20 px-2.5 text-xs/4.5">Active</div>
-        <p className="text-xs/5 font-semibold">by 0x28...a7C8</p>
-      </div>
-      <div className="mt-1.5 text-sm/5">
-        <p className="flex justify-between">
-          <span className="text-gray-300">Start date:</span>
-          Dec 17, 2023, 3:30 AM
+      <div className="mt-auto">
+        <div className="mt-7.5 flex items-center gap-2">
+          <DragonState state={data?.state} />
+          <p className="text-xs/5 font-semibold">by {shortenAddress(data?.author)}</p>
+        </div>
+        <div className="mt-1.5 text-sm/5">
+          {data?.start ? (
+            <p className="flex justify-between">
+              <span className="text-gray-300">Start date:</span>
+              {dayjs(data.start * 1000).format('MMM D, YYYY, h:mm A')}
+            </p>
+          ) : null}
+          {data?.end ? (
+            <p className="mt-0.5 flex justify-between">
+              <span className="text-gray-300">End date:</span>
+              {dayjs(data.end * 1000).format('MMM D, YYYY, h:mm A')}
+            </p>
+          ) : null}
+        </div>
+        <p
+          className={clsxm('mt-3 cursor-pointer text-center text-xs/6 font-semibold text-blue', {
+            'text-gray-300': data?.state === DragonProposalState.CLOSED,
+          })}
+        >
+          GO VOTE
         </p>
-        <p className="mt-0.5 flex justify-between">
-          <span className="text-gray-300">End date:</span>
-          Dec 27, 2023, 3:30 AM
-        </p>
       </div>
-      <p className="mt-3 cursor-pointer text-center text-xs/6 font-semibold text-blue">GO VOTE</p>
     </div>
   );
 }

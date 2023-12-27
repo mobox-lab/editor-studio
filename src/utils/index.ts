@@ -13,3 +13,7 @@ export function clsxm(...inputs: ClassValue[]) {
 export const openExternalLink = (link: string) => {
   qtClient.openExternalLink(link);
 };
+
+export const sendEvent = (eventName: string, desc?: string, data?: any) => {
+  qtClient.eventTrack({ kind: eventName, kind_desc: desc, data });
+};

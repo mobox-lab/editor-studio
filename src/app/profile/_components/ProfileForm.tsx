@@ -16,7 +16,7 @@ import { useFetchP12Profile } from '@/hooks/profile/useFetchP12Profile';
 import { useProfileRadioOptions } from '@/hooks/profile/useProfileRadioOptions';
 import { useProfileSubmit } from '@/hooks/profile/useProfileSubmit';
 import { useFormOnError } from '@/hooks/util/useFormOnError';
-import { clsxm } from '@/utils';
+import { clsxm, sendEvent } from '@/utils';
 import clsx from 'clsx';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useCallback, useEffect, useState } from 'react';
@@ -88,7 +88,7 @@ export default function ProfileForm({ className }: { className?: string }) {
     <>
       <form className={clsxm('flex flex-col gap-7.5 px-6', className)} onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="flex items-center gap-7.5">
-          <div className="group relative h-[136px] w-[136px] rounded-full bg-gray-500">
+          <div className="group relative h-[136px] w-[136px] rounded-full">
             <DefaultUserSvg className="h-full w-full" />
             {/* <AvatarHoverSvg className="invisible absolute inset-0 group-hover:visible" /> */}
           </div>
@@ -123,6 +123,7 @@ export default function ProfileForm({ className }: { className?: string }) {
             className={clsx('w-full resize-none rounded bg-white/10 p-3 text-xs/5 placeholder:text-gray-300', {
               'animate-pulse placeholder:text-transparent': p12FetchLoading,
             })}
+            onFocus={() => sendEvent('pf_bio', '修改')}
             disabled={p12FetchLoading}
             placeholder="Please Enter"
             {...register('bio', {

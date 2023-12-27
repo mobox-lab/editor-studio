@@ -27,7 +27,7 @@ export default function Layout({ children }: PropsWithChildren) {
       <div className="flex items-center justify-between">
         <div className="text-base font-medium">
           <span className="cursor-pointer font-normal text-gray-300" onClick={onBack}>
-            Gpark /
+            GPark /
           </span>
           &nbsp;{pageTitle}
         </div>

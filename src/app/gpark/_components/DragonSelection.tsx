@@ -2,18 +2,25 @@
 
 import { launcherConfig } from '@/constants/launcher-config';
 import { useRouter } from 'next/navigation';
+import { sendEvent } from '@/utils';
 
 export default function DragonSelection() {
   const router = useRouter();
+
+  const onClick = () => {
+    sendEvent('gp_game_detail', '打开游戏详情页', {
+      game_id: launcherConfig.dragonVerseGameId,
+      source: 1,
+      type: 2,
+    });
+    router.push('/game/dragonverse');
+  };
 
   return (
     <div className="flex-1">
       <h3 className="text-base font-medium">Selection</h3>
       <div className="mt-3 gap-3">
-        <div
-          className="h-93 flex-none cursor-pointer border border-gray-500 hover:border-gray-350"
-          onClick={() => router.push(`/game/dragonverse`)}
-        >
+        <div className="h-93 flex-none cursor-pointer border border-gray-500 hover:border-gray-350" onClick={onClick}>
           <div className="relative h-80 w-full">
             <video
               autoPlay

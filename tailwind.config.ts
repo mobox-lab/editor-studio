@@ -107,6 +107,7 @@ const config: Config = {
       },
       fontFamily: {
         poppins: 'var(--font-poppins)',
+        ddin: ['D-DIN'],
       },
     },
   },

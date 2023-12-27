@@ -14,7 +14,7 @@ import StyledButton from '@/components/ui/button/StyledButton';
 import { useGparkProfileSubmit } from '@/hooks/profile/useGparkProfileSubmit';
 import { useGparkUserInfo } from '@/hooks/profile/useGparkUserInfo';
 import { useFormOnError } from '@/hooks/util/useFormOnError';
-import { clsxm } from '@/utils';
+import { clsxm, sendEvent } from '@/utils';
 import clsx from 'clsx';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useCallback, useEffect } from 'react';
@@ -80,7 +80,7 @@ export default function GparkProfileForm({ className }: { className?: string }) 
     <>
       <form className={clsxm('flex flex-col gap-7.5 px-6', className)} onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="flex items-center gap-7.5">
-          <div className="group relative h-[136px] w-[136px] rounded-full bg-gray-500">
+          <div className="group relative h-[136px] w-[136px] rounded-full">
             {gparkProfile?.portrait ? (
               <img draggable={false} className="h-full w-full rounded-full" src={gparkProfile.portrait} alt="" />
             ) : (
@@ -95,6 +95,7 @@ export default function GparkProfileForm({ className }: { className?: string }) 
               className={clsx('w-full rounded bg-white/10 p-3 text-xs/5 placeholder:text-gray-300', {
                 'animate-pulse placeholder:text-transparent': gparkFetchLoading,
               })}
+              onFocus={() => sendEvent('pf_username', '修改用户名')}
               disabled={gparkFetchLoading}
               placeholder="Please Enter"
               {...register('displayName', {
@@ -111,6 +112,7 @@ export default function GparkProfileForm({ className }: { className?: string }) 
             className={clsx('w-full resize-none rounded bg-white/10 p-3 text-xs/5 placeholder:text-gray-300', {
               'animate-pulse placeholder:text-transparent': gparkFetchLoading,
             })}
+            onFocus={() => sendEvent('pf_bio', '修改')}
             disabled={gparkFetchLoading}
             placeholder="Please Enter"
             {...register('bio', {

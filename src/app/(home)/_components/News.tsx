@@ -10,7 +10,7 @@ export default function News({ newsInfo }: { newsInfo: NewsItem }) {
   const setP12NewInfo = useSetAtom(p12NewInfoAtom);
   const setP12NewOpen = useSetAtom(p12NewDialogOpenAtom);
   const formatUnix = (timestamp: number) => {
-    const formattedDate = dayjs(timestamp).format('MMM DD YYYY');
+    const formattedDate = dayjs(timestamp * 1000).format('MMM DD YYYY');
     return formattedDate;
   };
   return (
@@ -33,7 +33,7 @@ export default function News({ newsInfo }: { newsInfo: NewsItem }) {
           <p className="line-clamp-2 max-h-10 overflow-hidden text-sm font-semibold">{newsInfo.title}</p>
           <p className="whitespace-nowrap text-xs text-gray-300">{formatUnix(newsInfo.updateTime)}</p>
         </div>
-        <div className="line-clamp-2 h-8 text-xs/4">{<div dangerouslySetInnerHTML={{ __html: newsInfo?.text }}></div>}</div>
+        <div className="line-clamp-2 h-8 text-xs/4">{<div dangerouslySetInnerHTML={{ __html: newsInfo?.description }}></div>}</div>
       </div>
     </div>
   );

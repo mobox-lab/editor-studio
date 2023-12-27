@@ -8,7 +8,7 @@ import RemoveIcon from '@/../public/svg/remove.svg?component';
 import SubmitIcon from '@/../public/svg/submit.svg?component';
 import { DataListType } from '@/api/types/p12';
 import { arcanaEditCreationDialogOpen, arcanaEditCreationIdAtom } from '@/atoms/category/arcana';
-import Empty from '@/components/ui/empty';
+import { clsx } from 'clsx';
 import Message from '@/components/ui/message';
 import ToastIcon from '@/components/ui/toast/ToastIcon';
 import { useMutationIsPublication } from '@/hooks/arcana/useMutationIsPublication';
@@ -58,7 +58,7 @@ export default function MyGameItem({
     } catch (error) {
       toast.error(`Submit work #${id} failed. Please try again..`);
     } finally {
-      setSubmitLoading(true);
+      setSubmitLoading(false);
     }
   };
 
@@ -76,7 +76,7 @@ export default function MyGameItem({
         icon: <ToastIcon type="error" className="mt-0 h-7 w-7" />,
       });
     } finally {
-      setRemoveLoading(true);
+      setRemoveLoading(false);
     }
   };
 
@@ -92,11 +92,13 @@ export default function MyGameItem({
       <div className="relative h-31.5 w-full">
         <Image src={gameInfo.cover} style={{ objectFit: 'cover' }} alt="game-image" fill />
       </div>
-      <div className="relative px-2 py-1.5">
-        <div className="absolute -top-2.5 left-2 h-9 w-9 overflow-hidden rounded-lg border-2 border-gray-700">
-          <Image src={gameInfo.icon} style={{ objectFit: 'cover' }} alt="game-image" fill />
-        </div>
-        <div className="ml-9 flex items-center justify-between">
+      <div className="relative px-2 mt-1.5">
+        {gameInfo?.channel === 2 && (
+          <div className="absolute -top-2.5 left-2 h-9 w-9 overflow-hidden rounded-lg border-2 border-gray-700">
+            <Image src={gameInfo.icon} style={{ objectFit: 'cover' }} alt="game-image" fill />
+          </div>
+        )}
+        <div className={clsx('flex items-center justify-between', { 'ml-9': gameInfo?.channel === 2 })}>
           <p className="pl-1.5 text-sm font-medium">{gameInfo.name}</p>
         </div>
         <div className="mt-2 flex gap-1.5">

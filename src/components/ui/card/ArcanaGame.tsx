@@ -3,12 +3,13 @@ import VideoSvg from '@/../public/svg/video.svg?component';
 import { P12GameInfo } from '@/api';
 import { WORK_TYPE } from '@/constants/enum';
 import { useFileType } from '@/hooks/util/useFileType';
-import { clsxm } from '@/utils';
+import { clsxm, sendEvent } from '@/utils';
 import { shortenShowName } from '@/utils/shorten';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useRef } from 'react';
 import Corner from '../corner';
+import { launcherConfig } from '@/constants/launcher-config';
 
 type ArcanaGameProps = {
   type?: WORK_TYPE;
@@ -73,9 +74,14 @@ export default function ArcanaGame({
     );
   }, [fileType, mainImage]);
 
+  const onClick = () => {
+    sendEvent('gp_game_detail', '打开游戏详情页', { game_id: mwGameCode, source: 3 });
+    router.push('/game/' + mwGameCode);
+  };
+
   return (
     <div
-      onClick={() => router.push(`/game/${mwGameCode}`)}
+      onClick={onClick}
       className={clsxm(
         'cursor-pointer border border-gray-500 hover:border-gray-350',
         { 'h-44 animate-pulse border-none bg-gray-600': isLoading },

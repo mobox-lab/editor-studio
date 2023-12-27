@@ -1,5 +1,6 @@
-import Image from 'next/image';
 import { useMemo, useState } from 'react';
+import Image from 'next/image';
+import { sendEvent } from '@/utils';
 import { toast } from 'react-toastify';
 import { GparkGameRoomItem } from '@/api';
 import { RoomStatus } from '@/constants/enum';
@@ -18,6 +19,11 @@ export default function DragonRoomItem({ data, refetchRoomList }: { data: GparkG
     setIsLoading(true);
     try {
       const { data: res } = await mutateAsync(data.roomId);
+      sendEvent('gp_room_status', '房间状态', {
+        game_id: data.gameId,
+        room_id: data.roomId,
+        status: RoomStatus.CanJoin,
+      });
       if (res.roomStatus === RoomStatus.CanJoin) {
         await handleRunningGame({ gameId: data.gameId, roomId: data.roomId });
         setTimeout(() => refetchRoomList?.(), 10_000);

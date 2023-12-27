@@ -39,7 +39,7 @@ export default function ArcanaDressUpDialog() {
       render={({ close }) => (
         <div className="flex w-[65.5rem] flex-col">
           <Swiper
-            className="mt-9 w-[65.5rem]"
+            className="mt-6 w-[65.5rem]"
             draggable
             grabCursor
             loop
@@ -72,7 +72,7 @@ export default function ArcanaDressUpDialog() {
               </SwiperSlide>
             ))}
           </Swiper>
-          <p className="mt-12 w-[892px] self-center text-center text-sm/5 font-semibold">
+          <p className="mt-6 w-[892px] self-center text-center text-sm/5 font-semibold">
             Welcome to PGE, an on-chain engine where you can create and play games. Start by creating and customizing your
             avatar used in gameplay, and dress them up in your favorite style. You can also change the appearance at any time by
             clicking &apos;Dress Up&apos; on the Gpark page.
@@ -86,7 +86,7 @@ export default function ArcanaDressUpDialog() {
               setClicked(true);
             }}
             variant="gradient-play"
-            className="mt-12 h-[52px] w-[320px] self-center fill-black text-black"
+            className="mt-10 h-[52px] w-[320px] self-center fill-black font-bold text-black"
           >
             DRESS UP NOW!
           </StyledButton>

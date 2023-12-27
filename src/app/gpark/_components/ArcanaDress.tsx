@@ -8,6 +8,7 @@ import { launcherConfig } from '@/constants/launcher-config';
 import StyledButton from '@/components/ui/button/StyledButton';
 import RefreshSvg from '@/../public/svg/refresh.svg?component';
 import { useGparkUserImage } from '@/hooks/profile/useGparkUserImage';
+import { sendEvent } from '@/utils';
 
 export default function ArcanaDress() {
   const { data, refetch } = useGparkUserImage();
@@ -25,6 +26,11 @@ export default function ArcanaDress() {
     [refetch],
   );
 
+  const handleRefresh = () => {
+    sendEvent('gp_avatar_refresh', '刷新角色全身照', { result: 1 });
+    refetch().then();
+  };
+
   useEffect(() => {
     qtClient.msgListener.add(handleMessage);
     return () => qtClient.msgListener.remove(handleMessage);
@@ -33,7 +39,7 @@ export default function ArcanaDress() {
   return (
     <div className="mt-9 flex flex-col justify-between">
       <div className="relative select-none border border-b-0 border-gray-400/50 bg-gray-500/10">
-        <RefreshSvg onClick={() => refetch()} className="absolute right-3 top-3 z-10 h-5 w-5 cursor-pointer fill-gray-300" />
+        <RefreshSvg onClick={handleRefresh} className="absolute right-3 top-3 z-10 h-5 w-5 cursor-pointer fill-gray-300" />
         {data?.wholeBodyImage ? (
           <Card3d className="h-[320px] w-[196px]">
             <img src={data.wholeBodyImage} alt="role.png" draggable={false} className="h-full w-full object-contain" />

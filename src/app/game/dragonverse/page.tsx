@@ -39,7 +39,7 @@ export default function GparkGame() {
           onClick={() => router.back()}
         >
           <Right className="mb-0.5 mr-1 inline w-4 rotate-180" />
-          Gpark
+          GPark
         </span>
         <span className="text-gray-300">&nbsp;/&nbsp;</span>
         {data?.name}
@@ -57,11 +57,13 @@ export default function GparkGame() {
           )}
         </div>
       </div>
-      {isP12User && <DragonVerseNeo />}
-      <div className="mt-7.5">
+      {/* {isP12User &&  */}
+      <DragonVerseNeo />
+      {/* } */}
+      {/* <div className="mt-7.5">
         <h3 className="text-base font-medium">Release Note</h3>
         <DragonReleaseNote className="mt-3" />
-      </div>
+      </div> */}
     </div>
   );
 }

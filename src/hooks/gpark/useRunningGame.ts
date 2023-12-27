@@ -3,10 +3,12 @@ import { useCallback, useMemo, useState } from 'react';
 import { getMwRuntimeArgs } from '@/utils/mw-runtime-args';
 import { fetchGparkMWGameDetail, fetchGparkTSGameConfig, qtClient } from '@/api';
 import { STORAGE_KEY } from '@/constants/storage';
+import { sendEvent } from '@/utils';
 
 type RunningGameParams = {
   gameId: string;
   roomId?: string;
+  onlineCnt?: number;
 };
 
 export function useGparkTSGameConfig() {
@@ -40,6 +42,12 @@ export default function useRunningGame() {
           roomId: params.roomId,
         });
         const runningRes = await qtClient.runningGame(data);
+        sendEvent('gp_game_play', '拉起游戏', {
+          game_id: params.gameId,
+          room_id: params.roomId,
+          online_cnt: params.onlineCnt,
+          result: 1,
+        });
         setIsLoading(false);
         return runningRes;
       } catch (e) {

@@ -147,7 +147,8 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
           </div>
           <div className="flex items-center gap-3 border border-gray-400 p-3 pr-5">
             <img className="h-21.5 w-21.5" draggable={false} alt="ve-mobox" src="/img/gpark/mobox-burn.png" />
-            <div className="flex w-[274px] flex-col gap-3">
+            <p className="text-2xl/6 font-semibold text-gray-300">Coming Soon...</p>
+            {/* <div className="flex w-[274px] flex-col gap-3">
               <h4 className="text-xl/6 font-semibold">Via Burn mechanism</h4>
               <p className="line-clamp-2 text-sm/6 font-medium">Burn $MBOX to acquire DragonBit at a 10x multiplier.</p>
             </div>
@@ -157,7 +158,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
               className="ml-3 flex h-11 w-[110px] flex-col items-center gap-0.5 border-gray-400 py-3 text-base/4 font-bold"
             >
               Coming...
-            </StyledButton>
+            </StyledButton> */}
           </div>
         </div>
       </div>

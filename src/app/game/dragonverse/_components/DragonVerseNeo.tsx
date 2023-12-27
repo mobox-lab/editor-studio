@@ -5,8 +5,7 @@ import Segmented from '@/components/ui/segmented';
 import { DragonProposalSortField } from '@/constants/enum';
 import { useFetchP12DragonGovernInfo } from '@/hooks/dragon/useFetchP12DragonGovernInfo';
 import { useFetchP12DragonProposals } from '@/hooks/dragon/useFetchP12DragonProposals';
-import { clsxm, openExternalLink } from '@/utils';
-import clsx from 'clsx';
+import { clsxm, openExternalLink, sendEvent } from '@/utils';
 import { useMemo, useState } from 'react';
 import { Keyboard } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
@@ -57,13 +56,19 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
           <StyledButton
             variant="gradient-red"
             className="flex w-[362px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold"
-            onClick={() => openExternalLink('https://testnet.snapshot.org/#/dracoens.eth')}
+            onClick={() => {
+              sendEvent('gp_gov_hall', '跳转到snapshot', { source: 0 });
+              openExternalLink('https://testnet.snapshot.org/#/dracoens.eth');
+            }}
           >
             Voting Hall <div className="text-xs/3 font-semibold">Snapshot</div>
           </StyledButton>
           <StyledButton
             className="flex h-15 w-[362px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold"
-            onClick={() => openExternalLink('https://testnet.snapshot.org/#/dracoens.eth/create')}
+            onClick={() => {
+              sendEvent('gp_gov_hall', '跳转到snapshot', { source: 1 });
+              openExternalLink('https://testnet.snapshot.org/#/dracoens.eth/create');
+            }}
           >
             + New Proposal
           </StyledButton>
@@ -71,6 +76,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             className="h-9.5 whitespace-nowrap text-sm/4 font-semibold"
             defaultValue={type}
             onChange={(value) => {
+              sendEvent('gp_gov_tab', '切换proposal分类', { tab_name: value as DragonProposalSortField });
               setType(value as DragonProposalSortField);
             }}
             options={opts}
@@ -131,7 +137,10 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             <StyledButton
               variant="gradient-green"
               className="ml-3 flex w-[110px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold"
-              onClick={() => openExternalLink('https://www.mobox.io/#/iframe/momo')}
+              onClick={() => {
+                sendEvent('gp_gov_vemobox', '获取vemobox');
+                openExternalLink('https://www.mobox.io/#/iframe/momo');
+              }}
             >
               GET
             </StyledButton>

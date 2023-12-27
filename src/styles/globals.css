@@ -20,6 +20,12 @@ body {
   a {
     @apply text-link;
   }
+
+  @font-face {
+    font-family: 'D-DIN';
+    font-weight: 700;
+    src: url(https://cdn1.p12.games/fonts/D-DIN-Bold.ttf);
+  }
 }
 
 @layer utilities {

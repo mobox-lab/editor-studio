@@ -2,24 +2,24 @@
 import ArcanaIcon from '@/../public/svg/arcana.svg?component';
 import DataIcon from '@/../public/svg/data.svg?component';
 import EditIcon from '@/../public/svg/edit.svg?component';
+import EmptySVG from '@/../public/svg/empty.svg?component';
 import GparkIcon from '@/../public/svg/gpark.svg?component';
 import LoadingSvg from '@/../public/svg/loading.svg?component';
 import RemoveIcon from '@/../public/svg/remove.svg?component';
 import SubmitIcon from '@/../public/svg/submit.svg?component';
 import { DataListType } from '@/api/types/p12';
 import { arcanaEditCreationDialogOpen, arcanaEditCreationIdAtom } from '@/atoms/category/arcana';
-import { clsx } from 'clsx';
 import Message from '@/components/ui/message';
 import ToastIcon from '@/components/ui/toast/ToastIcon';
 import { useMutationIsPublication } from '@/hooks/arcana/useMutationIsPublication';
 import { useMutationToggleGameStatus } from '@/hooks/arcana/useMutationToggleGameStatus';
 import { useP12Address } from '@/hooks/editor/useP12Account';
-import { openExternalLink } from '@/utils';
+import { openExternalLink, sendEvent } from '@/utils';
+import { clsx } from 'clsx';
 import { useSetAtom } from 'jotai';
 import Image from 'next/image';
 import { useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
-import EmptySVG from '@/../public/svg/empty.svg?component';
 
 export default function MyGameItem({
   gameInfo,
@@ -33,9 +33,14 @@ export default function MyGameItem({
 
   const onEdit = useCallback(() => {
     if (!gameInfo?.p12GameId) return;
+    sendEvent('ed_mygame_manage', '管理我的游戏', {
+      game_id: gameInfo?.gameCode,
+      type: gameInfo?.channel === 2 ? 'gpark' : gameInfo?.channel === 4 ? 'arcana' : undefined,
+      status: 2,
+    });
     setOpen(true);
     setGameId(gameInfo?.p12GameId ?? null);
-  }, [gameInfo?.p12GameId, setGameId, setOpen]);
+  }, [gameInfo?.channel, gameInfo?.gameCode, gameInfo?.p12GameId, setGameId, setOpen]);
 
   const { address } = useP12Address();
   const { mutateAsync: toggleGameStatusAsync } = useMutationToggleGameStatus();
@@ -92,7 +97,7 @@ export default function MyGameItem({
       <div className="relative h-31.5 w-full">
         <Image src={gameInfo.cover} style={{ objectFit: 'cover' }} alt="game-image" fill />
       </div>
-      <div className="relative px-2 mt-1.5">
+      <div className="relative mt-1.5 px-2">
         {gameInfo?.channel === 2 && (
           <div className="absolute -top-2.5 left-2 h-9 w-9 overflow-hidden rounded-lg border-2 border-gray-700">
             <Image src={gameInfo.icon} style={{ objectFit: 'cover' }} alt="game-image" fill />
@@ -150,6 +155,11 @@ export default function MyGameItem({
                   className="flex min-w-[87px] items-center justify-center pl-3"
                   onClick={() => {
                     if (removeLoading) return;
+                    sendEvent('ed_mygame_manage', '管理我的游戏', {
+                      game_id: gameInfo?.gameCode,
+                      type: gameInfo?.channel === 2 ? 'gpark' : gameInfo?.channel === 4 ? 'arcana' : undefined,
+                      status: 2,
+                    });
                     remove(gameInfo?.p12GameId);
                   }}
                 >
@@ -166,6 +176,11 @@ export default function MyGameItem({
                   className="flex min-w-[87px] items-center justify-center pl-3"
                   onClick={() => {
                     if (submitLoading) return;
+                    sendEvent('ed_mygame_manage', '管理我的游戏', {
+                      game_id: gameInfo?.gameCode,
+                      type: gameInfo?.channel === 2 ? 'gpark' : gameInfo?.channel === 4 ? 'arcana' : undefined,
+                      status: 1,
+                    });
                     submit(gameInfo?.p12GameId);
                   }}
                 >

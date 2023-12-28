@@ -131,7 +131,7 @@ export default function ProfileForm({ className }: { className?: string }) {
             className={clsx('w-full resize-none rounded bg-white/10 p-3 text-xs/5 placeholder:text-gray-300', {
               'animate-pulse placeholder:text-transparent': p12FetchLoading,
             })}
-            onFocus={() => sendEvent('pf_bio', '修改')}
+            onFocus={() => sendEvent('pf_edit_bio', '修改')}
             disabled={p12FetchLoading}
             placeholder="Please Enter"
             {...register('bio', {

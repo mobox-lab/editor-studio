@@ -65,7 +65,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             className="flex w-[362px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold"
             onClick={() => {
               sendEvent('gp_gov_hall', '跳转到snapshot', { source: 0 });
-              openExternalLink('https://testnet.snapshot.org/#/dracoens.eth');
+              openExternalLink('https://snapshot.org/#/dragonverseneo.eth');
             }}
           >
             Voting Hall <div className="text-xs/3 font-semibold">Snapshot</div>
@@ -74,7 +74,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             className="flex h-15 w-[362px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold"
             onClick={() => {
               sendEvent('gp_gov_hall', '跳转到snapshot', { source: 1 });
-              openExternalLink('https://testnet.snapshot.org/#/dracoens.eth/create');
+              openExternalLink('https://snapshot.org/#/dragonverseneo.eth/create');
             }}
           >
             + New Proposal

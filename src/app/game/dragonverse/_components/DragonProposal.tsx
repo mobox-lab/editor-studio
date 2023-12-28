@@ -18,8 +18,8 @@ export default function DragonProposal({ data }: DragonProposalProps) {
   return (
     <div
       onClick={() => {
-        sendEvent('gp_gov_proposal', '点击具体proposal', { proposal_id: data?.id });
-        openExternalLink(`https://testnet.snapshot.org/#/dracoens.eth/proposal/${data?.id}`);
+        https: sendEvent('gp_gov_proposal', '点击具体proposal', { proposal_id: data?.id });
+        openExternalLink(`https://snapshot.org/#/dragonverseneo.eth/proposal/${data?.id}`);
       }}
       className="flex h-[358px] cursor-pointer flex-col border border-gray-400 p-4 pb-3 backdrop-blur-sm hover:bg-white/[0.08]"
     >

@@ -1,4 +1,4 @@
-import { EventTrackArgs, TokenType } from '@/api';
+import { BridgeResponse, EventTrackArgs, TokenType } from '@/api';
 import QTApiClient from '@/lib/web-bridge';
 import { isClientSide } from '@/constants/env';
 import { isQtClient } from '@/lib/web-bridge/utils';
@@ -18,7 +18,7 @@ function _removeMsgListener(callback: (_: string) => void) {
 export const qtClient = {
   refreshToken: <T>(data: { type: TokenType; token: string }) => qtApiClient?.send<T>({ action: 'refreshToken', data }),
   openExternalLink: (link: string) => qtApiClient?.send({ action: 'openExternalLink', data: link }),
-  runningGame: (data: Record<string, any>) => qtApiClient?.send<{ data: boolean }>({ action: 'runningGame', data }),
+  runningGame: (data: Record<string, any>) => qtApiClient?.send<BridgeResponse>({ action: 'runningGame', data }),
   // endingGame: (data: any) => qtApiClient?.send({ action: 'endingGame', data }),
   refreshProfile: () => qtApiClient?.send({ action: 'refreshProfile', data: {} }),
   eventTrack: <T>(data: EventTrackArgs<T>) => qtApiClient?.send({ action: 'eventTrack', data }),

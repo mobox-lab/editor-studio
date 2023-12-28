@@ -1,9 +1,10 @@
+import { sendEvent } from '@/utils';
+import { toast } from 'react-toastify';
+import { STORAGE_KEY } from '@/constants/storage';
 import { useMutation } from '@tanstack/react-query';
 import { useCallback, useMemo, useState } from 'react';
 import { getMwRuntimeArgs } from '@/utils/mw-runtime-args';
 import { fetchGparkMWGameDetail, fetchGparkTSGameConfig, qtClient } from '@/api';
-import { STORAGE_KEY } from '@/constants/storage';
-import { sendEvent } from '@/utils';
 
 type RunningGameParams = {
   gameId: string;
@@ -46,8 +47,11 @@ export default function useRunningGame() {
           game_id: params.gameId,
           room_id: params.roomId,
           online_cnt: params.onlineCnt,
-          result: 1,
+          result: runningRes?.statusCode === 200 ? 1 : 0,
         });
+        if (runningRes?.statusCode === 500) {
+          toast.error('Game launch failed. Please try again.');
+        }
         setIsLoading(false);
         return runningRes;
       } catch (e) {

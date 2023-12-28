@@ -7,12 +7,14 @@ import TwitterSvg from '@/../public/svg/twitter.svg?component';
 import {
   completeLoginUserInfoDialogAtom,
   forgetPasswordDialogAtom,
+  gparkProfileAtom,
   p12ProfileAtom,
   verifyEmailDialogAtom,
 } from '@/atoms/profile';
 import StyledButton from '@/components/ui/button/StyledButton';
 import RadioGroup from '@/components/ui/radio/RadioGroup';
 import { useFetchP12Profile } from '@/hooks/profile/useFetchP12Profile';
+import { useGparkUserInfo } from '@/hooks/profile/useGparkUserInfo';
 import { useProfileRadioOptions } from '@/hooks/profile/useProfileRadioOptions';
 import { useProfileSubmit } from '@/hooks/profile/useProfileSubmit';
 import { useFormOnError } from '@/hooks/util/useFormOnError';
@@ -38,6 +40,8 @@ export default function ProfileForm({ className }: { className?: string }) {
   };
   const { isLoading: p12FetchLoading } = useFetchP12Profile();
   const p12Profile = useAtomValue(p12ProfileAtom);
+  const { isLoading: gparkFetchLoading } = useGparkUserInfo();
+  const gparkProfile = useAtomValue(gparkProfileAtom);
   const radioOptions = useProfileRadioOptions();
   const [selectedRadioKey, setSelectedRadioKey] = useState<string | undefined>(undefined);
   const {
@@ -88,8 +92,12 @@ export default function ProfileForm({ className }: { className?: string }) {
     <>
       <form className={clsxm('flex flex-col gap-7.5 px-6', className)} onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="flex items-center gap-7.5">
-          <div className="group relative h-[136px] w-[136px] rounded-full">
-            <DefaultUserSvg className="h-full w-full" />
+          <div className={clsxm('group relative h-[136px] w-[136px] rounded-full', { 'animate-pulse': gparkFetchLoading })}>
+            {gparkProfile?.portrait ? (
+              <img draggable={false} className="h-full w-full rounded-full" src={gparkProfile.portrait} alt="" />
+            ) : (
+              <DefaultUserSvg className="h-full w-full" />
+            )}
             {/* <AvatarHoverSvg className="invisible absolute inset-0 group-hover:visible" /> */}
           </div>
           {/* Username */}

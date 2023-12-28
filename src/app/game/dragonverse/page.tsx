@@ -57,9 +57,7 @@ export default function GparkGame() {
           )}
         </div>
       </div>
-      {/* {isP12User &&  */}
-      <DragonVerseNeo />
-      {/* } */}
+      {isP12User && <DragonVerseNeo />}
       {/* <div className="mt-7.5">
         <h3 className="text-base font-medium">Release Note</h3>
         <DragonReleaseNote className="mt-3" />

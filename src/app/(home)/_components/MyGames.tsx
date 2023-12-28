@@ -5,7 +5,7 @@ import Right from '@/../public/svg/right.svg?component';
 import { useFetchEditorGameListTop3 } from '@/hooks/editor/useFetchGameList';
 import { useFetchRank } from '@/hooks/editor/useFetchRank';
 import { rankConfig } from '@/constants';
-import { openExternalLink, shortenShowName } from '@/utils';
+import { openExternalLink, shortenNumber, shortenShowName } from '@/utils';
 import { DEV_BADGES } from '@/constants/bages';
 import { SBT_LEVEL } from '@/constants/enum';
 import { twMerge } from 'tailwind-merge';
@@ -43,7 +43,7 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
     <div className="w-full">
       <div className="flex items-center justify-between">
         <h3 className="text-base font-medium">My Games</h3>
-        <Link href="/developer/games">
+        <Link href="/developer/games" className="text-sm">
           View all
           <Right className="inline h-3.5 w-3.5 fill-blue align-baseline" />
         </Link>
@@ -86,9 +86,9 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
           <div className="flex items-center text-xs text-gray-300">
             <div className="w-10">NO.</div>
             <div className={clsx('w-30', { 'w-40': !isP12User })}>Name</div>
-            <div className={clsx('w-30', { 'w-40': !isP12User })}>Level</div>
+            <div className={clsx('w-24', { 'w-40': !isP12User })}>Level</div>
             <div className="w-12 text-right">Games</div>
-            <div className="flex-1 text-right">WAU</div>
+            <div className="flex-1 text-right">PL</div>
           </div>
           {firstThree.map((item, index) => {
             const { icon, alt } = rankConfig?.[index + 1] ?? {};
@@ -100,7 +100,7 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
                   <img src={icon} alt={alt} className="h-6 w-6" />
                 </div>
                 <div className={clsx('w-30 font-medium', { 'w-40': !isP12User })}>{realShowName}</div>
-                <div className={clsx('w-30 font-medium', { 'w-40': !isP12User })}>
+                <div className={clsx('w-24 font-medium', { 'w-40': !isP12User })}>
                   {devNft ? (
                     <div className="flex items-center gap-1">
                       <img src={DEV_BADGES[devNft?.nftLevel as SBT_LEVEL]?.img} className="h-5 w-5" alt="nft" />
@@ -113,7 +113,7 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
                   )}
                 </div>
                 <div className="w-12 text-right font-semibold">{item._count.arcanaGames}</div>
-                <div className="flex-1 text-right">--</div>
+                <div className="flex-1 text-right font-semibold">{shortenNumber(item?.developerPower ?? 0)}</div>
               </div>
             );
           })}
@@ -123,9 +123,9 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
           <div className="flex text-xs text-gray-300">
             <div className={clsx('w-10')}>NO.</div>
             <div className={clsx('w-30', { 'w-40': !isP12User })}>Name</div>
-            <div className={clsx('w-30', { 'w-40': !isP12User })}>Level</div>
+            <div className={clsx('w-24', { 'w-40': !isP12User })}>Level</div>
             <div className="w-12 text-right">Games</div>
-            <div className="flex-1 text-right">WAU</div>
+            <div className="flex-1 pr-2 text-right">PL</div>
           </div>
           <div className="mt-3 max-h-[100px] overflow-auto">
             {rest.map((item, index) => {
@@ -135,7 +135,7 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
                 <div className="mb-3 flex items-center text-sm" key={item.walletAddress}>
                   <div className="w-10 font-semibold leading-6">{index + 4}</div>
                   <div className={clsx('w-30 font-medium', { 'w-40': !isP12User })}>{realShowName}</div>
-                  <div className={clsx('w-30 font-medium', { 'w-40': !isP12User })}>
+                  <div className={clsx('w-24 font-medium', { 'w-40': !isP12User })}>
                     {devNft ? (
                       <div className="flex items-center gap-1">
                         <img src={DEV_BADGES[devNft?.nftLevel as SBT_LEVEL]?.img} className="h-5 w-5" alt="nft" />
@@ -148,7 +148,7 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
                     )}
                   </div>
                   <div className="w-12 text-right font-semibold">{item._count.arcanaGames}</div>
-                  <div className="flex-1 text-right">--</div>
+                  <div className="flex-1 pr-2 text-right font-semibold">{shortenNumber(item?.developerPower ?? 0)}</div>
                 </div>
               );
             })}

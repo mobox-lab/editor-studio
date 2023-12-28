@@ -23,7 +23,7 @@ export default function DeveloperGames() {
       {(data?.pages.length || 0) > 0 ? (
         <div className="mt-3 grid grid-cols-4 gap-4">
           {data?.pages.map((item) => {
-            return item.dataList.map((game) => {
+            return (item?.dataList || []).map((game) => {
               return <MyGameItem key={game.sourceGameId} gameInfo={game} refetchGameList={refetch} />;
             });
           })}

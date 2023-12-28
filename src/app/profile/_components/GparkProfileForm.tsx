@@ -80,7 +80,7 @@ export default function GparkProfileForm({ className }: { className?: string }) 
     <>
       <form className={clsxm('flex flex-col gap-7.5 px-6', className)} onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="flex items-center gap-7.5">
-          <div className="group relative h-[136px] w-[136px] rounded-full">
+          <div className={clsxm('group relative h-[136px] w-[136px] rounded-full', { 'animate-pulse': gparkFetchLoading })}>
             {gparkProfile?.portrait ? (
               <img draggable={false} className="h-full w-full rounded-full" src={gparkProfile.portrait} alt="" />
             ) : (

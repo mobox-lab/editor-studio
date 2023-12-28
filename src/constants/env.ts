@@ -5,6 +5,8 @@ export const PGE_ENGINE_VERSION = process.env.NEXT_PUBLIC_PGE_ENGINE_VERSION;
 
 export const P12_API_PREFIX = process.env.NEXT_PUBLIC_P12_API_PREFIX;
 
+export const MOBOX_API_PREFIX = process.env.NEXT_PUBLIC_MOBOX_API_PREFIX;
+
 export const EDITOR_API_PREFIX = process.env.NEXT_PUBLIC_EDITOR_API_PREFIX;
 
 // dev test token

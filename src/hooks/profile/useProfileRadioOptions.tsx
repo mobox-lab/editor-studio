@@ -20,7 +20,7 @@ export const useProfileRadioOptions = () => {
         isInput: true,
         value: nickname ?? '',
         className: 'col-span-2',
-        inputOnForce: () => sendEvent('pf_username', '修改用户名'),
+        inputOnForce: () => sendEvent('pf_edit_username', '修改用户名'),
         beforeOnChange: (value: string) => {
           if (value.includes('.')) {
             // not allowed to input "."

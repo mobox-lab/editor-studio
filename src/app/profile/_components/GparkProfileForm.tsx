@@ -95,7 +95,7 @@ export default function GparkProfileForm({ className }: { className?: string }) 
               className={clsx('w-full rounded bg-white/10 p-3 text-xs/5 placeholder:text-gray-300', {
                 'animate-pulse placeholder:text-transparent': gparkFetchLoading,
               })}
-              onFocus={() => sendEvent('pf_username', '修改用户名')}
+              onFocus={() => sendEvent('pf_edit_username', '修改用户名')}
               disabled={gparkFetchLoading}
               placeholder="Please Enter"
               {...register('displayName', {
@@ -112,7 +112,7 @@ export default function GparkProfileForm({ className }: { className?: string }) 
             className={clsx('w-full resize-none rounded bg-white/10 p-3 text-xs/5 placeholder:text-gray-300', {
               'animate-pulse placeholder:text-transparent': gparkFetchLoading,
             })}
-            onFocus={() => sendEvent('pf_bio', '修改')}
+            onFocus={() => sendEvent('pf_edit_bio', '修改')}
             disabled={gparkFetchLoading}
             placeholder="Please Enter"
             {...register('bio', {

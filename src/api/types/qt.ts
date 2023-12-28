@@ -11,3 +11,8 @@ export type EventTrackArgs<T> = {
   kind_desc?: string;
   data?: T;
 }
+
+export type BridgeResponse = {
+  statusCode: number;
+  message: string;
+}

@@ -105,7 +105,7 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
                     <div className="flex items-center gap-1">
                       <img src={DEV_BADGES[devNft?.nftLevel as SBT_LEVEL]?.img} className="h-5 w-5" alt="nft" />
                       <div className={twMerge(clsx('font-semibold'), DEV_BADGES[devNft?.nftLevel as SBT_LEVEL]?.color)}>
-                        {DEV_BADGES[devNft?.nftLevel as SBT_LEVEL]?.rarity}
+                        {DEV_BADGES[devNft?.nftLevel as SBT_LEVEL]?.rarity?.toUpperCase()}
                       </div>
                     </div>
                   ) : (
@@ -140,7 +140,7 @@ export default function MyGames({ isP12User = false }: { isP12User?: boolean }) 
                       <div className="flex items-center gap-1">
                         <img src={DEV_BADGES[devNft?.nftLevel as SBT_LEVEL]?.img} className="h-5 w-5" alt="nft" />
                         <div className={twMerge(clsx('font-semibold'), DEV_BADGES[devNft?.nftLevel as SBT_LEVEL]?.color)}>
-                          {DEV_BADGES[devNft?.nftLevel as SBT_LEVEL]?.rarity}
+                          {DEV_BADGES[devNft?.nftLevel as SBT_LEVEL]?.rarity?.toUpperCase()}
                         </div>
                       </div>
                     ) : (

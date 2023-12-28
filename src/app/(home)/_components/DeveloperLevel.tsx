@@ -74,19 +74,15 @@ export default function DeveloperLevel() {
           </div>
           <div className="relative flex items-center justify-around bg-white/10 py-4">
             <div>
-              <p className="text-xs/3 text-gray-300">Game Played</p>
+              <p className="text-xs/3 text-gray-300">Total games</p>
               <p className="mt-1.5 text-sm font-medium">--</p>
             </div>
             <div>
-              <p className="text-xs/3 text-gray-300">Total Playtime</p>
+              <p className="text-xs/3 text-gray-300">Cumulative Players</p>
               <p className="mt-1.5 text-sm font-medium">--</p>
             </div>
             <div>
-              <p className="text-xs/3 text-gray-300">Votes</p>
-              <p className="mt-1.5 text-sm font-medium">{data?.vote ?? 0}</p>
-            </div>
-            <div>
-              <p className="text-xs/3 text-gray-300">Comments</p>
+              <p className="text-xs/3 text-gray-300">GamePlay Hours</p>
               <p className="mt-1.5 text-sm font-medium">--</p>
             </div>
           </div>

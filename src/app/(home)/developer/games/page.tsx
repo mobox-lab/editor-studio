@@ -11,6 +11,7 @@ export default function DeveloperGames() {
   const router = useRouter();
   const { refetch } = useFetchEditorGameList();
   const data = useAtomValue(editorGamesListAtom);
+
   return (
     <div>
       <div className="text-base font-medium">

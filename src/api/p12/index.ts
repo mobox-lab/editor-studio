@@ -24,8 +24,9 @@ import {
   UpdateP12GameInfoResult,
   UpdateP12GameParams,
 } from '@/api/types';
-import { Address } from 'viem';
+import { MOBOX_API_PREFIX } from '@/constants/env';
 import { STORAGE_KEY } from '@/constants/storage';
+import { Address } from 'viem';
 
 export const fetchP12GparkArcanaGameList = () => request.get<any, Response<P12GameInfo[]>>('/pge/arcana-game-show-list');
 export const fetchP12GameList = ({ sortField, page = 1, size = 25 }: FetchP12GameListParams) =>
@@ -81,17 +82,22 @@ export const fetchIsPublication = (address?: Address) =>
   request.get<any, Response<boolean>>('/arcana/power-vote/publication?address=' + address);
 
 export const fetchDragonGovernInfo = (address?: Address) =>
-  request.get<any, Response<DragonGovernInfo>>('/modragonGovern/modragon-govern/basicInfo');
+  request.get<any, Response<DragonGovernInfo>>('/modragonGovern/modragon-govern/basicInfo', {
+    baseURL: MOBOX_API_PREFIX,
+  });
 
 export const fetchAllDragonProposals = ({ page = 1, size = 16 }: FetchDragonProposalParams) =>
   request.get<any, Response<DragonProposal[]>>('/modragonGovern/modragon-govern/allProposals', {
+    baseURL: MOBOX_API_PREFIX,
     params: { first: size, skip: size * (page - 1) },
   });
 export const fetchActiveDragonProposals = ({ page = 1, size = 16 }: FetchDragonProposalParams) =>
   request.get<any, Response<DragonProposal[]>>('/modragonGovern/modragon-govern/activeProposals', {
+    baseURL: MOBOX_API_PREFIX,
     params: { first: size, skip: size * (page - 1) },
   });
 export const fetchExecuteDragonProposals = ({ page = 1, size = 16 }: FetchDragonProposalParams) =>
   request.get<any, Response<DragonProposal[]>>('/modragonGovern/modragon-govern/uniqueProposals', {
+    baseURL: MOBOX_API_PREFIX,
     params: { first: size, skip: size * (page - 1) },
   });

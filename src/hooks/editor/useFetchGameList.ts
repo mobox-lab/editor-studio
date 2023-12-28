@@ -3,12 +3,13 @@ import { editorGamesListAtom, editorGamesTop3ListAtom } from '@/atoms/editor';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useSetAtom } from 'jotai';
 import { useEffect, useMemo } from 'react';
+import { EditorFetchKey } from '@/constants/editor';
 
 export const useFetchEditorGameList = () => {
   const setEditorGameList = useSetAtom(editorGamesListAtom);
 
   const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage, refetch } = useInfiniteQuery({
-    queryKey: ['fetch_editor_game_list'],
+    queryKey: [EditorFetchKey.EditorGameList],
     initialPageParam: 0,
     queryFn: async ({ pageParam = 0 }) => {
       const res = await fetchEditorGameList({ offset: pageParam + 1, pageSize: 100 });
@@ -27,7 +28,8 @@ export const useFetchEditorGameList = () => {
     if (data) {
       setEditorGameList(data);
     }
-  }, [data]);
+  }, [data, setEditorGameList]);
+
   return useMemo(
     () => ({ data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage, refetch }),
     [data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage, refetch],
@@ -37,7 +39,7 @@ export const useFetchEditorGameList = () => {
 export const useFetchEditorGameListTop3 = () => {
   const setTop3GameList = useSetAtom(editorGamesTop3ListAtom);
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['fetch_editor_game_list_top3'],
+    queryKey: [EditorFetchKey.FetchEditorGameListTop3],
     queryFn: () => fetchEditorGameList({ offset: 1, pageSize: 3 }),
     select: (res) => (res.code === 200 ? res.data.dataList : []),
   });
@@ -46,6 +48,6 @@ export const useFetchEditorGameListTop3 = () => {
     if (data) {
       setTop3GameList(data);
     }
-  }, [data]);
+  }, [data, setTop3GameList]);
   return useMemo(() => ({ data, isLoading, refetch }), [data, isLoading, refetch]);
 };

@@ -3,7 +3,6 @@
 import { arcanaEditCreationDialogOpen, arcanaEditCreationIdAtom } from '@/atoms/category/arcana';
 import { useFetchP12GameDetail } from '@/hooks/arcana/useFetchP12GameDetail';
 import { useMutationP12UpdateGame } from '@/hooks/arcana/useMutationP12UpdateGame';
-import { useFetchEditorGameList, useFetchEditorGameListTop3 } from '@/hooks/editor/useFetchGameList';
 import { useFormOnError } from '@/hooks/util/useFormOnError';
 import { sendEvent } from '@/utils';
 import { useAtom, useAtomValue } from 'jotai';
@@ -12,6 +11,8 @@ import { useForm } from 'react-hook-form';
 import Dialog from '.';
 import StyledButton from '../button/StyledButton';
 import ImageSelector from '../imageSelector';
+import { useQueryClient } from '@tanstack/react-query';
+import { EditorFetchKey } from '@/constants/editor';
 
 type GameDetailForm = {
   gameName: string;
@@ -20,18 +21,8 @@ type GameDetailForm = {
 export default function EditCreationDialog() {
   const [isOpen, setIsOpen] = useAtom(arcanaEditCreationDialogOpen);
   const editingCreationId = useAtomValue(arcanaEditCreationIdAtom);
-  const { refetch } = useFetchEditorGameListTop3();
-  const { refetch: refetchEditorGameList } = useFetchEditorGameList();
-  const { data, isLoading } = useFetchP12GameDetail({
-    id: editingCreationId,
-    // onSuccess: () => {
-    // ReactGA.event({
-    //   action: EventName.EditWork,
-    //   category: EventCategory.Editorium,
-    //   label: editingCreationId?.toString(),
-    // });
-    // },
-  });
+  const queryClient = useQueryClient();
+  const { data } = useFetchP12GameDetail({ id: editingCreationId });
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
 
   const handleImagesSelected = (urls: string[]) => {
@@ -56,7 +47,6 @@ export default function EditCreationDialog() {
   const onSubmit = (values: GameDetailForm) => {
     if (!editingCreationId) return;
     const { gameDescription, gameName } = values;
-    // console.log({ id: editingCreationId, gameDescription, gameName, screenshots: selectedImages });
     mutate(
       { id: editingCreationId, gameDescription, gameName, screenshots: selectedImages },
       {
@@ -64,8 +54,8 @@ export default function EditCreationDialog() {
           if (data?.gameName !== gameName) sendEvent('ed_edit_name', '编辑游戏：修改名字');
           if (data?.gameDescription !== gameDescription) sendEvent('ed_edit_intro', '编辑游戏：修改简介');
           setIsOpen(false);
-          refetch();
-          refetchEditorGameList();
+          queryClient.refetchQueries({ queryKey: [EditorFetchKey.EditorGameList] }).then();
+          queryClient.refetchQueries({ queryKey: [EditorFetchKey.FetchEditorGameListTop3] }).then();
         },
       },
     );

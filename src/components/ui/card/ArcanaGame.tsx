@@ -47,7 +47,7 @@ export default function ArcanaGame({
   const _votes = useMemo(() => (showWeekInfo ? weeklyVotes : gameVotes), [gameVotes, showWeekInfo, weeklyVotes]);
 
   const renderLeftCorner = useCallback(() => {
-    if (type === WORK_TYPE.PREMIUM) return <Corner type="gold">Selected</Corner>;
+    if (type === WORK_TYPE.PREMIUM) return <Corner type="gold">Featured</Corner>;
     return (
       <div className="absolute flex items-center gap-1.5 rounded-ee-lg bg-black/20 p-1 font-semibold backdrop-blur-lg">
         {_rank ? (

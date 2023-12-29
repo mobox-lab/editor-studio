@@ -1,4 +1,4 @@
-import { DragonProposalState, NFT_CLAIM, SBT_LEVEL, SortField } from '@/constants/enum';
+import { DragonProposalSortField, DragonProposalState, NFT_CLAIM, SBT_LEVEL, SortField } from '@/constants/enum';
 import { Address } from 'viem';
 
 export type P12GameInfo = {
@@ -227,6 +227,7 @@ export type DragonGovernInfo = {
 };
 
 export type FetchDragonProposalParams = {
+  sortField?: DragonProposalSortField;
   page?: number;
   size?: number;
 };

@@ -71,9 +71,9 @@ export const fetchP12News = () => request.get<any, Response<NewsItem[]>>('/pge/e
 
 export const fetchP12DevRank = () => request.get<any, Response<EditorDevRankItem[]>>('/pge/dev-power-rank');
 
-export const fetchEditorGameList = (data: GameListBodyType) =>
+export const fetchEditorGameList = (data: GameListBodyType, token?: string | null) =>
   request.post<any, Response<GameListType>>('/pge/my-games', data, {
-    headers: { Token: localStorage.getItem(STORAGE_KEY.EDITOR_TOKEN) },
+    headers: { Token: token },
   });
 
 export const toggleGameStatus = ({ id, ...data }: ToggleStatusParams) =>

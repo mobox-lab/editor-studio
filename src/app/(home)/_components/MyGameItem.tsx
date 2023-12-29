@@ -89,7 +89,7 @@ export default function MyGameItem({
     );
   }
   return (
-    <div className="relative cursor-pointer border border-gray-500">
+    <div className="relative cursor-pointer border border-gray-500 h-[280px] overflow-hidden">
       <div className="relative h-31.5 w-full">
         <Image src={gameInfo.cover} style={{ objectFit: 'cover' }} alt="game-image" fill />
       </div>
@@ -109,7 +109,7 @@ export default function MyGameItem({
           <div className="rounded-sm bg-blue/20 px-2 py-[1px] text-xs/4.5 text-blue">v{gameInfo.version}</div>
           {/* <div className="rounded-sm bg-blue/20 px-2 py-[1px] text-xs/4.5 text-blue">10/27/2023 11:32</div> */}
         </div>
-        <div className="mt-3 grid grid-cols-3">
+        <div className="mt-2.5 grid grid-cols-3">
           <div>
             <div className="text-xs text-gray-300">PV</div>
             <div className="mt-1.5 text-sm/5 font-semibold">--</div>
@@ -124,7 +124,7 @@ export default function MyGameItem({
           </div>
         </div>
       </div>
-      <div className="mt-4 flex h-9 items-center justify-between pl-2">
+      <div className="mt-3 flex h-9 items-center justify-between pl-2">
         {gameInfo.channel === 2 ? (
           <GparkIcon className="h-2.5" />
         ) : gameInfo.channel === 4 ? (

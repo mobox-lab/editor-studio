@@ -22,7 +22,7 @@ export default function LeftEditorSelection() {
   return (
     <div className="flex flex-col gap-3">
       <div className="sticky top-0 z-10 flex items-center justify-between gap-3 bg-gray-800">
-        Editor&apos;s Selection
+        Featured Creations
         <StyledButton
           className="h-10 w-10"
           onClick={() => {

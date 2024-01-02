@@ -1,15 +1,13 @@
 'use client';
 
-import ArcanaDress from './_components/ArcanaDress';
-import DragonSelection from './_components/DragonSelection';
+import ArcanaGames from '@/app/gpark/_components/ArcanaGames';
 import GamerLevel from '@/app/gpark/_components/GamerLevel';
 import Recommended from '@/app/gpark/_components/Recommended';
-import ArcanaGames from '@/app/gpark/_components/ArcanaGames';
-import { useGparkCardPage } from '@/hooks/gpark/useGparkCardPage';
 import { useIsP12User, useP12Address } from '@/hooks/editor/useP12Account';
+import { useGparkCardPage } from '@/hooks/gpark/useGparkCardPage';
 import { useIsMounted } from '@/hooks/util/useIsMounted';
-import StyledButton from '@/components/ui/button/StyledButton';
-import { qtClient } from '@/api';
+import ArcanaDress from './_components/ArcanaDress';
+import DragonSelection from './_components/DragonSelection';
 
 export default function Gpark() {
   const { isLoading } = useGparkCardPage();
@@ -27,12 +25,8 @@ export default function Gpark() {
       </div>
       {isMounted ? (
         isP12User ? (
-          <div className="mt-7.5">
-            <h2 className="text-center text-base font-medium">Arcana Games</h2>
-            <p className="text-center text-sm/6 text-gray-300">Selected contents from P12 Community</p>
-            <div className="relative mt-3 h-[180px]">
-              <ArcanaGames />
-            </div>
+          <div className="mt-9">
+            <ArcanaGames />
           </div>
         ) : (
           <div className="mt-7.5 flex gap-5">

@@ -19,28 +19,26 @@ export default function DragonSelection() {
   return (
     <div className="flex-1">
       <h3 className="text-base font-medium">Selection</h3>
-      <div className="mt-3 gap-3">
-        <div className="h-93 flex-none cursor-pointer border border-gray-500 hover:border-gray-350" onClick={onClick}>
-          <div className="relative h-80 w-full">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              disablePictureInPicture
-              className="h-full w-full object-cover"
-              preload="auto"
-              src="https://cdn1.p12.games/dragonverse/dragon-banner.webm"
-            />
+      <div className="mt-3 h-93 flex-none cursor-pointer border border-gray-500 hover:border-gray-350" onClick={onClick}>
+        <div className="relative h-80 w-full">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            disablePictureInPicture
+            className="h-full w-full object-cover"
+            preload="auto"
+            src="https://cdn1.p12.games/dragonverse/dragon-banner.webm"
+          />
+        </div>
+        <div className="relative p-4">
+          <div className="absolute bottom-4 left-4 h-15 w-15 overflow-hidden rounded-lg border-2 border-gray-700">
+            <img className="h-full w-full object-cover" src="/img/gpark/dragon-icon.webp" alt="game-image" />
           </div>
-          <div className="relative p-4">
-            <div className="absolute bottom-4 left-4 h-15 w-15 overflow-hidden rounded-lg border-2 border-gray-700">
-              <img className="h-full w-full object-cover" src="/img/gpark/dragon-icon.webp" alt="game-image" />
-            </div>
-            <div className="ml-15 flex items-center justify-between">
-              <p className="pl-3 text-base/5 font-semibold">Dragonverse NEO</p>
-              <img src="/img/gpark/mobox.webp" alt="mobox-icon" className="h-4" />
-            </div>
+          <div className="ml-15 flex items-center justify-between">
+            <p className="pl-3 text-base/5 font-semibold">Dragonverse NEO</p>
+            <img src="/img/gpark/mobox.webp" alt="mobox-icon" className="h-4" />
           </div>
         </div>
       </div>

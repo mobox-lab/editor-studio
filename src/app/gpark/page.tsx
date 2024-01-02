@@ -2,14 +2,13 @@
 
 import ArcanaDress from './_components/ArcanaDress';
 import DragonSelection from './_components/DragonSelection';
+import Selection from './_components/Selection';
 import GamerLevel from '@/app/gpark/_components/GamerLevel';
 import Recommended from '@/app/gpark/_components/Recommended';
 import ArcanaGames from '@/app/gpark/_components/ArcanaGames';
 import { useGparkCardPage } from '@/hooks/gpark/useGparkCardPage';
 import { useIsP12User, useP12Address } from '@/hooks/editor/useP12Account';
 import { useIsMounted } from '@/hooks/util/useIsMounted';
-import StyledButton from '@/components/ui/button/StyledButton';
-import { qtClient } from '@/api';
 
 export default function Gpark() {
   const { isLoading } = useGparkCardPage();
@@ -21,8 +20,7 @@ export default function Gpark() {
     <div>
       <div className="flex gap-5">
         {address && <GamerLevel />}
-        {/* <Selection /> */}
-        <DragonSelection />
+        {address ? <DragonSelection /> : <Selection />}
         <ArcanaDress />
       </div>
       {isMounted ? (

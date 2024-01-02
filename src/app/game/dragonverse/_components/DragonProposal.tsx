@@ -29,7 +29,7 @@ export default function DragonProposal({ data }: DragonProposalProps) {
       <p className="line-clamp-2 h-12 overflow-hidden text-sm/6 font-medium">{data?.title}</p>
       <div className="mt-4 border-t border-gray-400" />
       <p className="mt-3 text-base/6 font-semibold">
-        <span className="text-yellow">{data?.votes?.toLocaleString()}</span> Votes
+        <span className="text-yellow">{data?.votes?.toLocaleString()}</span> Voters
       </p>
       <div className="mt-auto">
         <div className="mt-7.5 flex items-center gap-2">

@@ -5,7 +5,7 @@ type BadgeBackgroundProps = {
 };
 
 const background = tv({
-  base: 'absolute -left-[85%] -top-[55%] -z-10 h-[958px] w-[958px] animate-breathing rounded-full blur-[200px]',
+  base: 'absolute -left-[85%] -top-1/2 -z-10 h-[758px] w-[958px] animate-breathing rounded-full blur-[200px]',
   variants: {
     bg: {
       Legendary: 'bg-legendary',

@@ -8,6 +8,7 @@ import { useGparkCardPage } from '@/hooks/gpark/useGparkCardPage';
 import { useIsMounted } from '@/hooks/util/useIsMounted';
 import ArcanaDress from './_components/ArcanaDress';
 import DragonSelection from './_components/DragonSelection';
+import Selection from './_components/Selection';
 
 export default function Gpark() {
   const { isLoading } = useGparkCardPage();
@@ -19,8 +20,7 @@ export default function Gpark() {
     <div>
       <div className="flex gap-5">
         {address && <GamerLevel />}
-        {/* <Selection /> */}
-        <DragonSelection />
+        {address ? <DragonSelection /> : <Selection />}
         <ArcanaDress />
       </div>
       {isMounted ? (

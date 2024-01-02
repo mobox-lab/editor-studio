@@ -49,4 +49,5 @@ export enum DragonProposalSortField {
 export enum DragonProposalState {
   ACTIVE = 'active',
   CLOSED = 'closed',
+  PENDING = 'pending',
 }

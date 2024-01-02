@@ -11,6 +11,8 @@ type DragonProposalProps = {
 
 function DragonState({ state }: { state?: DragonProposalState }) {
   if (state === DragonProposalState.ACTIVE) return <div className="bg-green/20 px-2.5 text-xs/4.5 text-green">Active</div>;
+  if (state === DragonProposalState.PENDING)
+    return <div className="bg-legendary/20 px-2.5 text-xs/4.5 text-legendary">Pending</div>;
   return <div className="bg-blue/20 px-2.5 text-xs/4.5 text-blue">Closed</div>;
 }
 
@@ -21,8 +23,9 @@ export default function DragonProposal({ data }: DragonProposalProps) {
         https: sendEvent('gp_gov_proposal', '点击具体proposal', { proposal_id: data?.id });
         openExternalLink(`https://snapshot.org/#/dragonverseneo.eth/proposal/${data?.id}`);
       }}
-      className="flex h-[358px] cursor-pointer flex-col border border-gray-400 p-4 pb-3 backdrop-blur-sm hover:bg-white/[0.08]"
+      className="group flex h-[358px] cursor-pointer flex-col border border-gray-400 p-4 pb-3 backdrop-blur-sm hover:bg-white/[0.08]"
     >
+      <div className="absolute left-0 top-0 origin-top-left border-[9px] border-gray-400 border-b-transparent border-r-transparent transition group-hover:scale-125" />
       <p className="text-sm/6 font-medium">{data?.title}</p>
       <div className="mt-4 border-t border-gray-400" />
       <p className="mt-3 text-base/6 font-semibold">

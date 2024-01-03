@@ -3,6 +3,7 @@
 import { DragonProposal } from '@/api';
 import { DragonProposalState } from '@/constants/enum';
 import { clsxm, openExternalLink, sendEvent, shortenAddress, shortenSnapStr } from '@/utils';
+import { computeTimeDifference } from '@/utils/date';
 import { formatCompactNumber } from '@/utils/format';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
@@ -26,21 +27,25 @@ export default function DragonProposal({ data }: DragonProposalProps) {
 
   const dateStr = useMemo(() => {
     if (data?.state === DragonProposalState.CLOSED) return 'ENDED';
-    const now = dayjs();
-    const start = data?.start ? dayjs(data.start * 1000) : dayjs();
-    const end = data?.end ? dayjs(data.end * 1000) : dayjs();
-    if (data?.state === DragonProposalState.ACTIVE)
+
+    if (data?.state === DragonProposalState.ACTIVE) {
+      const end = data?.end ? dayjs(data.end * 1000) : dayjs();
+      const { value, str } = computeTimeDifference(end);
       return (
         <>
-          ENDS IN <span className="text-[1.12vw]/[1.6vw] text-yellow xl:text-sm/5">{end.diff(now, 'day')}</span> DAYS
+          ENDS IN <span className="text-[1.12vw]/[1.6vw] text-yellow xl:text-sm/5">{value}</span> {str}
         </>
       );
-    if (data?.state === DragonProposalState.PENDING)
+    }
+    if (data?.state === DragonProposalState.PENDING) {
+      const start = data?.start ? dayjs(data.start * 1000) : dayjs();
+      const { value, str } = computeTimeDifference(start);
       return (
         <>
-          STARTS IN <span className="text-[1.12vw]/[1.6vw] text-yellow xl:text-sm/5">{start.diff(now, 'day')}</span> DAYS
+          STARTS IN <span className="text-[1.12vw]/[1.6vw] text-yellow xl:text-sm/5">{value}</span> {str}
         </>
       );
+    }
   }, [data]);
 
   return (
@@ -62,7 +67,7 @@ export default function DragonProposal({ data }: DragonProposalProps) {
           <DragonState state={data?.state} />
           <p className="text-xs/5 font-semibold">by {shortenAddress(data?.author)}</p>
         </div>
-        <div className="mt-2 text-xs/5 font-semibold">{dateStr}</div>
+        <div className="mt-2 text-xs/5 font-semibold uppercase">{dateStr}</div>
         <p
           className={clsxm('mt-3 cursor-pointer text-center text-xs/6 font-semibold text-blue', {
             'text-gray-300': data?.state === DragonProposalState.CLOSED,

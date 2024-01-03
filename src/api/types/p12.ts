@@ -241,5 +241,6 @@ export type DragonProposal = {
   state: DragonProposalState;
   title: string;
   votes: number;
+  scores_total: number;
   author: string;
 };

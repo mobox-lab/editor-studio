@@ -2,8 +2,10 @@
 
 import { DragonProposal } from '@/api';
 import { DragonProposalState } from '@/constants/enum';
-import { clsxm, openExternalLink, sendEvent, shortenAddress } from '@/utils';
+import { clsxm, openExternalLink, sendEvent, shortenAddress, shortenSnapStr } from '@/utils';
+import { formatCompactNumber } from '@/utils/format';
 import dayjs from 'dayjs';
+import { useMemo } from 'react';
 
 type DragonProposalProps = {
   data?: DragonProposal;
@@ -17,39 +19,50 @@ function DragonState({ state }: { state?: DragonProposalState }) {
 }
 
 export default function DragonProposal({ data }: DragonProposalProps) {
+  const voteTotal = useMemo(() => {
+    const total = formatCompactNumber(data?.scores_total ?? 0);
+    return total?.length >= 8 ? shortenSnapStr(total) : total;
+  }, [data?.scores_total]);
+
+  const dateStr = useMemo(() => {
+    if (data?.state === DragonProposalState.CLOSED) return 'ENDED';
+    const now = dayjs();
+    const start = data?.start ? dayjs(data.start * 1000) : dayjs();
+    const end = data?.end ? dayjs(data.end * 1000) : dayjs();
+    if (data?.state === DragonProposalState.ACTIVE)
+      return (
+        <>
+          ENDS IN <span className="text-[1.12vw]/[1.6vw] text-yellow xl:text-sm/5">{end.diff(now, 'day')}</span> DAYS
+        </>
+      );
+    if (data?.state === DragonProposalState.PENDING)
+      return (
+        <>
+          STARTS IN <span className="text-[1.12vw]/[1.6vw] text-yellow xl:text-sm/5">{start.diff(now, 'day')}</span> DAYS
+        </>
+      );
+  }, [data]);
+
   return (
     <div
       onClick={() => {
         https: sendEvent('gp_gov_proposal', '点击具体proposal', { proposal_id: data?.id });
         openExternalLink(`https://snapshot.org/#/dragonverseneo.eth/proposal/${data?.id}`);
       }}
-      className="group flex h-[358px] cursor-pointer flex-col border border-gray-400 p-4 pb-3 backdrop-blur-sm hover:bg-white/[0.08]"
+      className="group flex h-[242px] cursor-pointer flex-col border border-gray-400 p-4 pb-3 backdrop-blur-sm hover:bg-white/[0.08]"
     >
       <div className="absolute left-0 top-0 origin-top-left border-[9px] border-gray-400 border-b-transparent border-r-transparent transition group-hover:scale-125" />
       <p className="line-clamp-2 h-12 overflow-hidden text-sm/6 font-medium">{data?.title}</p>
       <div className="mt-4 border-t border-gray-400" />
       <p className="mt-3 text-base/6 font-semibold">
-        <span className="text-yellow">{data?.votes?.toLocaleString()}</span> Voters
+        <span className="text-yellow">{voteTotal}</span> Votes
       </p>
       <div className="mt-auto">
         <div className="mt-7.5 flex items-center gap-2">
           <DragonState state={data?.state} />
           <p className="text-xs/5 font-semibold">by {shortenAddress(data?.author)}</p>
         </div>
-        <div className="mt-1.5 text-sm/5">
-          {data?.start ? (
-            <p className="flex justify-between">
-              <span className="text-gray-300">Start date:</span>
-              {dayjs(data.start * 1000).format('MMM D, YYYY, h:mm A')}
-            </p>
-          ) : null}
-          {data?.end ? (
-            <p className="mt-0.5 flex justify-between">
-              <span className="text-gray-300">End date:</span>
-              {dayjs(data.end * 1000).format('MMM D, YYYY, h:mm A')}
-            </p>
-          ) : null}
-        </div>
+        <div className="mt-2 text-xs/5 font-semibold">{dateStr}</div>
         <p
           className={clsxm('mt-3 cursor-pointer text-center text-xs/6 font-semibold text-blue', {
             'text-gray-300': data?.state === DragonProposalState.CLOSED,

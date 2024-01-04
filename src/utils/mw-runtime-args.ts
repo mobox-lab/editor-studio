@@ -2,7 +2,7 @@ import { launcherConfig } from '@/constants/launcher-config';
 import { GparkStartupExtension, GparkTsGameConfig } from '@/api';
 
 type MwRuntimeArgs = {
-  enableMGS: number;
+  enableMgs: number;
   part1: GparkStartupExtension;
   part2: GparkTsGameConfig;
   gameId: string;
@@ -10,7 +10,7 @@ type MwRuntimeArgs = {
   roomId?: string;
 };
 
-export function getMwRuntimeArgs({ part1, part2, token, gameId, roomId, enableMGS }: MwRuntimeArgs) {
+export function getMwRuntimeArgs({ part1, part2, token, gameId, roomId, enableMgs }: MwRuntimeArgs) {
   return {
     gameid: part1.gameId,
     gameversion: part1.version,
@@ -27,6 +27,6 @@ export function getMwRuntimeArgs({ part1, part2, token, gameId, roomId, enableMG
     gender: part2.gender,
     Authorization: token,
     MgsGameId: gameId,
-    enableMGS,
+    enableMgs,
   };
 }

@@ -33,9 +33,9 @@ export default function useRunningGame() {
       try {
         const { data: gameConfig } = await tsGameConfigAsync(params.gameId);
         const { data: gameDetail } = await mwGameDetailAsync(params.gameId);
-        const enableMGS = gameDetail.gameTags.includes(1) ? 1 : 0;
+        const enableMgs = gameDetail.gameTags.includes(1) ? 1 : 0;
         const data = getMwRuntimeArgs({
-          enableMGS,
+          enableMgs,
           part1: JSON.parse(gameDetail.expand),
           part2: gameConfig,
           token: accessToken,

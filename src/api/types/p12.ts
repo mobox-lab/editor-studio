@@ -243,4 +243,5 @@ export type DragonProposal = {
   votes: number;
   scores_total: number;
   author: string;
+  isUnique?: number; // 1 is executed
 };

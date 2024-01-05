@@ -12,11 +12,13 @@ type DragonProposalProps = {
   data?: DragonProposal;
 };
 
-function DragonState({ state }: { state?: DragonProposalState }) {
+function DragonState({ data }: { data?: DragonProposal }) {
+  const { state, isUnique } = data ?? {};
+  if (isUnique) return <div className="bg-blue/20 px-2.5 text-xs/4.5 text-blue">Executed</div>;
   if (state === DragonProposalState.ACTIVE) return <div className="bg-green/20 px-2.5 text-xs/4.5 text-green">Active</div>;
   if (state === DragonProposalState.PENDING)
     return <div className="bg-legendary/20 px-2.5 text-xs/4.5 text-legendary">Pending</div>;
-  return <div className="bg-blue/20 px-2.5 text-xs/4.5 text-blue">Closed</div>;
+  return <div className="bg-gray-300/20 px-2.5 text-xs/4.5 text-gray-300">Closed</div>;
 }
 
 export default function DragonProposal({ data }: DragonProposalProps) {
@@ -64,7 +66,7 @@ export default function DragonProposal({ data }: DragonProposalProps) {
       </p>
       <div className="mt-auto">
         <div className="mt-7.5 flex items-center gap-2">
-          <DragonState state={data?.state} />
+          <DragonState data={data} />
           <p className="text-xs/5 font-semibold">by {shortenAddress(data?.author)}</p>
         </div>
         <div className="mt-2 text-xs/5 font-semibold uppercase">{dateStr}</div>

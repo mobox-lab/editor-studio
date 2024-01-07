@@ -1,4 +1,5 @@
-/** @type {import('next').NextConfig} */
+const { withSentryConfig } = require('@sentry/nextjs');
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -37,4 +38,23 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+if (process.env.VERCEL_ENV === 'production') {
+  module.exports = withSentryConfig(
+    module.exports,
+    {
+      silent: true,
+      org: 'projecttwelve',
+      project: 'editor-studio',
+    },
+    {
+      widenClientFileUpload: true,
+      transpileClientSDK: true,
+      tunnelRoute: '/monitoring',
+      hideSourceMaps: true,
+      disableLogger: true,
+      automaticVercelMonitors: true,
+    },
+  );
+} else {
+  module.exports = nextConfig;
+}

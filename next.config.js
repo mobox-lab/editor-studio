@@ -40,12 +40,8 @@ const nextConfig = {
 
 if (process.env.VERCEL_ENV === 'production') {
   module.exports = withSentryConfig(
-    module.exports,
-    {
-      silent: true,
-      org: 'projecttwelve',
-      project: 'editor-studio',
-    },
+    nextConfig,
+    { silent: true, org: 'projecttwelve', project: 'editor-studio' },
     {
       widenClientFileUpload: true,
       transpileClientSDK: true,

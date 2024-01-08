@@ -48,10 +48,13 @@ export default function useRunningGame() {
           game_id: params.gameId,
           room_id: params.roomId,
           online_cnt: params.onlineCnt,
-          result: runningRes?.statusCode === 200 ? 1 : 0,
+          result: runningRes?.statusCode,
         });
         if (runningRes?.statusCode === 500) {
-          toast.error('Game launch failed. Please try again.');
+          toast.error('Game engine is already running. Please close it and try again.');
+        }
+        if (runningRes?.statusCode === 501) {
+          toast.error('Game launch failed: Json parsed failed.');
         }
         setIsLoading(false);
         return runningRes;

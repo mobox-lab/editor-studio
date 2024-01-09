@@ -49,7 +49,9 @@ export default function Home() {
           <MyGames isP12User={isP12User} />
         </div>
       )}
-
+      <StyledButton variant="gradient" className="mt-4">
+        <input type="file" placeholder="打开文件管理器" className="cursor-pointer" />
+      </StyledButton>
       <div className="mt-7">
         <div className="flex items-center justify-between">
           <div className="font-semibold leading-6">News & Updates</div>

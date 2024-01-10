@@ -22,17 +22,18 @@ instance.interceptors.response.use(
   (response) => response.data,
   async (error) => {
     const { data, config } = error.response;
-    if (data.code !== 401 || data.data[0] === 'TokenNotExist' || data.data[0] === 'JsonWebTokenError') return error.response;
+    if (data.code !== 401 || data.data[0] === 'TokenNotExist' || data.data[0] === 'JsonWebTokenError')
+      return Promise.reject(data);
     if (refreshing) return new Promise((resolve) => queue.push({ config, resolve }));
     refreshing = true;
     if (data.data[0] === 'TokenExpiredError') {
       const res = await refreshToken('p12');
-      if (!res) return error.response;
+      if (!res) return Promise.reject(data);
       config.headers.Authorization = 'Bearer ' + res.token;
     }
     if (data.data[0] === 'EditorExpiredError') {
       const res = await refreshToken('editor');
-      if (!res) return error.response;
+      if (!res) return Promise.reject(data);
       config.headers.Token = res.token;
     }
     refreshing = await retryRequest(queue, instance);

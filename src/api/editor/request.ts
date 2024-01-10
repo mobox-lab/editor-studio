@@ -11,8 +11,7 @@ let refreshing = false;
 // Add request interceptor
 instance.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem(STORAGE_KEY.EDITOR_TOKEN);
-    config.headers.Token = accessToken;
+    config.headers.Token = localStorage.getItem(STORAGE_KEY.EDITOR_TOKEN);
     return config;
   },
   (error) => Promise.reject(error),
@@ -23,11 +22,11 @@ instance.interceptors.response.use(
   (response) => response.data,
   async (error) => {
     const { data, config } = error.response;
-    if (data.code !== 401) return error.response;
+    if (data.code !== 401) return Promise.reject(data);
     if (refreshing) return new Promise((resolve) => queue.push({ config, resolve }));
     refreshing = true;
     const res = await refreshToken('editor');
-    if (!res) return error.response;
+    if (!res) return Promise.reject(data);
     refreshing = await retryRequest(queue, instance);
     return instance(config);
   },

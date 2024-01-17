@@ -1,14 +1,14 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import { clsx } from 'clsx';
+import { useSetAtom } from 'jotai';
 import Tag from '@/components/ui/tag';
 import { GparkGameDetail } from '@/api';
 import DragonBorder from './DragonBorder';
 import { openExternalLink } from '@/utils';
-import { useRouter } from 'next/navigation';
-import KeySvg from '@/../public/svg/key.svg?component';
-import { launcherConfig } from '@/constants/launcher-config';
+import KeySvg from '../../../../../public/svg/key.svg?component';
 import StyledButton from '@/components/ui/button/StyledButton';
+import { dragonverseBetaDialogOpen } from '@/atoms/gpark/dragonverse';
 
 type DragonGamePanelProps = {
   data?: GparkGameDetail;
@@ -17,7 +17,7 @@ type DragonGamePanelProps = {
 };
 
 export default function DragonGamePanel({ data, isLoading, handleRunningGame }: DragonGamePanelProps) {
-  const router = useRouter();
+  const setDialogOpen = useSetAtom(dragonverseBetaDialogOpen);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [clickCount, setClickCouent] = useState(0);
   const imageList = useMemo(() => data?.images.map((item) => item.url) ?? [], [data?.images]);
@@ -32,9 +32,9 @@ export default function DragonGamePanel({ data, isLoading, handleRunningGame }: 
 
   useEffect(() => {
     if (clickCount === 8) {
-      router.push('/game/' + launcherConfig.TestDragonVerseGameId);
+      setDialogOpen(true);
     }
-  }, [clickCount, router]);
+  }, [clickCount, setDialogOpen]);
 
   return (
     <div className="grid grid-cols-2 border border-gray-400 bg-gray-550/10">

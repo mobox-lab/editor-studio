@@ -1,19 +1,22 @@
 'use client';
 
-import Back from '@/../public/svg/back.svg?component';
+import { useMemo } from 'react';
+import { useAtom } from 'jotai';
+import { useRouter } from 'next/navigation';
+import Dialog from '@/components/ui/dialog';
 import { GparkStartupExtension } from '@/api';
-import { launcherConfig } from '@/constants/launcher-config';
+import Back from '@/../public/svg/back.svg?component';
+import useRunningGame from '@/hooks/gpark/useRunningGame';
 import { useIsP12User } from '@/hooks/editor/useP12Account';
+import { launcherConfig } from '@/constants/launcher-config';
 import { useGparkGameDetail } from '@/hooks/gpark/useGparkGameDetail';
 import { useGparkGameRoomList } from '@/hooks/gpark/useGparkGameRoomList';
-import useRunningGame from '@/hooks/gpark/useRunningGame';
-import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
-import DragonGamePanel from './_components/DragonGamePanel';
-import DragonRoomItem from './_components/DragonRoomItem';
-import DragonVerseNeo from './_components/DragonVerseNeo';
+import DragonRoomItem from '@/app/game/(dragon-verse)/_components/DragonRoomItem';
+import DragonVerseNeo from '@/app/game/(dragon-verse)/_components/DragonVerseNeo';
+import DragonGamePanel from '@/app/game/(dragon-verse)/_components/DragonGamePanel';
+import DragonVerseBetaDialog from '@/app/game/(dragon-verse)/_components/DragonVerseBetaDialog';
 
-export default function GparkGame() {
+export default function Dragonverse() {
   const gameId = launcherConfig.dragonVerseGameId;
   const router = useRouter();
   const { data } = useGparkGameDetail(gameId);
@@ -58,10 +61,7 @@ export default function GparkGame() {
         </div>
       </div>
       {isP12User && <DragonVerseNeo />}
-      {/* <div className="mt-7.5">
-        <h3 className="text-base font-medium">Release Note</h3>
-        <DragonReleaseNote className="mt-3" />
-      </div> */}
+      <DragonVerseBetaDialog />
     </div>
   );
 }

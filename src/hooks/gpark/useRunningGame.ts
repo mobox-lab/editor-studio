@@ -10,6 +10,7 @@ type RunningGameParams = {
   gameId: string;
   roomId?: string;
   onlineCnt?: number;
+  version?: string | null;
 };
 
 export function useGparkTSGameConfig() {
@@ -41,6 +42,7 @@ export default function useRunningGame() {
           token: accessToken,
           gameId: params.gameId,
           roomId: params.roomId,
+          version: params.version,
         });
         const runningRes = await qtClient.runningGame(data);
         sendEvent('gp_game_play', '拉起游戏', {

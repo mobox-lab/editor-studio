@@ -1,10 +1,10 @@
-import { fetchNumberOfDragonProposals } from '@/api';
+import { fetchNumberOfDragonProposals } from '@/api/mobox';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { useAccount } from 'wagmi';
+import { useP12Address } from '../editor/useP12Account';
 
 export const useFetchP12DragonProposalNum = () => {
-  const { address } = useAccount();
+  const { address } = useP12Address();
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['fetch_number_of_dragon_proposals', address],
     queryFn: () => fetchNumberOfDragonProposals(address),

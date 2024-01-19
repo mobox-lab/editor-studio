@@ -1,4 +1,4 @@
-import { fetchDragonProposals } from '@/api';
+import { fetchDragonProposals } from '@/api/mobox';
 import { DragonProposalSortField } from '@/constants/enum';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';

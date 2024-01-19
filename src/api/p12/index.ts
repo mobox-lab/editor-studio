@@ -95,4 +95,10 @@ export const fetchDragonProposals = ({
     params: { sortField, first: size, skip: size * (page - 1) },
   });
 
+export const fetchNumberOfDragonProposals = (address?: Address) =>
+  request.get<any, Response<number>>('/modragonGovern/numberOfProposals', {
+    baseURL: MODRAGON_API_PREFIX,
+    params: { userAddress: address },
+  });
+
 export const getMoboxAccessToken = () => request.post<any, Response<{ token: string }>>('/pge-sso/generate-mtoken');

@@ -1,16 +1,18 @@
-import RightSvg from '../../../../../public/svg/right.svg?component';
 import StyledButton from '@/components/ui/button/StyledButton';
 import Empty from '@/components/ui/empty';
 import Segmented from '@/components/ui/segmented';
 import { DragonProposalSortField } from '@/constants/enum';
 import { useFetchP12DragonGovernInfo } from '@/hooks/dragon/useFetchP12DragonGovernInfo';
+import { useFetchP12DragonProposalNum } from '@/hooks/dragon/useFetchP12DragonProposalNum';
 import { useFetchP12DragonProposals } from '@/hooks/dragon/useFetchP12DragonProposals';
 import { clsxm, openExternalLink, sendEvent } from '@/utils';
 import { useMemo, useState } from 'react';
 import { Keyboard } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
+import RightSvg from '../../../../../public/svg/right.svg?component';
 import DragonBorder from './DragonBorder';
 import DragonProposal from './DragonProposal';
+import { LoadingSvg } from '@/components/svg/LoadingSvg';
 
 const opts = [
   { label: 'ALL', value: DragonProposalSortField.ALL },
@@ -26,16 +28,16 @@ const tabIndexMap: Record<DragonProposalSortField, number> = {
 
 export default function DragonVerseNeo({ className }: { className?: string }) {
   const [type, setType] = useState<DragonProposalSortField>(DragonProposalSortField.ALL);
-  const { data: governInfo, isLoading } = useFetchP12DragonGovernInfo();
+  // const { data: governInfo, isLoading } = useFetchP12DragonGovernInfo();
   const { data, isLoading: isLoadingProposals, fetchNextPage, hasNextPage } = useFetchP12DragonProposals(type);
   const [swiper, setSwiper] = useState<SwiperClass | null>(null);
-
   const proposals = useMemo(() => {
     if (data?.pages?.length && data.pages[0]?.length) {
       const res = data.pages.map((page) => page).flat(1);
       return res;
     } else return [];
   }, [data?.pages]);
+  const { data: remainingNum } = useFetchP12DragonProposalNum();
 
   return (
     <div className={clsxm('relative mt-12 border border-gray-400 bg-gray-550/10 p-6 px-7.5 py-11', className)}>
@@ -44,7 +46,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
         <img draggable={false} src="/img/gpark/dragon-neo-title.webp" alt="DragonVerse" className="h-13" />
       </div>
       <p className="mt-2 text-center text-sm/6 font-medium">Co-created & Co-governed</p>
-      {/* <div className={clsx('flex-center -mx-5 mt-3.5 gap-7.5 bg-white/10 py-1.5', { 'animate-pulse': isLoading })}>
+      {/* <div className={clsxm('flex-center -mx-5 mt-3.5 gap-7.5 bg-white/10 py-1.5', { 'animate-pulse': isLoading })}>
         <div className="font text-sm/6 font-semibold">
           <span className="text-xl/6 text-yellow">{governInfo?.activeProposal?.toLocaleString() ?? 0}</span> active proposals
         </div>
@@ -62,7 +64,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
         <div className="mt-9 flex items-end gap-4">
           <StyledButton
             variant="gradient-red"
-            className="flex w-[362px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold"
+            className="flex w-[268px] flex-col items-center gap-0.5 py-3 text-xl/5 font-bold"
             onClick={() => {
               sendEvent('gp_gov_hall', '跳转到snapshot', { source: 0 });
               openExternalLink('https://snapshot.org/#/dragonverseneo.eth');
@@ -71,7 +73,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             Voting Hall <div className="text-xs/3 font-semibold">Snapshot</div>
           </StyledButton>
           <StyledButton
-            className="flex h-15 w-[362px] flex-col items-center gap-0.5 py-3 text-lg/5 font-bold"
+            className="flex h-15 w-[235px] flex-col items-center gap-0.5 py-3 text-xl/5 font-bold"
             onClick={() => {
               sendEvent('gp_gov_hall', '跳转到snapshot', { source: 1 });
               openExternalLink('https://snapshot.org/#/dragonverseneo.eth/create');
@@ -79,6 +81,20 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
           >
             + New Proposal
           </StyledButton>
+
+          <div className="flex h-[4.8vw] items-center gap-[0.16vw] xl:h-15 xl:gap-2">
+            <div className="text-[1.12vw]/[1.6vw] font-medium xl:text-sm">remaining:</div>
+            <div className="flex h-full items-center border-none bg-white/[0.12] px-0 text-center text-[1.6vw]/[1.6vw] font-semibold xl:text-xl/5">
+              <span className="flex-center h-full w-[4.8vw] xl:w-[60px]">{remainingNum ?? 0}</span>
+              <div className="bg-gray -mr-px h-[3.2vw] w-px xl:h-10" />
+              <span
+                className="flex-center h-full w-[4.8vw] cursor-pointer hover:bg-white/[0.16] xl:w-[60px]"
+                onClick={() => openExternalLink('https://dragonverseneo.mobox.app/')}
+              >
+                +
+              </span>
+            </div>
+          </div>
           <Segmented
             className="h-9.5 whitespace-nowrap text-sm/4 font-semibold"
             defaultValue={type}
@@ -112,17 +128,22 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             spaceBetween={16}
             modules={[Keyboard]}
           >
-            {proposals?.length ? (
+            {isLoadingProposals ? (
+              <div className="flex-center h-[242px]">
+                <LoadingSvg className="h-10 w-10" />
+              </div>
+            ) : proposals?.length ? (
               proposals.map((proposal) => (
                 <SwiperSlide key={proposal.id}>
                   <DragonProposal data={proposal} />
                 </SwiperSlide>
               ))
             ) : (
-              <Empty />
+              <div className="flex-center h-[242px]">
+                <Empty />
+              </div>
             )}
           </Swiper>
-
           <div
             className="flex-center absolute -right-5 top-1/2 h-30 w-5 -translate-y-1/2 cursor-pointer border border-l-0 border-gray-400/50 bg-white/[0.08]"
             onClick={() => swiper?.slideNext()}
@@ -130,11 +151,11 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             <RightSvg className="fill-[#4C4C4C]" />
           </div>
         </div>
-        <div className="mt-12 flex select-none flex-col items-center justify-center gap-2">
-          <img className="h-13" draggable={false} alt="Voting Power" src="/img/gpark/dragon-voting-power.png" />
-          {/* <p className="text-sm/6 font-medium">The Voting power for Co-governance</p> */}
-        </div>
-        <div className="mt-7.5 grid grid-cols-2 gap-5">
+        <div className="mt-12 flex items-center justify-between">
+          <div className="flex flex-col items-center gap-[0.64vw] xl:gap-2">
+            <img className="h-[4.16vw] xl:h-13" draggable={false} alt="Voting Power" src="/img/gpark/dragon-voting-power.png" />
+            <p className="text-[1.12vw]/[1.92vw] font-medium xl:text-sm/6">The Voting power for Co-governance</p>
+          </div>
           <div className="flex items-center gap-3 border border-gray-400 p-3 pr-5">
             <img className="h-25.5 w-25.5 select-none" draggable={false} alt="ve-mobox" src="/img/gpark/ve-mobox.png" />
             <div className="flex w-[274px] flex-col gap-3">
@@ -151,24 +172,6 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
             >
               GET
             </StyledButton>
-          </div>
-          <div className="flex items-center gap-3 border border-gray-400 p-3 pr-5">
-            <img className="h-21.5 w-21.5" draggable={false} alt="ve-mobox" src="/img/gpark/mobox-burn.png" />
-            <div className="flex flex-col gap-3">
-              <h4 className="text-xl/6 font-semibold">Via $MBOX Burning</h4>
-              <p className="text-2xl/7.5 line-clamp-2 font-semibold text-gray-300">Coming Soon... </p>
-            </div>
-            {/* <div className="flex w-[274px] flex-col gap-3">
-              <h4 className="text-xl/6 font-semibold">Via Burn mechanism</h4>
-              <p className="line-clamp-2 text-sm/6 font-medium">Burn $MBOX to acquire DragonBit at a 10x multiplier.</p>
-            </div>
-            <StyledButton
-              variant="gradient-green"
-              disabled
-              className="ml-3 flex h-11 w-[110px] flex-col items-center gap-0.5 border-gray-400 py-3 text-base/4 font-bold"
-            >
-              Coming...
-            </StyledButton> */}
           </div>
         </div>
       </div>

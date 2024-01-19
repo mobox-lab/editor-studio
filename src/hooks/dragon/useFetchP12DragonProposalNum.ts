@@ -1,4 +1,4 @@
-import { fetchNumberOfDragonProposals } from '@/api/mobox';
+import { fetchNumberOfDragonProposals } from '@/api';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useP12Address } from '../editor/useP12Account';

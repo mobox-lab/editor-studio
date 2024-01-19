@@ -1,4 +1,4 @@
-import { fetchDragonGovernInfo } from '@/api/mobox';
+import { fetchDragonGovernInfo } from '@/api';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 

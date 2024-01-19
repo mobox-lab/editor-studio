@@ -81,4 +81,24 @@ export const toggleGameStatus = ({ id, ...data }: ToggleStatusParams) =>
 export const fetchIsPublication = (address?: Address) =>
   request.get<any, Response<boolean>>('/arcana/power-vote/publication?address=' + address);
 
+export const fetchDragonGovernInfo = (address?: Address) =>
+  request.get<any, Response<DragonGovernInfo>>('/modragonGovern/basicInfo', {
+    baseURL: MODRAGON_API_PREFIX,
+  });
+export const fetchDragonProposals = ({
+  sortField = DragonProposalSortField.ALL,
+  page = 1,
+  size = 16,
+}: FetchDragonProposalParams) =>
+  request.get<any, Response<DragonProposal[]>>('/modragonGovern/proposals', {
+    baseURL: MODRAGON_API_PREFIX,
+    params: { sortField, first: size, skip: size * (page - 1) },
+  });
+
+export const fetchNumberOfDragonProposals = (address?: Address) =>
+  request.get<any, Response<number>>('/modragonGovern/numberOfProposals', {
+    baseURL: MODRAGON_API_PREFIX,
+    params: { userAddress: address },
+  });
+
 export const getMoboxAccessToken = () => request.post<any, Response<{ token: string }>>('/pge-sso/generate-mtoken');

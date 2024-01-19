@@ -2,6 +2,7 @@ import request from '@/api/p12/request';
 import {
   CheckNameParams,
   CheckNameResult,
+  DragonGameRank,
   DragonGovernInfo,
   DragonProposal,
   EditorDevRankItem,
@@ -99,6 +100,12 @@ export const fetchNumberOfDragonProposals = (address?: Address) =>
   request.get<any, Response<number>>('/modragonGovern/numberOfProposals', {
     baseURL: MODRAGON_API_PREFIX,
     params: { userAddress: address },
+  });
+
+export const fetchDragonGameRank = ({ page = 1, size = 25 }: FetchDragonProposalParams) =>
+  request.get<any, Response<DragonGameRank[]>>('/modragon/mo-rank/list', {
+    baseURL: MODRAGON_API_PREFIX,
+    params: { page, size },
   });
 
 export const getMoboxAccessToken = () => request.post<any, Response<{ token: string }>>('/pge-sso/generate-mtoken');

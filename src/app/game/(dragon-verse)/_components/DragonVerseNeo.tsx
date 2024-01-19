@@ -4,6 +4,7 @@ import { useChangeDragonNeoMenu } from '@/hooks/dragon/useChangeDragonNeoMenu';
 import { clsxm } from '@/utils';
 import { useEffect, useRef } from 'react';
 import DragonBorder from './DragonBorder';
+import DragonGameRank from './DragonGameRank';
 import DragonVerseGovernance from './DragonVerseGovernance';
 
 export default function DragonVerseNeo({ className }: { className?: string }) {
@@ -34,10 +35,10 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
       </div>
       <div
         ref={gameRankRef}
-        className={clsxm('relative mt-12 h-[500px] border border-gray-400 bg-gray-550/10 p-6 px-7.5 py-11', className)}
+        className={clsxm('relative mb-52 mt-12 border border-gray-400 bg-gray-550/10 px-10 py-13', className)}
       >
         <DragonBorder className="inset-2 -z-10" />
-        {/* <DragonGameRank /> */}
+        <DragonGameRank />
       </div>
     </>
   );

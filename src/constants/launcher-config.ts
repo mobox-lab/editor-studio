@@ -13,7 +13,7 @@ const launcherConfigMap: Record<string, LauncherConfig> = {
     roomurl: 'ws://gate-api.metaworld.fun:20011',
     avatarGameId: 'h6ZjaE8nZrQWaJ9RDNJy',
     dragonVerseGameId: 'D5LIrBLH5XJ2nhYqrk4M',
-    TestDragonVerseGameId: 'cXYQHB995aEXFIZqoc0o',
+    TestDragonVerseGameId: 'ZEw7GE7MDXEVcnH4UR3Q',
   },
   'gpark-pre-oversea': {
     environment: 'gpark-pre-oversea',

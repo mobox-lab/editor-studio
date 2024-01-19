@@ -1,4 +1,4 @@
-import RightSvg from '@/../public/svg/right.svg?component';
+import RightSvg from '../../../../../public/svg/right.svg?component';
 import StyledButton from '@/components/ui/button/StyledButton';
 import Empty from '@/components/ui/empty';
 import Segmented from '@/components/ui/segmented';

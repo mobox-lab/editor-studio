@@ -146,9 +146,8 @@ export default function ProfileForm({ className }: { className?: string }) {
           )}
         </div>
         {/* Login & Email */}
-        <div className="grid grid-cols-2 gap-4">
-          {/* Login Username */}
-          <div className="flex flex-grow flex-col gap-3">
+        {/* <div className="grid grid-cols-2 gap-4">
+           <div className="flex flex-grow flex-col gap-3">
             <h2 className="text-sm font-medium">Login Username</h2>
             {profileData?.loginUsername ? (
               <div className="relative z-0 flex justify-between gap-4 rounded-sm bg-white/10 px-3 py-2.5 text-xs/5">
@@ -158,20 +157,12 @@ export default function ProfileForm({ className }: { className?: string }) {
                 </span>
               </div>
             ) : (
-              <StyledButton
-                // variant="warning"
-                disabled
-                type="button"
-                className="gap-1.5 py-2.5"
-                onClick={() => setCompleteInfoDialogOpen(true)}
-              >
-                {/* <WarningSvg /> */}
+              <StyledButton disabled type="button" className="gap-1.5 py-2.5" onClick={() => setCompleteInfoDialogOpen(true)}>
                 <p className="text-sm/5 font-semibold">Complete Login Information</p>
               </StyledButton>
             )}
           </div>
-          {/* Email */}
-          <div className="flex flex-grow flex-col gap-3">
+           <div className="flex flex-grow flex-col gap-3">
             <h2 className="text-sm font-medium">Email</h2>
             {profileData.email ? (
               <div className="relative z-0 flex justify-between gap-4 rounded-sm bg-white/10 px-3 py-2.5 text-xs/5">
@@ -181,21 +172,14 @@ export default function ProfileForm({ className }: { className?: string }) {
                 </span>
               </div>
             ) : (
-              <StyledButton
-                // variant="warning"
-                disabled
-                type="button"
-                className="gap-1.5 py-2.5"
-                onClick={() => setVerifyEmailDialogOpen(true)}
-              >
-                {/* <WarningSvg /> */}
+              <StyledButton disabled type="button" className="gap-1.5 py-2.5" onClick={() => setVerifyEmailDialogOpen(true)}>
                 <p className="text-sm/5 font-semibold">Complete and verify your email</p>
               </StyledButton>
             )}
           </div>
-        </div>
+        </div> */}
         {/* Social Links */}
-        <div className="flex flex-grow flex-col gap-3">
+        {/* <div className="flex flex-grow flex-col gap-3">
           <h2 className="text-sm font-medium">Social Links</h2>
           <div className="grid grid-cols-3 items-start gap-3 fill-white text-xs/5">
             <StyledButton className="flex items-center gap-1 px-3 py-2.5" disabled>
@@ -211,7 +195,7 @@ export default function ProfileForm({ className }: { className?: string }) {
               Link Discord
             </StyledButton>
           </div>
-        </div>
+        </div> */}
         <StyledButton variant="gradient" loading={submitLoading} className="w-[118px] self-end py-3">
           Submit
         </StyledButton>

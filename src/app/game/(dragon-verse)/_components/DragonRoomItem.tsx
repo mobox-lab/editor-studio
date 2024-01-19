@@ -5,10 +5,13 @@ import { toast } from 'react-toastify';
 import { GparkGameRoomItem } from '@/api';
 import { RoomStatus } from '@/constants/enum';
 import useRunningGame from '@/hooks/gpark/useRunningGame';
-import LoadingSvg from '@/../public/svg/loading.svg?component';
+import LoadingSvg from '../../../../../public/svg/loading.svg?component';
 import { useGparkGameRoomStatus } from '@/hooks/gpark/useGparkGameRoomList';
+import { useSearchParams } from 'next/navigation';
 
 export default function DragonRoomItem({ data, refetchRoomList }: { data: GparkGameRoomItem; refetchRoomList?: () => void }) {
+  const searchParams = useSearchParams();
+  const version = searchParams.get('version');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { mutateAsync } = useGparkGameRoomStatus();
   const member = useMemo(() => data.members?.[0] ?? {}, [data.members]);
@@ -25,7 +28,7 @@ export default function DragonRoomItem({ data, refetchRoomList }: { data: GparkG
         status: RoomStatus.CanJoin,
       });
       if (res.roomStatus === RoomStatus.CanJoin) {
-        await handleRunningGame({ gameId: data.gameId, roomId: data.roomId });
+        await handleRunningGame({ gameId: data.gameId, roomId: data.roomId, version });
         setTimeout(() => refetchRoomList?.(), 10_000);
         return;
       }

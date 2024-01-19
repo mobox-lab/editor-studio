@@ -25,8 +25,7 @@ import {
   UpdateP12GameParams,
 } from '@/api/types';
 import { DragonProposalSortField } from '@/constants/enum';
-import { MOBOX_API_PREFIX } from '@/constants/env';
-import { STORAGE_KEY } from '@/constants/storage';
+import { MODRAGON_API_PREFIX } from '@/constants/env';
 import { Address } from 'viem';
 
 export const fetchP12GparkArcanaGameList = () => request.get<any, Response<P12GameInfo[]>>('/pge/arcana-game-show-list');
@@ -84,7 +83,7 @@ export const fetchIsPublication = (address?: Address) =>
 
 export const fetchDragonGovernInfo = (address?: Address) =>
   request.get<any, Response<DragonGovernInfo>>('/modragonGovern/basicInfo', {
-    baseURL: MOBOX_API_PREFIX,
+    baseURL: MODRAGON_API_PREFIX,
   });
 export const fetchDragonProposals = ({
   sortField = DragonProposalSortField.ALL,
@@ -92,6 +91,8 @@ export const fetchDragonProposals = ({
   size = 16,
 }: FetchDragonProposalParams) =>
   request.get<any, Response<DragonProposal[]>>('/modragonGovern/proposals', {
-    baseURL: MOBOX_API_PREFIX,
+    baseURL: MODRAGON_API_PREFIX,
     params: { sortField, first: size, skip: size * (page - 1) },
   });
+
+export const getMoboxAccessToken = () => request.post<any, Response<{ token: string }>>('/pge-sso/generate-mtoken');

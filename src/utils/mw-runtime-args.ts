@@ -8,12 +8,13 @@ type MwRuntimeArgs = {
   gameId: string;
   token: string;
   roomId?: string;
+  version?: string | null;
 };
 
-export function getMwRuntimeArgs({ part1, part2, token, gameId, roomId, enableMgs }: MwRuntimeArgs) {
+export function getMwRuntimeArgs({ part1, part2, token, gameId, roomId, enableMgs, version }: MwRuntimeArgs) {
   return {
     gameid: part1.gameId,
-    gameversion: part1.version,
+    gameversion: version ?? part1.version,
     roomurl: launcherConfig.roomurl,
     avatarurl: part2.avatar,
     userid: part2.openId,

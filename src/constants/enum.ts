@@ -51,3 +51,8 @@ export enum DragonProposalState {
   CLOSED = 'closed',
   PENDING = 'pending',
 }
+
+export enum DragonNeoMenuItem {
+  Governance,
+  GameRank,
+}

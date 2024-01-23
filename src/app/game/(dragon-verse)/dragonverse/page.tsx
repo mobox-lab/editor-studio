@@ -1,9 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { useAtom } from 'jotai';
 import { useRouter } from 'next/navigation';
-import Dialog from '@/components/ui/dialog';
 import { GparkStartupExtension } from '@/api';
 import Back from '@/../public/svg/back.svg?component';
 import useRunningGame from '@/hooks/gpark/useRunningGame';

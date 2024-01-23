@@ -16,3 +16,10 @@ export const formatNumber = (number: number, formatter?: Intl.NumberFormat) => {
 };
 
 export const formatCompactNumber = (number: number) => formatNumber(number, compactNumberFormatter);
+
+export function toSignificant(num: number | string, digits: number = 6) {
+  const n = typeof num === 'string' ? Number(num) : num;
+  const formatter = new Intl.NumberFormat('en-US', { maximumSignificantDigits: digits });
+
+  return formatter.format(n);
+}

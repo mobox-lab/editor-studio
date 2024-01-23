@@ -1,34 +1,18 @@
 'use client';
 
-import { useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { GparkStartupExtension } from '@/api';
 import Back from '@/../public/svg/back.svg?component';
-import useRunningGame from '@/hooks/gpark/useRunningGame';
 import { useIsP12User } from '@/hooks/editor/useP12Account';
 import { launcherConfig } from '@/constants/launcher-config';
 import { useGparkGameDetail } from '@/hooks/gpark/useGparkGameDetail';
-import { useGparkGameRoomList } from '@/hooks/gpark/useGparkGameRoomList';
-import DragonRoomItem from '@/app/game/(dragon-verse)/_components/DragonRoomItem';
 import DragonVerseNeo from '@/app/game/(dragon-verse)/_components/DragonVerseNeo';
-import DragonGamePanel from '@/app/game/(dragon-verse)/_components/DragonGamePanel';
+import DragonBetaPanel from '@/app/game/(dragon-verse)/_components/DragonBetaPanel';
 
 export default function DragonverseBeta() {
-  const gameId = launcherConfig.TestDragonVerseGameId;
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const version = searchParams.get('version');
-  const { data } = useGparkGameDetail(gameId);
-  const startup = useMemo<GparkStartupExtension>(() => (data ? JSON.parse(data.startupExtension) : {}), [data]);
-  const { handleRunningGame, isLoading } = useRunningGame();
-  const { data: rooms, refetch } = useGparkGameRoomList({
-    maxId: '0',
-    gameId: gameId,
-    pageSize: 20,
-    sortType: 0,
-    version: version ?? startup.version,
-  });
   const isP12User = useIsP12User();
+  const gameId = launcherConfig.TestDragonVerseGameId;
+  const { data } = useGparkGameDetail(gameId);
 
   return (
     <div>
@@ -47,18 +31,8 @@ export default function DragonverseBeta() {
         <span className="text-gray-300">&nbsp;/&nbsp;</span>
         {data?.name}
       </div>
-      <div className="mt-3">
-        <DragonGamePanel data={data} isLoading={isLoading} handleRunningGame={() => handleRunningGame({ gameId, version })} />
-      </div>
-      <div className="mt-7.5">
-        <h3 className="text-base font-medium">Rooms</h3>
-        <div className="mt-3 flex w-full gap-3 overflow-auto">
-          {rooms?.dataList ? (
-            rooms.dataList.map((room) => <DragonRoomItem key={room.id} data={room} refetchRoomList={refetch} />)
-          ) : (
-            <div className="flex-center w-full border border-gray-400 bg-gray-550/10 py-12 text-sm text-gray-300">NO ROOM</div>
-          )}
-        </div>
+      <div className="mt-4">
+        <DragonBetaPanel data={data} />
       </div>
       {isP12User && <DragonVerseNeo />}
     </div>

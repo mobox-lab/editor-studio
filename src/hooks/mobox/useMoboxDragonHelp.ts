@@ -34,7 +34,7 @@ type UseMoboxDragonHelpProps = {
   address?: Address;
 };
 
-type DragonAttrs = {
+export type DragonAttrs = {
   tokenId: number;
   prototype: number;
   attribute: number;
@@ -69,7 +69,7 @@ function formatDragonHelpData(data: ReadContractReturnType<typeof dragonHelpAbi,
   }));
 }
 
-export function useMoboxDragonHelp({ address }: UseMoboxDragonHelpProps) {
+export function useMoboxDragons({ address }: UseMoboxDragonHelpProps) {
   const { data } = useReadContract({
     abi: dragonHelpAbi,
     address: '0xe6Fe4ffDC7a84b7622ded2c14b84F6894A4B8CEb',

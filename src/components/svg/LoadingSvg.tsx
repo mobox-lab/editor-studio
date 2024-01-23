@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge';
+import { clsxm } from '@/utils';
 
 export function LoadingSvg({
   className,
@@ -14,7 +14,7 @@ export function LoadingSvg({
   return (
     <svg
       onClick={onClick}
-      className={twMerge('group animate-spin cursor-pointer', className)}
+      className={clsxm('group animate-spin cursor-pointer fill-gray-300', className)}
       width={size ?? 19}
       height={size ?? 19}
       viewBox="0 0 19 19"

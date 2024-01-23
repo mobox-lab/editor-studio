@@ -245,3 +245,16 @@ export type DragonProposal = {
   author: string;
   isUnique?: number; // 1 is executed
 };
+
+export type DragonGameRank = {
+  userAddress: string;
+  achievedAt: string; // Date String
+  gameNum: number; // game times
+  p12AccountInfo?: {
+    showName?: string;
+  };
+  rank: number;
+  playCount: number;
+  point: number;
+  achievedAtTimestamp: number; // Timestamp
+};

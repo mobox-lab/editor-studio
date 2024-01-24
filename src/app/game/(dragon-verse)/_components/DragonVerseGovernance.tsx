@@ -59,7 +59,7 @@ export default function DragonVerseGovernance({ className }: { className?: strin
       </div> */}
       <div className="mx-2.5">
         <div className="mt-9 flex items-end gap-4">
-          <StyledButton
+          {/* <StyledButton
             variant="gradient-red"
             className="flex w-[268px] flex-col items-center gap-0.5 py-3 text-xl/5 font-bold"
             onClick={() => {
@@ -68,22 +68,24 @@ export default function DragonVerseGovernance({ className }: { className?: strin
             }}
           >
             Voting Hall <div className="text-xs/3 font-semibold">Snapshot</div>
-          </StyledButton>
+          </StyledButton> */}
           <StyledButton
+            variant="gradient-red"
             className="flex h-15 w-[235px] flex-col items-center gap-0.5 py-3 text-xl/5 font-bold"
             onClick={() => {
+              if (!remainingNum) openExternalLink('https://dragonverseneo.mobox.app/');
               sendEvent('gp_gov_hall', '跳转到snapshot', { source: 1 });
               openExternalLink('https://snapshot.org/#/dragonverseneo.eth/create');
             }}
           >
-            + New Proposal
+            Start a Proposal
           </StyledButton>
 
           <div className="flex h-[4.8vw] items-center gap-[0.16vw] xl:h-15 xl:gap-2">
             <div className="text-[1.12vw]/[1.6vw] font-medium xl:text-sm">remaining:</div>
             <div className="flex h-full items-center border-none bg-white/[0.12] px-0 text-center text-[1.6vw]/[1.6vw] font-semibold xl:text-xl/5">
               <span className="flex-center h-full w-[4.8vw] xl:w-[60px]">{remainingNum ?? 0}</span>
-              <div className="bg-gray -mr-px h-[3.2vw] w-px xl:h-10" />
+              <div className="-mr-px h-[3.2vw] w-px bg-gray xl:h-10" />
               <span
                 className="flex-center h-full w-[4.8vw] cursor-pointer hover:bg-white/[0.16] xl:w-[60px]"
                 onClick={() => openExternalLink('https://dragonverseneo.mobox.app/')}
@@ -93,7 +95,7 @@ export default function DragonVerseGovernance({ className }: { className?: strin
             </div>
           </div>
           <Segmented
-            className="h-9.5 whitespace-nowrap text-sm/4 font-semibold"
+            className="ml-auto h-9.5 whitespace-nowrap text-sm/4 font-semibold"
             defaultValue={type}
             onChange={(value) => {
               sendEvent('gp_gov_tab', '切换proposal分类', { tab_name: tabIndexMap[value as DragonProposalSortField] });

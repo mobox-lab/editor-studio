@@ -2,16 +2,23 @@ import { DragonNeoMenu } from '@/components/ui/menu/DragonNeoMenu';
 import { DragonNeoMenuItem } from '@/constants/enum';
 import { useChangeDragonNeoMenu } from '@/hooks/dragon/useChangeDragonNeoMenu';
 import { clsxm } from '@/utils';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import DragonBorder from './DragonBorder';
 import DragonGameRank from './DragonGameRank';
 import DragonVerseGovernance from './DragonVerseGovernance';
+import { useIsMounted } from '@/hooks/util/useIsMounted';
 
 export default function DragonVerseNeo({ className }: { className?: string }) {
   const { activeMenuItem } = useChangeDragonNeoMenu();
   const gameRankRef = useRef<HTMLDivElement>(null);
   const governanceRef = useRef<HTMLDivElement>(null);
+  const [firstMounted, setFirstMounted] = useState(false);
   useEffect(() => {
+    // not scroll on first load
+    if (!firstMounted) {
+      setFirstMounted(true);
+      return;
+    }
     if (activeMenuItem === DragonNeoMenuItem.Governance) {
       governanceRef?.current?.scrollIntoView({
         behavior: 'smooth',
@@ -21,6 +28,7 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
         behavior: 'smooth',
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeMenuItem, gameRankRef, governanceRef]);
 
   return (

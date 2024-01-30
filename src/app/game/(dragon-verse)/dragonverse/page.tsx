@@ -48,13 +48,13 @@ export default function Dragonverse() {
         {data?.name}
       </div>
       <div className="mt-3">
-        <DragonGamePanel data={data} isLoading={isLoading} handleRunningGame={() => handleRunningGame({ gameId })} />
+        <DragonGamePanel stop data={data} isLoading={isLoading} handleRunningGame={() => handleRunningGame({ gameId })} />
       </div>
       <div className="mt-7.5">
         <h3 className="text-base font-medium">Rooms</h3>
         <div className="mt-3 flex w-full gap-3 overflow-auto">
           {rooms?.dataList ? (
-            rooms.dataList.map((room) => <DragonRoomItem key={room.id} data={room} refetchRoomList={refetch} />)
+            rooms.dataList.map((room) => <DragonRoomItem stop key={room.id} data={room} refetchRoomList={refetch} />)
           ) : (
             <div className="flex-center w-full border border-gray-400 bg-gray-550/10 py-12 text-sm text-gray-300">NO ROOM</div>
           )}

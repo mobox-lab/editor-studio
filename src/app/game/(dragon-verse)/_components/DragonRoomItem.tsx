@@ -63,8 +63,8 @@ export default function DragonRoomItem({ data, refetchRoomList }: { data: GparkG
       </div>
       {data.status ? (
         <div
-          onClick={handleJoinRoom}
-          className="mt-2 cursor-pointer rounded-sm bg-blue/20 py-2.5 text-center text-base/5 font-semibold text-blue hover:bg-blue/30"
+          // onClick={handleJoinRoom}
+          className="mt-2 cursor-not-allowed rounded-sm bg-[#232328] py-2.5 text-center text-base/5 font-semibold text-gray-450"
         >
           {isLoading ? <LoadingSvg className="mx-auto animate-spin fill-blue" /> : 'JOIN'}
         </div>

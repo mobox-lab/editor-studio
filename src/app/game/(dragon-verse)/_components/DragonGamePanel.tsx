@@ -80,12 +80,14 @@ export default function DragonGamePanel({ data, isLoading, handleRunningGame }: 
         </div>
         <div className="mb-3 mt-17 flex gap-3 px-6">
           <StyledButton
-            variant="gradient-red"
+            disabled
+            variant="default"
+            // variant="gradient-red"
             loading={isLoading}
             onClick={handleRunningGame}
-            className="h-12 w-[322px] flex-1 text-lg/5 font-bold"
+            className="h-12 w-[322px] flex-1 bg-[#232328] text-lg/5 font-bold text-gray-450 hover:bg-[#232328]"
           >
-            Play Now
+            Coming Soon
           </StyledButton>
           <StyledButton className="h-12 px-6" onClick={() => openExternalLink('https://dragonverseneo.mobox.app/')}>
             <KeySvg className="mr-1.5" />

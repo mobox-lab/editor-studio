@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
-import { sendEvent } from '@/utils';
+import { clsxm, sendEvent } from '@/utils';
 import { toast } from 'react-toastify';
 import { GparkGameRoomItem } from '@/api';
 import { RoomStatus } from '@/constants/enum';
@@ -9,7 +9,15 @@ import LoadingSvg from '../../../../../public/svg/loading.svg?component';
 import { useGparkGameRoomStatus } from '@/hooks/gpark/useGparkGameRoomList';
 import { useSearchParams } from 'next/navigation';
 
-export default function DragonRoomItem({ data, refetchRoomList }: { data: GparkGameRoomItem; refetchRoomList?: () => void }) {
+export default function DragonRoomItem({
+  data,
+  refetchRoomList,
+  stop,
+}: {
+  data: GparkGameRoomItem;
+  refetchRoomList?: () => void;
+  stop?: boolean;
+}) {
   const searchParams = useSearchParams();
   const version = searchParams.get('version');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -63,8 +71,16 @@ export default function DragonRoomItem({ data, refetchRoomList }: { data: GparkG
       </div>
       {data.status ? (
         <div
-          // onClick={handleJoinRoom}
-          className="mt-2 cursor-not-allowed rounded-sm bg-[#232328] py-2.5 text-center text-base/5 font-semibold text-gray-450"
+          onClick={() => {
+            if (stop) return;
+            handleJoinRoom?.();
+          }}
+          className={clsxm(
+            'mt-2 cursor-pointer rounded-sm bg-blue/20 py-2.5 text-center text-base/5 font-semibold text-blue hover:bg-blue/30',
+            {
+              'cursor-not-allowed bg-[#232328] text-gray-450 hover:bg-[#232328]': stop,
+            },
+          )}
         >
           {isLoading ? <LoadingSvg className="mx-auto animate-spin fill-blue" /> : 'JOIN'}
         </div>

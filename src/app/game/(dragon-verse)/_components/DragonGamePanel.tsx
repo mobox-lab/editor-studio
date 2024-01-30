@@ -5,7 +5,7 @@ import { useSetAtom } from 'jotai';
 import Tag from '@/components/ui/tag';
 import { GparkGameDetail } from '@/api';
 import DragonBorder from './DragonBorder';
-import { openExternalLink } from '@/utils';
+import { clsxm, openExternalLink } from '@/utils';
 import KeySvg from '../../../../../public/svg/key.svg?component';
 import StyledButton from '@/components/ui/button/StyledButton';
 import { dragonverseBetaDialogOpen } from '@/atoms/gpark/dragonverse';
@@ -14,9 +14,10 @@ type DragonGamePanelProps = {
   data?: GparkGameDetail;
   isLoading?: boolean;
   handleRunningGame?: () => void;
+  stop?: boolean;
 };
 
-export default function DragonGamePanel({ data, isLoading, handleRunningGame }: DragonGamePanelProps) {
+export default function DragonGamePanel({ data, isLoading, handleRunningGame, stop }: DragonGamePanelProps) {
   const setDialogOpen = useSetAtom(dragonverseBetaDialogOpen);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [clickCount, setClickCouent] = useState(0);
@@ -80,14 +81,18 @@ export default function DragonGamePanel({ data, isLoading, handleRunningGame }: 
         </div>
         <div className="mb-3 mt-17 flex gap-3 px-6">
           <StyledButton
-            disabled
-            variant="default"
-            // variant="gradient-red"
+            disabled={stop}
+            variant="gradient-red"
             loading={isLoading}
-            onClick={handleRunningGame}
-            className="h-12 w-[322px] flex-1 bg-[#232328] text-lg/5 font-bold text-gray-450 hover:bg-[#232328]"
+            onClick={() => {
+              if (stop) return;
+              handleRunningGame?.();
+            }}
+            className={clsxm('h-12 w-[322px] flex-1 text-lg/5 font-bold', {
+              'border-none bg-[#232328] text-gray-450 hover:bg-[#232328]': stop,
+            })}
           >
-            Coming Soon
+            {stop ? 'Coming Soon' : 'Play Now'}
           </StyledButton>
           <StyledButton className="h-12 px-6" onClick={() => openExternalLink('https://dragonverseneo.mobox.app/')}>
             <KeySvg className="mr-1.5" />

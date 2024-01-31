@@ -107,5 +107,3 @@ export const fetchDragonGameRank = ({ page = 1, size = 25 }: FetchDragonProposal
     baseURL: MODRAGON_API_PREFIX,
     params: { page, size },
   });
-
-export const getMoboxAccessToken = () => request.post<any, Response<{ token: string }>>('/pge-sso/generate-mtoken');

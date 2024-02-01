@@ -36,20 +36,20 @@ export default function DragonBetaBackpack() {
               <p className="text-xs font-medium">Box Wallet</p>
               <p className="text-xs font-medium text-yellow">{toSignificant(boxWallet?.balance ?? 0)}</p>
             </div>
-            <div className="flex flex-col justify-between">
-              <div className="flex-center">
-                <img src="/svg/dragon/arrow.svg" alt="arrow" />
-                <StyledButton onClick={() => onBoxWalletClick('deposit')} className="w-22.5 py-2 text-sm">
-                  Deposit
-                </StyledButton>
-              </div>
-              <div className="flex-center">
-                <StyledButton onClick={() => onBoxWalletClick('withdraw')} className="w-22.5 py-2 text-sm">
-                  Withdraw
-                </StyledButton>
-                <img className="rotate-180" src="/svg/dragon/arrow.svg" alt="arrow" />
-              </div>
-            </div>
+            {/*<div className="flex flex-col justify-between">*/}
+            {/*  <div className="flex-center">*/}
+            {/*    <img src="/svg/dragon/arrow.svg" alt="arrow" />*/}
+            {/*    <StyledButton onClick={() => onBoxWalletClick('deposit')} className="w-22.5 py-2 text-sm">*/}
+            {/*      Deposit*/}
+            {/*    </StyledButton>*/}
+            {/*  </div>*/}
+            {/*  <div className="flex-center">*/}
+            {/*    <StyledButton onClick={() => onBoxWalletClick('withdraw')} className="w-22.5 py-2 text-sm">*/}
+            {/*      Withdraw*/}
+            {/*    </StyledButton>*/}
+            {/*    <img className="rotate-180" src="/svg/dragon/arrow.svg" alt="arrow" />*/}
+            {/*  </div>*/}
+            {/*</div>*/}
             <div className="box-content flex w-20 flex-col items-center gap-1 border border-gray-400/50 py-2">
               <img src="/img/gpark/mobox_token.png" className="h-7.5 w-7.5" alt="box_token" />
               <p className="text-xs font-medium">BSC</p>

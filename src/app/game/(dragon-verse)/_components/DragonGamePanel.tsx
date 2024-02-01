@@ -9,6 +9,8 @@ import { clsxm, openExternalLink } from '@/utils';
 import KeySvg from '../../../../../public/svg/key.svg?component';
 import StyledButton from '@/components/ui/button/StyledButton';
 import { dragonverseBetaDialogOpen } from '@/atoms/gpark/dragonverse';
+import { useP12Address } from '@/hooks/editor/useP12Account';
+import { dragonBetaWhiteList } from '@/constants/mobox/white-list';
 
 type DragonGamePanelProps = {
   data?: GparkGameDetail;
@@ -22,6 +24,8 @@ export default function DragonGamePanel({ data, isLoading, handleRunningGame, st
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [clickCount, setClickCouent] = useState(0);
   const imageList = useMemo(() => data?.images.map((item) => item.url) ?? [], [data?.images]);
+  const { address } = useP12Address();
+  const isWhiteListAddress = useMemo(() => dragonBetaWhiteList.includes(address ?? ''), [address]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -32,10 +36,10 @@ export default function DragonGamePanel({ data, isLoading, handleRunningGame, st
   }, [imageList.length]);
 
   useEffect(() => {
-    if (clickCount === 8) {
+    if (clickCount === 8 && isWhiteListAddress) {
       setDialogOpen(true);
     }
-  }, [clickCount, setDialogOpen]);
+  }, [clickCount, isWhiteListAddress, setDialogOpen]);
 
   return (
     <div className="grid grid-cols-2 border border-gray-400 bg-gray-550/10">

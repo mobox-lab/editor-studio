@@ -94,11 +94,11 @@ export type GparkGameDetail = {
 };
 
 export type GparkGameRoomListParams = {
-  gameId: string;
+  gameId?: string;
   maxId: string;
   pageSize: number;
   sortType: number;
-  version: string;
+  version?: string;
 };
 
 export type GparkGameRoomMember = {

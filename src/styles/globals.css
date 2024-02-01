@@ -58,6 +58,6 @@ body {
   .border-dragon {
     border: 26px solid;
     border-image: url('/img/gpark/dragon-border.svg');
-    border-image-slice: 26;
+    border-image-slice: 30;
   }
 }

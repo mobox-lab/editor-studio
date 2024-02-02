@@ -18,7 +18,7 @@ export default function DragonSelection() {
 
   return (
     <div className="flex-1">
-      <h3 className="text-base font-medium">Selection</h3>
+      <h3 className="text-base font-medium">Featured</h3>
       <div className="mt-3 h-93 flex-none cursor-pointer border border-gray-500 hover:border-gray-350" onClick={onClick}>
         <div className="relative h-80 w-full">
           <video

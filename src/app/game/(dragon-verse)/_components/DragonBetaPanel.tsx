@@ -1,16 +1,16 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { clsx } from 'clsx';
 import Tag from '@/components/ui/tag';
-import { openExternalLink } from '@/utils';
+import { toast } from 'react-toastify';
 import { useSearchParams } from 'next/navigation';
 import useRunningGame from '@/hooks/gpark/useRunningGame';
 import StyledButton from '@/components/ui/button/StyledButton';
 import { GparkGameDetail, GparkStartupExtension } from '@/api';
-import KeySvg from '../../../../../public/svg/key.svg?component';
+import RefreshSVG from '@/../public/svg/refresh.svg?component';
 import DragonBorder from '@/app/game/(dragon-verse)/_components/DragonBorder';
-import DragonBetaRooms from '@/app/game/(dragon-verse)/_components/DragonBetaRooms';
 import DragonBetaDragons from '@/app/game/(dragon-verse)/_components/DragonBetaDragons';
 import DragonBetaBackpack from '@/app/game/(dragon-verse)/_components/DragonBetaBackpack';
+import DragonBetaRooms, { DragonBetaRoomsRefs } from '@/app/game/(dragon-verse)/_components/DragonBetaRooms';
 
 type DragonBetaPanelProps = {
   data?: GparkGameDetail;
@@ -23,6 +23,13 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
   const version = searchParams.get('version');
   const startup = useMemo<GparkStartupExtension>(() => (data ? JSON.parse(data.startupExtension) : {}), [data]);
   const { handleRunningGame, isLoading } = useRunningGame();
+  const roomsRef = useRef<DragonBetaRoomsRefs | null>(null);
+
+  const onRefreshClick = () => {
+    if (!roomsRef.current) return;
+    roomsRef.current?.refresh();
+    toast.success('Room refresh successful');
+  };
 
   useEffect(() => {
     const timer = setInterval(() => setSelectedIndex((prevIndex) => (prevIndex + 1) % imageList.length), 5000);
@@ -57,7 +64,7 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
                 />
               ) : null}
             </div>
-            <div className="h-18.5 flex gap-2.5 pl-4 pt-2.5">
+            <div className="flex h-18.5 gap-2.5 pl-4 pt-2.5">
               {imageList.map((item, index) => (
                 <div
                   key={index}
@@ -70,7 +77,7 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
             </div>
           </div>
           <div className="mt-4 pl-4">
-            <DragonBetaRooms gameId={data?.id} version={version ?? startup.version} />
+            <DragonBetaRooms ref={roomsRef} gameId={data?.id} version={version ?? startup.version} />
           </div>
           <div className="my-5 flex gap-3 pl-4">
             <StyledButton
@@ -81,9 +88,9 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
             >
               Play Now
             </StyledButton>
-            <StyledButton className="h-12 px-6" onClick={() => openExternalLink('https://dragonverseneo.mobox.app/')}>
-              <KeySvg className="mr-1.5" />
-              Get DragonKey
+            <StyledButton className="h-12 px-6" onClick={onRefreshClick}>
+              <RefreshSVG className="mr-1.5" />
+              Refresh Room
             </StyledButton>
           </div>
         </div>

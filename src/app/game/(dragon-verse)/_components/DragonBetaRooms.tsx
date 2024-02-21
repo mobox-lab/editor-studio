@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, forwardRef, Ref, useImperativeHandle } from 'react';
+import LeftSvg from '@/../public/svg/left.svg?component';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
-import LeftSvg from '../../../../../public/svg/left.svg?component';
 import { useGparkGameRoomList } from '@/hooks/gpark/useGparkGameRoomList';
 import DragonRoomItem from '@/app/game/(dragon-verse)/_components/DragonRoomItem';
 
@@ -9,10 +9,19 @@ type DragonBetaRoomsProps = {
   gameId?: string;
 };
 
-export default function DragonBetaRooms({ gameId, version }: DragonBetaRoomsProps) {
+export type DragonBetaRoomsRefs = {
+  refresh: () => void;
+};
+
+const DragonBetaRooms = forwardRef(function DragonBetaRooms(
+  { gameId, version }: DragonBetaRoomsProps,
+  ref: Ref<DragonBetaRoomsRefs>,
+) {
   const [swiper, setSwiper] = useState<SwiperClass | null>(null);
   const { data: rooms, refetch } = useGparkGameRoomList({ maxId: '0', pageSize: 20, sortType: 0, gameId, version });
   const roomList = useMemo(() => rooms?.dataList ?? [], [rooms?.dataList]);
+
+  useImperativeHandle(ref, () => ({ refresh: () => refetch() }), [refetch]);
 
   return (
     <div className="relative">
@@ -21,7 +30,7 @@ export default function DragonBetaRooms({ gameId, version }: DragonBetaRoomsProp
           {roomList.length > 3 && (
             <div
               onClick={() => swiper?.slidePrev()}
-              className="flex-center h-18.5 group absolute -left-3 top-1/2 w-3 -translate-y-1/2 cursor-pointer border border-r-0 border-gray-400/50 bg-white/10 hover:bg-white/15"
+              className="flex-center group absolute -left-3 top-1/2 h-18.5 w-3 -translate-y-1/2 cursor-pointer border border-r-0 border-gray-400/50 bg-white/10 hover:bg-white/15"
             >
               <LeftSvg className="fill-gray-400 group-hover:fill-white" />
             </div>
@@ -36,7 +45,7 @@ export default function DragonBetaRooms({ gameId, version }: DragonBetaRoomsProp
           {roomList.length > 3 && (
             <div
               onClick={() => swiper?.slideNext()}
-              className="flex-center h-18.5 group absolute -right-3 top-1/2 w-3 -translate-y-1/2 cursor-pointer border border-l-0 border-gray-400/50 bg-white/10 hover:bg-white/15"
+              className="flex-center group absolute -right-3 top-1/2 h-18.5 w-3 -translate-y-1/2 cursor-pointer border border-l-0 border-gray-400/50 bg-white/10 hover:bg-white/15"
             >
               <LeftSvg className="rotate-180 fill-gray-400 group-hover:fill-white" />
             </div>
@@ -47,4 +56,6 @@ export default function DragonBetaRooms({ gameId, version }: DragonBetaRoomsProp
       )}
     </div>
   );
-}
+});
+
+export default DragonBetaRooms;

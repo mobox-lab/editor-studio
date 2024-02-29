@@ -28,6 +28,7 @@ export function getMwRuntimeArgs({ part1, part2, token, gameId, roomId, enableMg
     gender: part2.gender,
     Authorization: token,
     MgsGameId: gameId,
+    isHorizontal: part1.IsHorizontal,
     enableMgs,
   };
 }

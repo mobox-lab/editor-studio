@@ -2,6 +2,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 const nextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: '**.p12.games' },
       { protocol: 'https', hostname: '**.gpark.io' },

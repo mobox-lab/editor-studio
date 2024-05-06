@@ -107,3 +107,5 @@ export const fetchDragonGameRank = ({ page = 1, size = 25 }: FetchDragonProposal
     baseURL: MODRAGON_API_PREFIX,
     params: { page, size },
   });
+
+export const fetchDvBetaWhiteList = () => request.get<any, Response<string[]>>('/pge/dragon-verse/beta-white-list');

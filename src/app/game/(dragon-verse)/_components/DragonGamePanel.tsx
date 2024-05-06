@@ -10,7 +10,7 @@ import KeySvg from '../../../../../public/svg/key.svg?component';
 import StyledButton from '@/components/ui/button/StyledButton';
 import { dragonverseBetaDialogOpen } from '@/atoms/gpark/dragonverse';
 import { useP12Address } from '@/hooks/editor/useP12Account';
-import { dragonBetaWhiteList } from '@/constants/mobox/white-list';
+import { useFetchDvBetaWhitelist } from '@/hooks/dragon/useFetchDvBetaWhitelist';
 
 type DragonGamePanelProps = {
   data?: GparkGameDetail;
@@ -25,7 +25,8 @@ export default function DragonGamePanel({ data, isLoading, handleRunningGame, st
   const [clickCount, setClickCouent] = useState(0);
   const imageList = useMemo(() => data?.images.map((item) => item.url) ?? [], [data?.images]);
   const { address } = useP12Address();
-  const isWhiteListAddress = useMemo(() => dragonBetaWhiteList.includes(address ?? ''), [address]);
+  const { data: dragonBetaWhiteList } = useFetchDvBetaWhitelist();
+  const isWhiteListAddress = useMemo(() => dragonBetaWhiteList?.includes(address ?? ''), [address, dragonBetaWhiteList]);
 
   useEffect(() => {
     const timer = setInterval(() => {

@@ -3,3 +3,6 @@
 @import './components/scrollbar.css';
 @import './components/news.css';
 @import 'swiper/css';
+
+@import './components/slick.css';
+@import './components/slick-theme.css';

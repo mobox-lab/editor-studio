@@ -93,7 +93,7 @@ export default function Gpark() {
   return (
     <div className="h-full">
       <Background />
-      <div className="relative mt-[310px] flex items-center justify-between">
+      <div className="relative mt-[182px] flex items-center justify-between">
         <div className="h-[262px] w-[464px]">
           <Slider {...settings}>
             {GAME_ACTIVE_BANNERS.map((banner, index) => (

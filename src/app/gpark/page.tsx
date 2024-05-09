@@ -91,7 +91,7 @@ export default function Gpark() {
   };
 
   return (
-    <div className="h-full">
+    <div>
       <Background />
       <div className="relative mt-[182px] flex items-center justify-between">
         <div className="h-[262px] w-[464px]">

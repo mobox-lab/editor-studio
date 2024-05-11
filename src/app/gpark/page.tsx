@@ -27,8 +27,8 @@ import Slider from 'react-slick';
 
 const settings = {
   className: 'slider variable-width',
-  variableWidth: true,
-  dots: false,
+  variableWidth: false,
+  dots: true,
   infinite: true,
   slidesToShow: 1,
   slidesToScroll: 1,
@@ -92,86 +92,92 @@ export default function Gpark() {
 
   return (
     <div>
-      <Background />
-      <div className="relative mt-[182px] flex items-center justify-between">
-        <div className="h-[262px] w-[464px]">
-          <Slider {...settings}>
-            {GAME_ACTIVE_BANNERS.map((banner, index) => (
-              <img
-                key={banner.title}
-                src={banner.img}
-                alt={banner.title}
-                className="h-[262px] w-[468px] cursor-pointer"
-                onClick={() => openExternalLink(banner.url)}
-              />
-            ))}
-          </Slider>
-        </div>
-        <div className="flex flex-col items-end">
-          <ArcanaDress />
-          <div className="gradient-red mt-8 flex h-[113px] w-[300px] flex-col items-center ">
-            {runningLoading || joinIsLoading ? (
-              <div className="flex-center text-2xl/14 mt-2 h-14 font-semibold">Loading...</div>
-            ) : (
-              <img
-                src="/img/gpark/play-now.webp"
-                alt="play now"
-                className="mt-2 w-[148px]"
-                onClick={() => {
-                  if (room) {
-                    handleJoinRoom;
-                  } else {
-                    handleRunningGame?.({ gameId });
-                  }
-                }}
-              />
-            )}
-
-            <div className="w-full px-3">
-              <div className="h-[1px] w-full bg-[#E44B29]"></div>
+      {isP12User ? (
+        <div>
+          <Background />
+          <div className="relative mt-[182px] flex items-center justify-between">
+            <div className="h-[262px] w-[464px] overflow-visible">
+              <Slider {...settings}>
+                {GAME_ACTIVE_BANNERS.map((banner, index) => (
+                  <img
+                    key={banner.title}
+                    src={banner.img}
+                    alt={banner.title}
+                    className="h-[262px] w-[468px] cursor-pointer"
+                    onClick={() => openExternalLink(banner.url)}
+                  />
+                ))}
+              </Slider>
             </div>
-            <Popover
-              placement="top"
-              render={() => (
-                <div className="max-h-[140px] w-[300px] overflow-scroll p-2">
-                  {rooms?.dataList ? (
-                    rooms.dataList.map((room) => {
-                      return (
-                        <div
-                          key={room.id}
-                          className={clsx('h-9 w-full px-2.5 text-sm/9 hover:bg-white/[0.12]', {
-                            'cursor-not-allowed': room.number === room.limitNumber,
-                          })}
-                          onClick={() => {
-                            if (room.number === room.limitNumber) {
-                              return;
-                            }
-                            setRoom(room);
-                          }}
-                        >
-                          Room {room.roomId} ({room.number === room.limitNumber ? 'Full' : `${room.number}/${room.limitNumber}`}
-                          )
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <div className="w-full text-center text-sm text-gray-300">NO ROOM</div>
-                  )}
+            <div className="flex flex-col items-end">
+              <ArcanaDress />
+              <div className="gradient-red mt-8 flex h-[113px] w-[300px] flex-col items-center ">
+                {runningLoading || joinIsLoading ? (
+                  <div className="flex-center text-2xl/14 mt-2 h-14 font-semibold">Loading...</div>
+                ) : (
+                  <img
+                    src="/img/gpark/play-now.webp"
+                    alt="play now"
+                    className="mt-2 w-[148px]"
+                    onClick={() => {
+                      if (room) {
+                        handleJoinRoom;
+                      } else {
+                        handleRunningGame?.({ gameId });
+                      }
+                    }}
+                  />
+                )}
+
+                <div className="w-full px-3">
+                  <div className="h-[1px] w-full bg-[#E44B29]"></div>
                 </div>
-              )}
-            >
-              <div className="flex-center relative h-12 w-full text-sm/5 hover:bg-white/[0.12]">
-                {room ? `Room ${room.roomId}` : 'Select to Join Room'}
+                <Popover
+                  placement="top"
+                  render={() => (
+                    <div className="max-h-[140px] w-[300px] overflow-scroll p-2">
+                      {rooms?.dataList ? (
+                        rooms.dataList.map((room) => {
+                          return (
+                            <div
+                              key={room.id}
+                              className={clsx('h-9 w-full px-2.5 text-sm/9 hover:bg-white/[0.12]', {
+                                'cursor-not-allowed': room.number === room.limitNumber,
+                              })}
+                              onClick={() => {
+                                if (room.number === room.limitNumber) {
+                                  return;
+                                }
+                                setRoom(room);
+                              }}
+                            >
+                              Room {room.roomId} (
+                              {room.number === room.limitNumber ? 'Full' : `${room.number}/${room.limitNumber}`})
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <div className="w-full text-center text-sm text-gray-300">NO ROOM</div>
+                      )}
+                    </div>
+                  )}
+                >
+                  <div className="flex-center relative h-12 w-full text-sm/5 hover:bg-white/[0.12]">
+                    {room ? `Room ${room.roomId}` : 'Select to Join Room'}
+                  </div>
+                </Popover>
               </div>
-            </Popover>
+            </div>
           </div>
         </div>
-      </div>
-      {/* <div className="flex gap-5">
-        {address && <GamerLevel />}
-        {address ? <DragonSelection /> : <Selection />}
-        <ArcanaDress />
-      </div> */}
+      ) : (
+        <div className="flex gap-5">
+          {address && <GamerLevel />}
+          {address ? <DragonSelection /> : <Selection />}
+          <ArcanaDress />
+        </div>
+      )}
+
       {/*   <div className="mt-9">
           <ArcanaGames />
         </div> 

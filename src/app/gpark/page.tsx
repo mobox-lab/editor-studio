@@ -1,6 +1,5 @@
 'use client';
 
-import ArcanaGames from '@/app/gpark/_components/ArcanaGames';
 import GamerLevel from '@/app/gpark/_components/GamerLevel';
 import Recommended from '@/app/gpark/_components/Recommended';
 import { useIsP12User, useP12Address } from '@/hooks/editor/useP12Account';
@@ -15,7 +14,7 @@ import { launcherConfig } from '@/constants/launcher-config';
 import { useGparkGameDetail } from '@/hooks/gpark/useGparkGameDetail';
 import { useGparkGameRoomList, useGparkGameRoomStatus } from '@/hooks/gpark/useGparkGameRoomList';
 import { GparkGameRoomItem, GparkStartupExtension } from '@/api';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { openExternalLink, sendEvent } from '@/utils';
 import { RoomStatus } from '@/constants/enum';
 import { useSearchParams } from 'next/navigation';
@@ -24,6 +23,7 @@ import Popover from '@/components/ui/popover';
 import clsx from 'clsx';
 import { GAME_ACTIVE_BANNERS } from '@/constants';
 import Slider from 'react-slick';
+import DragonVerseBetaDialog from '@/app/game/(dragon-verse)/_components/DragonVerseBetaDialog';
 
 const settings = {
   className: 'slider variable-width',
@@ -177,11 +177,6 @@ export default function Gpark() {
           <ArcanaDress />
         </div>
       )}
-
-      {/*   <div className="mt-9">
-          <ArcanaGames />
-        </div> 
-        */}
       {isMounted ? (
         isP12User ? null : (
           <div className="mt-7.5 flex gap-5">
@@ -189,6 +184,7 @@ export default function Gpark() {
           </div>
         )
       ) : null}
+      <DragonVerseBetaDialog />
     </div>
   );
 }

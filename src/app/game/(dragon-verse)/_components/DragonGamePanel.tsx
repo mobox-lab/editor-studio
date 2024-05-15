@@ -22,7 +22,7 @@ type DragonGamePanelProps = {
 export default function DragonGamePanel({ data, isLoading, handleRunningGame, stop }: DragonGamePanelProps) {
   const setDialogOpen = useSetAtom(dragonverseBetaDialogOpen);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [clickCount, setClickCouent] = useState(0);
+  const [clickCount, setClickCount] = useState(0);
   const imageList = useMemo(() => data?.images.map((item) => item.url) ?? [], [data?.images]);
   const { address } = useP12Address();
   const { data: dragonBetaWhiteList } = useFetchDvBetaWhitelist();
@@ -71,7 +71,7 @@ export default function DragonGamePanel({ data, isLoading, handleRunningGame, st
         <DragonBorder className="inset-2 -z-10" />
         <div className="relative px-6 pt-6">
           <img
-            onClick={() => setClickCouent((c) => c + 1)}
+            onClick={() => setClickCount((c) => c + 1)}
             draggable={false}
             src="/img/gpark/dragon-title.webp"
             alt="DragonVerse"

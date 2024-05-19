@@ -7,6 +7,7 @@ import { RoomStatus } from '@/constants/enum';
 import useRunningGame from '@/hooks/gpark/useRunningGame';
 import LoadingSvg from '@/../public/svg/loading.svg?component';
 import { useGparkGameRoomStatus } from '@/hooks/gpark/useGparkGameRoomList';
+import DefaultUserSvg from '@/../public/svg/default_user.svg?component';
 
 export default function RoomItem({ data, refetchRoomList }: { data: GparkGameRoomItem; refetchRoomList?: () => void }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -54,7 +55,11 @@ export default function RoomItem({ data, refetchRoomList }: { data: GparkGameRoo
       </div>
       <div className="mt-2 flex items-center gap-1.5">
         <div className="relative h-7 w-7 overflow-hidden rounded-full">
-          <Image fill style={{ objectFit: 'cover' }} src={member.avatar} alt="avatar" />
+          {member.avatar ? (
+            <Image fill style={{ objectFit: 'cover' }} src={member.avatar} alt="avatar" />
+          ) : (
+            <DefaultUserSvg className="h-full w-full" />
+          )}
         </div>
         <div className="flex text-sm font-semibold">Room {data.roomId}</div>
       </div>

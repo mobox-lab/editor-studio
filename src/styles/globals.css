@@ -54,6 +54,14 @@ body {
   transform: rotate(180deg);
 }
 
+.gradient-red {
+  background: linear-gradient(180deg, #ff6839 -10.71%, #9e0000 57.47%, #3e0007 110.71%);
+  cursor: pointer;
+  box-shadow:
+    2px 2px 3px 0px rgba(255, 255, 255, 0.6) inset,
+    0px -1px 8px 0px #ff3d00 inset;
+}
+
 @layer components {
   .border-dragon {
     border: 26px solid;

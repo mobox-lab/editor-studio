@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Address } from 'viem';
 import { jwtDecode } from 'jwt-decode';
 import { Platform } from '@/constants/enum';
-import { STORAGE_KEY } from "@/constants/storage";
+import { STORAGE_KEY } from '@/constants/storage';
 
 type P12JwtPayload = {
   address: Address;

@@ -37,11 +37,11 @@ export default function ArcanaDress() {
   }, [handleMessage]);
 
   return (
-    <div className="mt-9 flex flex-col justify-between">
-      <div className="relative select-none border border-b-0 border-gray-400/50 bg-gray-500/10">
+    <div className="flex w-[198px] flex-col justify-between">
+      <div className="relative select-none border border-b-0 border-gray-400/50 bg-[#16191D]">
         <RefreshSvg onClick={handleRefresh} className="absolute right-3 top-3 z-10 h-5 w-5 cursor-pointer fill-gray-300" />
         {data?.wholeBodyImage ? (
-          <Card3d className="h-[320px] w-[196px]">
+          <Card3d className="h-[320px] w-[196px] ">
             <img src={data.wholeBodyImage} alt="role.png" draggable={false} className="h-full w-full object-contain" />
           </Card3d>
         ) : (
@@ -59,10 +59,10 @@ export default function ArcanaDress() {
       <StyledButton
         loading={isLoading}
         onClick={() => handleRunningGame({ gameId: launcherConfig.avatarGameId })}
-        variant="bordered"
+        variant="gradient-play"
         className="h-13"
       >
-        Dress Up
+        Dress Up!
       </StyledButton>
       <ArcanaDressUpDialog />
     </div>

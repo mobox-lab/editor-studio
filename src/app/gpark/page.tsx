@@ -114,17 +114,22 @@ export default function Gpark() {
               <div className="gradient-red mt-8 flex h-[113px] w-[300px] flex-col items-center ">
                 {runningLoading || joinIsLoading ? (
                   <div className="flex-center text-2xl/14 mt-2 h-14 font-semibold">Loading...</div>
+                ) : room ? (
+                  <img
+                    src="/img/gpark/join-room.webp"
+                    alt="join room"
+                    className="mt-2 w-[173px]"
+                    onClick={() => {
+                      handleJoinRoom();
+                    }}
+                  />
                 ) : (
                   <img
                     src="/img/gpark/play-now.webp"
                     alt="play now"
                     className="mt-2 w-[148px]"
                     onClick={() => {
-                      if (room) {
-                        handleJoinRoom;
-                      } else {
-                        handleRunningGame?.({ gameId });
-                      }
+                      handleRunningGame?.({ gameId });
                     }}
                   />
                 )}

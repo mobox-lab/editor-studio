@@ -111,7 +111,8 @@ export default function Gpark() {
             </div>
             <div className="flex flex-col items-end">
               <ArcanaDress />
-              <div className="gradient-red mt-8 flex h-[113px] w-[300px] flex-col items-center ">
+              {/* gradient-red  */}
+              <div className="mt-8 flex h-[113px] w-[300px] cursor-not-allowed flex-col items-center !bg-[#2E2E2E]">
                 {runningLoading || joinIsLoading ? (
                   <div className="flex-center text-2xl/14 mt-2 h-14 font-semibold">Loading...</div>
                 ) : room ? (
@@ -120,24 +121,25 @@ export default function Gpark() {
                     alt="join room"
                     className="mt-2 w-[173px]"
                     onClick={() => {
-                      handleJoinRoom();
+                      // handleJoinRoom();
                     }}
                   />
                 ) : (
                   <img
                     src="/img/gpark/play-now.webp"
                     alt="play now"
-                    className="mt-2 w-[148px]"
+                    className="mt-2 w-[148px] opacity-20"
                     onClick={() => {
-                      handleRunningGame?.({ gameId });
+                      // handleRunningGame?.({ gameId });
                     }}
                   />
                 )}
 
                 <div className="w-full px-3">
-                  <div className="h-[1px] w-full bg-[#E44B29]"></div>
+                  {/* bg-[#E44B29] */}
+                  <div className="h-[1px] w-full  bg-white/20"></div>
                 </div>
-                <Popover
+                {/* <Popover
                   placement="top"
                   render={() => (
                     <div className="max-h-[140px] w-[300px] overflow-scroll p-2">
@@ -166,11 +168,11 @@ export default function Gpark() {
                       )}
                     </div>
                   )}
-                >
-                  <div className="flex-center relative h-12 w-full text-sm/5 hover:bg-white/[0.12]">
-                    {room ? `Room ${room.roomId}` : 'Select to Join Room'}
-                  </div>
-                </Popover>
+                > */}
+                <div className="flex-center relative h-12 w-full text-sm/5 text-white/20 hover:bg-white/[0.12]">
+                  {room ? `Room ${room.roomId}` : 'Select to Join Room'}
+                </div>
+                {/* </Popover> */}
               </div>
             </div>
           </div>

@@ -27,7 +27,7 @@ const launcherConfigMap: Record<string, LauncherConfig> = {
     roomurl: 'ws://mw-gate-api.gpark.io:20011',
     avatarGameId: '6KEKRY9qMe1Rf85Oa5wq',
     dragonVerseGameId: 'ODA0bxo4W1amzL1PZQTR',
-    TestDragonVerseGameId: 'qHObJs2hyWYhSZUDj6L2',
+    TestDragonVerseGameId: 'X3pfXGv0AW87gwSjKR7A',
   },
 };
 

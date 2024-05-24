@@ -29,9 +29,9 @@ const launcherConfigMap: Record<string, LauncherConfig> = {
     environment: 'gpark-online-oversea',
     roomurl: 'ws://mw-gate-api.gpark.io:20011',
     avatarGameId: '6KEKRY9qMe1Rf85Oa5wq',
-    dragonVerseGameId: 'ODA0bxo4W1amzL1PZQTR',
+    dragonVerseGameId: 'ufci5L8HgBkpQY1UcVjC',
     TestDragonVerseGameId: 'qHObJs2hyWYhSZUDj6L2',
-    TestDragonVerseGameIdRelease: 'X3pfXGv0AW87gwSjKR7A',
+    TestDragonVerseGameIdRelease: 'ufci5L8HgBkpQY1UcVjC',
   },
 };
 

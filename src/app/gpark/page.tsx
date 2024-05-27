@@ -119,18 +119,14 @@ export default function Gpark() {
                     src="/img/gpark/join-room.webp"
                     alt="join room"
                     className="mt-2 w-[173px]"
-                    onClick={() => {
-                      handleJoinRoom();
-                    }}
+                    onClick={() => handleJoinRoom()}
                   />
                 ) : (
                   <img
                     src="/img/gpark/play-now.webp"
                     alt="play now"
                     className="mt-2 w-[148px]"
-                    onClick={() => {
-                      handleRunningGame?.({ gameId });
-                    }}
+                    onClick={() => handleRunningGame?.({ gameId })}
                   />
                 )}
 
@@ -139,8 +135,9 @@ export default function Gpark() {
                 </div>
                 <Popover
                   placement="top"
+                  offset={78}
                   render={() => (
-                    <div className="max-h-[140px] w-[300px] overflow-scroll p-2">
+                    <div className="w-73.5 mr-1 max-h-35 overflow-y-auto py-2 pl-2 pr-1">
                       {rooms?.dataList ? (
                         rooms.dataList.map((room) => {
                           return (

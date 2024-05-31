@@ -19,8 +19,6 @@ import { openExternalLink, sendEvent } from '@/utils';
 import { RoomStatus } from '@/constants/enum';
 import { useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
-import Popover from '@/components/ui/popover';
-import clsx from 'clsx';
 import { GAME_ACTIVE_BANNERS } from '@/constants';
 import Slider from 'react-slick';
 import DragonVerseBetaDialog from '@/app/game/(dragon-verse)/_components/DragonVerseBetaDialog';
@@ -111,63 +109,21 @@ export default function Gpark() {
             </div>
             <div className="flex flex-col items-end">
               <ArcanaDress />
-              <div className="gradient-red mt-8 flex h-[113px] w-[300px] cursor-not-allowed flex-col items-center">
+              <div className="mt-8 flex h-[113px] w-[300px] cursor-not-allowed flex-col items-center !bg-[#2E2E2E]">
                 {runningLoading || joinIsLoading ? (
                   <div className="flex-center text-2xl/14 mt-2 h-14 font-semibold">Loading...</div>
                 ) : room ? (
-                  <img
-                    src="/img/gpark/join-room.webp"
-                    alt="join room"
-                    className="mt-2 w-[173px]"
-                    onClick={() => handleJoinRoom()}
-                  />
+                  <img src="/img/gpark/join-room.webp" alt="join room" className="mt-2 w-[173px]" />
                 ) : (
-                  <img
-                    src="/img/gpark/play-now.webp"
-                    alt="play now"
-                    className="mt-2 w-[148px]"
-                    onClick={() => handleRunningGame?.({ gameId })}
-                  />
+                  <img src="/img/gpark/play-now.webp" alt="play now" className="mt-2 w-[148px] opacity-20" />
                 )}
 
                 <div className="w-full px-3">
-                  <div className="h-[1px] w-full bg-[#E44B29]"></div>
+                  <div className="h-[1px] w-full bg-white/20"></div>
                 </div>
-                <Popover
-                  placement="top"
-                  offset={78}
-                  render={() => (
-                    <div className="w-73.5 mr-1 max-h-35 overflow-y-auto py-2 pl-2 pr-1">
-                      {rooms?.dataList ? (
-                        rooms.dataList.map((room) => {
-                          return (
-                            <div
-                              key={room.id}
-                              className={clsx('h-9 w-full px-2.5 text-sm/9 hover:bg-white/[0.12]', {
-                                'cursor-not-allowed': room.number === room.limitNumber,
-                              })}
-                              onClick={() => {
-                                if (room.number === room.limitNumber) {
-                                  return;
-                                }
-                                setRoom(room);
-                              }}
-                            >
-                              Room {room.roomId} (
-                              {room.number === room.limitNumber ? 'Full' : `${room.number}/${room.limitNumber}`})
-                            </div>
-                          );
-                        })
-                      ) : (
-                        <div className="w-full text-center text-sm text-gray-300">NO ROOM</div>
-                      )}
-                    </div>
-                  )}
-                >
-                  <div className="flex-center relative h-12 w-full text-sm/5 hover:bg-white/[0.12]">
-                    {room ? `Room ${room.roomId}` : 'Select to Join Room'}
-                  </div>
-                </Popover>
+                <div className="flex-center relative h-12 w-full text-sm/5 text-white/20">
+                  {room ? `Room ${room.roomId}` : 'Select to Join Room'}
+                </div>
               </div>
             </div>
           </div>

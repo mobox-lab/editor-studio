@@ -70,13 +70,13 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
             </div>
           </div>
           <div className="mt-4 pl-4">
-            <DragonBetaRooms ref={roomsRef} gameId={data?.id} version={version ?? startup.version} />
+            <DragonBetaRooms ref={roomsRef} gameId={data?.id} version={version || startup.version} />
           </div>
           <div className="my-5 flex gap-3 pl-4">
             <StyledButton
               variant="gradient-red"
               loading={isLoading}
-              onClick={() => data && handleRunningGame({ gameId: data.id, version })}
+              onClick={() => data && handleRunningGame({ gameId: data.id, version: version || startup.version })}
               className="text- lg/5 h-12 w-[322px]  flex-1 font-bold"
             >
               Play Now
@@ -95,7 +95,7 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
           </div>
         </div>
       </div>
-      <DragonverseRoomDialog version={version ?? startup.version} />
+      <DragonverseRoomDialog version={version || startup.version} />
     </div>
   );
 }

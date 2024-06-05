@@ -11,7 +11,7 @@ export function DragonNeoMenu({ className }: { className?: string }) {
   const { activeMenuItem, changeMenu } = useChangeDragonNeoMenu();
 
   return (
-    <div className={clsxm('flex-center sticky top-0 z-50 -mx-44 h-[60px] gap-10 bg-[#1c1e29]/60 backdrop-blur-2xl', className)}>
+    <div className={clsxm('flex-center sticky top-0 z-10 -mx-44 h-[60px] gap-10 bg-[#1c1e29]/60 backdrop-blur-2xl', className)}>
       <div className="relative cursor-pointer" onClick={() => changeMenu(DragonNeoMenuItem.Governance)}>
         <div className="flex items-center gap-2">
           {activeMenuItem === DragonNeoMenuItem.Governance && <ActiveSvg className="w-4.5" />}

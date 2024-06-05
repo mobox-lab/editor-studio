@@ -18,11 +18,12 @@ type DragonBetaPanelProps = { data?: GparkGameDetail };
 export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
   const imageList = useMemo(() => data?.images.map((item) => item.url) ?? [], [data?.images]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const version = useAtomValue(dvGameVersion);
+  const customVersion = useAtomValue(dvGameVersion);
   const startup = useMemo<GparkStartupExtension>(() => (data ? JSON.parse(data.startupExtension) : {}), [data]);
   const { handleRunningGame, isLoading } = useRunningGame();
   const roomsRef = useRef<DragonBetaRoomsRefs | null>(null);
   const setRoomDialog = useSetAtom(dragonverseRoomDialogOpen);
+  const version = useMemo(() => customVersion || startup.version, [customVersion, startup.version]);
 
   useEffect(() => {
     const timer = setInterval(() => setSelectedIndex((prevIndex) => (prevIndex + 1) % imageList.length), 5000);
@@ -40,6 +41,7 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
           <div className="flex items-end gap-1.5 pb-1">
             <Tag>Mobox</Tag>
             <Tag>Vista</Tag>
+            <Tag>Version: {version}</Tag>
           </div>
         </div>
         <img src="/img/gpark/mobox.webp" alt="mobox-icon" className="mb-1 h-4" />
@@ -70,13 +72,13 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
             </div>
           </div>
           <div className="mt-4 pl-4">
-            <DragonBetaRooms ref={roomsRef} gameId={data?.id} version={version || startup.version} />
+            <DragonBetaRooms ref={roomsRef} gameId={data?.id} version={version} />
           </div>
           <div className="my-5 flex gap-3 pl-4">
             <StyledButton
               variant="gradient-red"
               loading={isLoading}
-              onClick={() => data && handleRunningGame({ gameId: data.id, version: version || startup.version })}
+              onClick={() => data && handleRunningGame({ gameId: data.id, version })}
               className="text- lg/5 h-12 w-[322px]  flex-1 font-bold"
             >
               Play Now
@@ -95,7 +97,7 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
           </div>
         </div>
       </div>
-      <DragonverseRoomDialog version={version || startup.version} />
+      <DragonverseRoomDialog version={version} />
     </div>
   );
 }

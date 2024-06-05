@@ -4,18 +4,16 @@ import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
 import Back from '@/../public/svg/back.svg?component';
 import { useIsP12User } from '@/hooks/editor/useP12Account';
-import { launcherConfig } from '@/constants/launcher-config';
-import { dragonverseBetaType } from '@/atoms/gpark/dragonverse';
 import { useGparkGameDetail } from '@/hooks/gpark/useGparkGameDetail';
 import DragonVerseNeo from '@/app/game/(dragon-verse)/_components/DragonVerseNeo';
 import DragonBetaPanel from '@/app/game/(dragon-verse)/_components/DragonBetaPanel';
+import { dvGameConfig } from '@/atoms/gpark/dragonverse';
 
 export default function DragonverseBeta() {
   const router = useRouter();
   const isP12User = useIsP12User();
-  const type = useAtomValue(dragonverseBetaType);
-  const gameId = type === 'release' ? launcherConfig.TestDragonVerseGameIdRelease : launcherConfig.TestDragonVerseGameId;
-  const { data } = useGparkGameDetail(gameId);
+  const game = useAtomValue(dvGameConfig);
+  const { data } = useGparkGameDetail(game.code);
 
   return (
     <div>

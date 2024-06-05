@@ -37,7 +37,7 @@ const DragonBetaRooms = forwardRef(function DragonBetaRooms(
           )}
           <Swiper onSwiper={(swiper) => setSwiper(swiper)} className="relative" slidesPerView={3} spaceBetween={12}>
             {roomList.map((room) => (
-              <SwiperSlide key={room.id}>
+              <SwiperSlide key={room.roomId}>
                 <DragonRoomItem data={room} refetchRoomList={refetch} />
               </SwiperSlide>
             ))}

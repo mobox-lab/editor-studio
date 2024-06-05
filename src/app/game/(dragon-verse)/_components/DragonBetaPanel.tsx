@@ -1,35 +1,28 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { clsx } from 'clsx';
 import Tag from '@/components/ui/tag';
-import { toast } from 'react-toastify';
-import { useSearchParams } from 'next/navigation';
+import { useAtomValue, useSetAtom } from 'jotai';
 import useRunningGame from '@/hooks/gpark/useRunningGame';
 import StyledButton from '@/components/ui/button/StyledButton';
 import { GparkGameDetail, GparkStartupExtension } from '@/api';
 import RefreshSVG from '@/../public/svg/refresh.svg?component';
+import { dragonverseRoomDialogOpen, dvGameVersion } from '@/atoms/gpark/dragonverse';
 import DragonBorder from '@/app/game/(dragon-verse)/_components/DragonBorder';
+import DragonverseRoomDialog from '@/app/gpark/_components/DragonverseRoomDialog';
 import DragonBetaDragons from '@/app/game/(dragon-verse)/_components/DragonBetaDragons';
 import DragonBetaBackpack from '@/app/game/(dragon-verse)/_components/DragonBetaBackpack';
 import DragonBetaRooms, { DragonBetaRoomsRefs } from '@/app/game/(dragon-verse)/_components/DragonBetaRooms';
 
-type DragonBetaPanelProps = {
-  data?: GparkGameDetail;
-};
+type DragonBetaPanelProps = { data?: GparkGameDetail };
 
 export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
   const imageList = useMemo(() => data?.images.map((item) => item.url) ?? [], [data?.images]);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const searchParams = useSearchParams();
-  const version = searchParams.get('version');
+  const version = useAtomValue(dvGameVersion);
   const startup = useMemo<GparkStartupExtension>(() => (data ? JSON.parse(data.startupExtension) : {}), [data]);
   const { handleRunningGame, isLoading } = useRunningGame();
   const roomsRef = useRef<DragonBetaRoomsRefs | null>(null);
-
-  const onRefreshClick = () => {
-    if (!roomsRef.current) return;
-    roomsRef.current?.refresh();
-    toast.success('Room refresh successful');
-  };
+  const setRoomDialog = useSetAtom(dragonverseRoomDialogOpen);
 
   useEffect(() => {
     const timer = setInterval(() => setSelectedIndex((prevIndex) => (prevIndex + 1) % imageList.length), 5000);
@@ -88,7 +81,7 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
             >
               Play Now
             </StyledButton>
-            <StyledButton className="h-12 px-6" onClick={onRefreshClick}>
+            <StyledButton className="h-12 px-6" onClick={() => setRoomDialog(true)}>
               <RefreshSVG className="mr-1.5" />
               Refresh Room
             </StyledButton>
@@ -102,6 +95,7 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
           </div>
         </div>
       </div>
+      <DragonverseRoomDialog version={version ?? startup.version} />
     </div>
   );
 }

@@ -8,7 +8,7 @@ export function useGparkGameRoomStatus() {
 }
 
 export function useGparkGameRoomList(params: GparkGameRoomListParams) {
-  const isEnabled = useMemo(() => !!params.version && !!params.gameId, [params.gameId, params.version]);
+  const isEnabled = useMemo(() => !!params.version && !!(params.gameId || params.sceneId), [params.gameId, params.sceneId, params.version]);
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['gpark_game_room_list', params],
     queryFn: () => fetchGparkGameRoomList(params),

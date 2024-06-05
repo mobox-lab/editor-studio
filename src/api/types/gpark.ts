@@ -95,6 +95,7 @@ export type GparkGameDetail = {
 
 export type GparkGameRoomListParams = {
   gameId?: string;
+  sceneId?: string;
   maxId: string;
   pageSize: number;
   sortType: number;

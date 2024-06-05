@@ -13,7 +13,7 @@ export default function GparkGame({ data, isLoading }: GparkGameProps) {
   const router = useRouter();
 
   const onClick = () => {
-    sendEvent('gp_game_detail', '打开游戏详情页', { game_id: launcherConfig.dragonVerseGameId, source: 2 });
+    sendEvent('gp_game_detail', '打开游戏详情页', { game_id: data?.code, source: 2 });
     data?.code && router.push('/game/' + data?.code);
   };
 

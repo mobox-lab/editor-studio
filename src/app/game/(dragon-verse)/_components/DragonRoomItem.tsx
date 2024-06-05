@@ -9,16 +9,18 @@ import LoadingSvg from '../../../../../public/svg/loading.svg?component';
 import { useGparkGameRoomStatus } from '@/hooks/gpark/useGparkGameRoomList';
 import { useSearchParams } from 'next/navigation';
 import DefaultUserSvg from '@/../public/svg/default_user.svg?component';
-
+import { clsx } from 'clsx';
 
 export default function DragonRoomItem({
   data,
   refetchRoomList,
   stop,
+  className,
 }: {
   data: GparkGameRoomItem;
   refetchRoomList?: () => void;
   stop?: boolean;
+  className?: string;
 }) {
   const searchParams = useSearchParams();
   const version = searchParams.get('version');
@@ -26,6 +28,7 @@ export default function DragonRoomItem({
   const { mutateAsync } = useGparkGameRoomStatus();
   const member = useMemo(() => data.members?.[0] ?? {}, [data.members]);
   const { handleRunningGame } = useRunningGame();
+  const roomStatus = useMemo(() => data.number < data.limitNumber, [data.limitNumber, data.number]);
 
   const handleJoinRoom = async () => {
     if (isLoading) return;
@@ -58,7 +61,7 @@ export default function DragonRoomItem({
   };
 
   return (
-    <div className="flex-none border border-gray-400 bg-gray-550/10 p-2">
+    <div className={clsx('flex-none border border-gray-400 bg-gray-550/10 p-2', className)}>
       <div className="flex items-center gap-0.5">
         <Image src="/svg/portrait.svg" width={12} height={12} alt="portrait" />
         <p className="text-xs font-medium">
@@ -75,7 +78,7 @@ export default function DragonRoomItem({
         </div>
         <div className="flex text-sm font-semibold">Room {data.roomId}</div>
       </div>
-      {data.status ? (
+      {roomStatus ? (
         <div
           onClick={() => {
             if (stop) return;

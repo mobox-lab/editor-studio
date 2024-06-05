@@ -14,6 +14,7 @@ export default function RoomItem({ data, refetchRoomList }: { data: GparkGameRoo
   const { mutateAsync } = useGparkGameRoomStatus();
   const member = useMemo(() => data.members?.[0] ?? {}, [data.members]);
   const { handleRunningGame } = useRunningGame();
+  const roomStatus = useMemo(() => data.number < data.limitNumber, [data.limitNumber, data.number]);
 
   const handleJoinRoom = async () => {
     if (isLoading) return;
@@ -63,7 +64,7 @@ export default function RoomItem({ data, refetchRoomList }: { data: GparkGameRoo
         </div>
         <div className="flex text-sm font-semibold">Room {data.roomId}</div>
       </div>
-      {data.status ? (
+      {roomStatus ? (
         <div
           onClick={handleJoinRoom}
           className="mt-2 cursor-pointer rounded-sm bg-blue/20 py-2.5 text-center text-base/5 font-semibold text-blue hover:bg-blue/30"

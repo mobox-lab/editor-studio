@@ -1,10 +1,11 @@
-import { DragonNeoMenuItem } from '@/constants/enum';
 import { atom } from 'jotai';
-
-export type BetaType = 'release' | 'beta';
+import { DragonNeoMenuItem } from '@/constants/enum';
+import { DvConfig, dvGames } from '@/constants/games';
 
 export const dragonverseBetaDialogOpen = atom<boolean>(false);
+export const dragonverseRoomDialogOpen = atom<boolean>(false);
 
 export const dragonNeoActiveMenuAtom = atom<DragonNeoMenuItem>(DragonNeoMenuItem.Governance);
 
-export const dragonverseBetaType = atom<BetaType>('beta');
+export const dvGameConfig = atom<DvConfig>(dvGames[0]);
+export const dvGameVersion = atom<string>('');

@@ -1,15 +1,15 @@
 'use client';
 
-import { launcherConfig } from '@/constants/launcher-config';
 import { useRouter } from 'next/navigation';
 import { sendEvent } from '@/utils';
+import { dvGames } from '@/constants/games';
 
 export default function DragonSelection() {
   const router = useRouter();
 
   const onClick = () => {
     sendEvent('gp_game_detail', '打开游戏详情页', {
-      game_id: launcherConfig.dragonVerseGameId,
+      game_id: dvGames[0].code,
       source: 1,
       type: 2,
     });

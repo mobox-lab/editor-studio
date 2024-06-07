@@ -27,7 +27,7 @@ export default function RoomItem({ data, refetchRoomList }: { data: GparkGameRoo
         status: RoomStatus.CanJoin,
       });
       if (res.roomStatus === RoomStatus.CanJoin) {
-        await handleRunningGame({ gameId: data.gameId, roomId: data.roomId, onlineCnt: data.number });
+        await handleRunningGame({ gameId: data.mgsGameId, roomId: data.roomId, onlineCnt: data.number });
         setTimeout(() => refetchRoomList?.(), 10_000);
         return;
       }

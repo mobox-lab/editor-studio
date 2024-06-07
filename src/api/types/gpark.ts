@@ -122,6 +122,7 @@ export type GparkGameRoomItem = {
   roomId: string;
   status: number;
   version: string;
+  mgsGameId: string;
   members: GparkGameRoomMember[];
 };
 

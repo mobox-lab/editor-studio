@@ -1,15 +1,14 @@
 import { useMemo, useState } from 'react';
+import { clsx } from 'clsx';
 import Image from 'next/image';
-import { clsxm, sendEvent } from '@/utils';
 import { toast } from 'react-toastify';
 import { GparkGameRoomItem } from '@/api';
+import { clsxm, sendEvent } from '@/utils';
 import { RoomStatus } from '@/constants/enum';
 import useRunningGame from '@/hooks/gpark/useRunningGame';
+import DefaultUserSvg from '@/../public/svg/default_user.svg?component';
 import LoadingSvg from '../../../../../public/svg/loading.svg?component';
 import { useGparkGameRoomStatus } from '@/hooks/gpark/useGparkGameRoomList';
-import { useSearchParams } from 'next/navigation';
-import DefaultUserSvg from '@/../public/svg/default_user.svg?component';
-import { clsx } from 'clsx';
 
 export default function DragonRoomItem({
   data,
@@ -22,8 +21,6 @@ export default function DragonRoomItem({
   stop?: boolean;
   className?: string;
 }) {
-  const searchParams = useSearchParams();
-  const version = searchParams.get('version');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { mutateAsync } = useGparkGameRoomStatus();
   const member = useMemo(() => data.members?.[0] ?? {}, [data.members]);
@@ -41,7 +38,7 @@ export default function DragonRoomItem({
         status: RoomStatus.CanJoin,
       });
       if (res.roomStatus === RoomStatus.CanJoin) {
-        await handleRunningGame({ gameId: data.gameId, roomId: data.roomId, version });
+        await handleRunningGame({ gameId: data.mgsGameId, roomId: data.roomId, version: data.version });
         setTimeout(() => refetchRoomList?.(), 10_000);
         return;
       }

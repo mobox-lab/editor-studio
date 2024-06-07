@@ -1,6 +1,5 @@
 'use client';
 
-import { Suspense } from 'react';
 import Selection from './_components/Selection';
 import ArcanaDress from './_components/ArcanaDress';
 import P12Gpark from '@/app/gpark/_components/P12Gpark';
@@ -15,16 +14,13 @@ import DragonVerseBetaDialog from '@/app/game/(dragon-verse)/_components/DragonV
 export default function Gpark() {
   const { isLoading } = useGparkCardPage();
   const { address } = useP12Address();
-
   const isP12User = useIsP12User();
   const isMounted = useIsMounted();
 
   return (
     <div>
       {isP12User ? (
-        <Suspense>
-          <P12Gpark />
-        </Suspense>
+        <P12Gpark />
       ) : (
         <div className="flex gap-5">
           {address && <GamerLevel />}

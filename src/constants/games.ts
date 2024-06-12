@@ -27,6 +27,14 @@ const DV_CONFIG_MAP: Record<string, DvConfig[]> = {
   ],
   [GameEnv.Online]: [
     {
+      name: 'Bsc Release',
+      code: 'UcJsqnsne3DvCnZxafFp',
+      scenes: {
+        battleWorld: 'P_95da9282944331569986ba2d7731eb953d0b0c3a',
+        petSimulator: 'P_af8e7246dedc7586b6a314fc12849060d1b337c8',
+      },
+    },
+    {
       name: 'Merlin Release',
       code: 'ufci5L8HgBkpQY1UcVjC',
       scenes: {

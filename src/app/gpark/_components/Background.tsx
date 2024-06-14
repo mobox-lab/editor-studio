@@ -27,12 +27,15 @@ const Background = () => {
         <source src={`${DRAGON_CDN_URL}/bg.mp4`} type="video/mp4" />
       </video>
       <div className="absolute left-0 top-0 h-screen w-full bg-gradient-to-b from-black/0 to-black/100" />
-      <img
-        onClick={() => setClickCount((c) => c + 1)}
-        src="/img/gpark/dragonverse.png"
-        alt="dragonverse"
-        className="absolute left-1/2 top-5 w-[386px] -translate-x-1/2 transform"
-      />
+      <div className="absolute left-1/2 top-5 -translate-x-1/2 transform">
+        <img
+          onClick={() => setClickCount((c) => c + 1)}
+          src="/img/gpark/dragonverse.png"
+          alt="dragonverse"
+          className="w-[386px] "
+        />
+        <img src="/svg/bsc.svg" className="absolute top-1 -right-7.5" alt="bsc"/>
+      </div>
     </div>
   );
 };

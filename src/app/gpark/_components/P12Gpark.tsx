@@ -52,8 +52,8 @@ export default function P12Gpark() {
         </div>
         <div className="flex flex-col items-end">
           <ArcanaDress />
-          {/*<div className="gradient-red mt-8 flex h-[113px] w-[300px] cursor-not-allowed flex-col items-center">*/}
-          <div className="mt-8 flex h-[113px] w-[300px] cursor-not-allowed flex-col items-center !bg-[#2E2E2E]">
+          <div className="gradient-red mt-8 flex h-[113px] w-[300px] cursor-not-allowed flex-col items-center">
+            {/*<div className="mt-8 flex h-[113px] w-[300px] cursor-not-allowed flex-col items-center !bg-[#2E2E2E]">*/}
             {runningLoading ? (
               <div className="flex-center text-2xl/14 mt-2 h-14 font-semibold">Loading...</div>
             ) : (
@@ -61,17 +61,17 @@ export default function P12Gpark() {
                 src="/img/gpark/play-now.webp"
                 alt="play now"
                 className="mt-2 w-[148px]"
-                // onClick={() => handleRunningGame?.({ gameId })}
+                onClick={() => handleRunningGame?.({ gameId })}
               />
             )}
             <div className="w-full px-3">
-              {/*<div className="h-[1px] w-full bg-[#E44B29]"></div>*/}
-              <div className="h-[1px] w-full bg-white/20"></div>
+              <div className="h-[1px] w-full bg-[#E44B29]" />
+              {/*<div className="h-[1px] w-full bg-white/20"/>*/}
             </div>
             <div
-              // onClick={() => setRoomDialog(true)}
-              // className="flex-center relative h-12 w-full text-sm/5 hover:bg-white/[0.12]"
-              className="flex-center relative h-12 w-full text-sm/5 text-white/20"
+              onClick={() => setRoomDialog(true)}
+              className="flex-center relative h-12 w-full text-sm/5 hover:bg-white/[0.12]"
+              // className="flex-center relative h-12 w-full text-sm/5 text-white/20"
             >
               Select to Join Room
             </div>

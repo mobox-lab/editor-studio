@@ -34,7 +34,7 @@ const Background = () => {
           alt="dragonverse"
           className="w-[386px] "
         />
-        <img src="/svg/bsc.svg" className="absolute top-1 -right-7.5" alt="bsc"/>
+        <img src="/img/bsc.webp" className="absolute -right-7.5 top-1 w-[78px]" alt="bsc" />
       </div>
     </div>
   );

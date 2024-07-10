@@ -38,32 +38,40 @@ const DV_CONFIG_MAP: Record<string, DvConfig[]> = {
       name: 'Merlin Release',
       code: 'ufci5L8HgBkpQY1UcVjC',
       scenes: {
-        battleWorld: 'P_5f2df3f6e4b89742ab115cfbf7b266b3207c8d49',
-        petSimulator: 'P_1bf267702412bf90896394deaa1b982ca12285f6',
+        battleWorld: 'P_95da9282944331569986ba2d7731eb953d0b0c3a',
+        petSimulator: 'P_af8e7246dedc7586b6a314fc12849060d1b337c8',
       },
     },
     {
       name: 'Merlin Beta',
+      code: 'G6Kq8HDip3gXWKlRraqg',
+      scenes: {
+        battleWorld: 'P_540ef13849428994c708bc6032daf698971610f0',
+        petSimulator: 'P_62d1fb3f8acfbf3f9b8264b2bb3bc93ae2289588',
+      },
+    },
+    {
+      name: 'Merlin Beta S2',
       code: 'qHObJs2hyWYhSZUDj6L2',
       scenes: {
-        battleWorld: 'P_9e59b91d2e56ffc632e64f5c00ae28fb935c324c',
-        petSimulator: 'P_a09e11f33ea371c5ca3f08cbcfaeeb56e8bb0537',
+        battleWorld: 'P_cc1ccc8f393443a1ca968102dc37abfcbc9c1425',
+        petSimulator: 'P_c639224c5d572f82cf444764867bfca4340b7e4f',
       },
     },
     {
       name: 'Merlin Beta TD',
       code: 'viZFX0AlKUbrpl7tpP21',
       scenes: {
-        battleWorld: 'P_799f212ed52fdf7d7f5e3e52800d0c3deeeb4b82',
-        petSimulator: 'P_8db999a0732666f39ecee330feec6041b19e98ae',
+        battleWorld: 'P_30cd473b9c8789e527975a2e5529c5c84b0a02e6',
+        petSimulator: 'P_2d36e1ce1e573c617633ce445f5e1a06f7039056',
       },
     },
     {
       name: 'Bsc Beta',
       code: 'DKQOhNcTocVPt0ceYCy1',
       scenes: {
-        battleWorld: 'P_c0bfa7c18d7cc225a6ee94707e45ee0093de58f4',
-        petSimulator: 'P_849c6817e918b6f382533678e6f4f3b836615d17',
+        battleWorld: 'P_8733dcf97d28e11882009609a7306b1d369bb1ad',
+        petSimulator: 'P_7cdf0d0bdaef5f823cc7e21f2729cabea5800b5d',
       },
     },
   ],

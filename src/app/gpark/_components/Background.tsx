@@ -30,11 +30,10 @@ const Background = () => {
       <div className="absolute left-1/2 top-5 -translate-x-1/2 transform">
         <img
           onClick={() => setClickCount((c) => c + 1)}
-          src="/img/gpark/dragonverse.png"
+          src="/img/gpark/dragonverse-s2.webp"
           alt="dragonverse"
           className="w-[386px] "
         />
-        <img src="/img/bsc.webp" className="absolute -right-7.5 top-1 w-[78px]" alt="bsc" />
       </div>
     </div>
   );

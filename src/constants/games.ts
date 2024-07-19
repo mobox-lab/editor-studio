@@ -28,10 +28,10 @@ const DV_CONFIG_MAP: Record<string, DvConfig[]> = {
   [GameEnv.Online]: [
     {
       name: 'Merlin Release',
-      code: 'yrhZamhjN9xAcHqWy1Ao',
+      code: 'jKXfft1vigeMIXLLkc3N',
       scenes: {
-        battleWorld: 'P_d6e9f533d223689b87ee528220dccf43c74c80e9',
-        petSimulator: 'P_d6e9f533d223689b87ee528220dccf43c74c80e9',
+        battleWorld: 'P_bae325bca939486ac9a696eaf08a62ae00488019',
+        petSimulator: 'P_3d76286ba04ccb2e5aa6813bec3182e76f958bb2',
       },
     },
     {

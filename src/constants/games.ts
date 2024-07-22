@@ -30,8 +30,8 @@ const DV_CONFIG_MAP: Record<string, DvConfig[]> = {
       name: 'Merlin Release',
       code: 'jKXfft1vigeMIXLLkc3N',
       scenes: {
-        battleWorld: 'P_bae325bca939486ac9a696eaf08a62ae00488019',
-        petSimulator: 'P_3d76286ba04ccb2e5aa6813bec3182e76f958bb2',
+        battleWorld: 'P_5104bad9937f0f508bfcab4f8444beb5de9c5d27',
+        petSimulator: 'P_b8e4694291fa1cedc81b2842ff3c766d73cbbae0',
       },
     },
     {

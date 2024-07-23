@@ -13,6 +13,7 @@ import ArcanaDress from '@/app/gpark/_components/ArcanaDress';
 import { useGparkGameDetail } from '@/hooks/gpark/useGparkGameDetail';
 import { dragonverseRoomDialogOpen } from '@/atoms/gpark/dragonverse';
 import DragonverseRoomDialog from '@/app/gpark/_components/DragonverseRoomDialog';
+import { useGparkMetaInfo } from '@/hooks/gpark/useGparkMetaInfo';
 
 const settings = {
   className: 'slider variable-width',
@@ -32,6 +33,7 @@ export default function P12Gpark() {
   const setRoomDialog = useSetAtom(dragonverseRoomDialogOpen);
   const { handleRunningGame, isLoading: runningLoading } = useRunningGame();
   const startup = useMemo<GparkStartupExtension>(() => (data ? JSON.parse(data.startupExtension) : {}), [data]);
+  const sceneGames = useGparkMetaInfo(startup.PathId, startup.version);
 
   return (
     <div>
@@ -53,7 +55,7 @@ export default function P12Gpark() {
         <div className="flex flex-col items-end">
           <ArcanaDress />
           {/*<div className="gradient-red mt-8 flex h-[113px] w-[300px] cursor-not-allowed flex-col items-center">*/}
-            <div className="mt-8 flex h-[113px] w-[300px] cursor-not-allowed flex-col items-center !bg-[#2E2E2E]">
+          <div className="mt-8 flex h-[113px] w-[300px] cursor-not-allowed flex-col items-center !bg-[#2E2E2E]">
             {runningLoading ? (
               <div className="flex-center text-2xl/14 mt-2 h-14 font-semibold">Loading...</div>
             ) : (
@@ -66,7 +68,7 @@ export default function P12Gpark() {
             )}
             <div className="w-full px-3">
               {/*<div className="h-[1px] w-full bg-[#E44B29]" />*/}
-              <div className="h-[1px] w-full bg-white/20"/>
+              <div className="h-[1px] w-full bg-white/20" />
             </div>
             <div
               // onClick={() => setRoomDialog(true)}
@@ -78,7 +80,7 @@ export default function P12Gpark() {
           </div>
         </div>
       </div>
-      <DragonverseRoomDialog version={startup.version} />
+      <DragonverseRoomDialog version={startup.version} sceneGames={sceneGames} />
     </div>
   );
 }

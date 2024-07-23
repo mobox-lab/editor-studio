@@ -1,5 +1,5 @@
 import request from '@/api/gpark/request';
-import type { GparkCardList, GparkGameMyself, GparkUserInfo, GparkUserInfoParams, Response } from '@/api/types';
+import { GparkCardList, GparkGameMyself, GparkMetaInfo, GparkUserInfo, GparkUserInfoParams, Response } from '@/api/types';
 import {
   GparkCardContentList,
   GparkCardContentListParams,
@@ -49,3 +49,6 @@ export const fetchGparkMWGameDetail = (gameCode?: string) =>
 
 export const fetchGparkMWRoomStatus = (roomId?: string) =>
   request.post<any, Response<{ roomStatus: RoomStatus }>>('/room/gsom/metaworld/room/status', { roomId });
+
+export const fetchMetaGameInfo = (params?: { referenceId: string; version: string }) =>
+  request.get<any, Response<GparkMetaInfo>>('/gameServer/scene/getMetaGameInfo', { params });

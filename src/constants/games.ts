@@ -1,12 +1,14 @@
 import { LAUNCHER_ENV } from '@/constants/env';
 
+export type SceneGame = {
+  battleWorld: string;
+  petSimulator: string;
+};
+
 export type DvConfig = {
   name: string;
   code: string;
-  scenes: {
-    battleWorld: string;
-    petSimulator: string;
-  };
+  scenes: SceneGame;
 };
 
 enum GameEnv {

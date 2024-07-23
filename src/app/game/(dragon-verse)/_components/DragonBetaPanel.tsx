@@ -12,6 +12,7 @@ import DragonverseRoomDialog from '@/app/gpark/_components/DragonverseRoomDialog
 import DragonBetaDragons from '@/app/game/(dragon-verse)/_components/DragonBetaDragons';
 import DragonBetaBackpack from '@/app/game/(dragon-verse)/_components/DragonBetaBackpack';
 import DragonBetaRooms, { DragonBetaRoomsRefs } from '@/app/game/(dragon-verse)/_components/DragonBetaRooms';
+import { useGparkMetaInfo } from '@/hooks/gpark/useGparkMetaInfo';
 
 type DragonBetaPanelProps = { data?: GparkGameDetail };
 
@@ -24,6 +25,7 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
   const roomsRef = useRef<DragonBetaRoomsRefs | null>(null);
   const setRoomDialog = useSetAtom(dragonverseRoomDialogOpen);
   const version = useMemo(() => customVersion || startup.version, [customVersion, startup.version]);
+  const sceneGames = useGparkMetaInfo(startup.PathId, startup.version);
 
   useEffect(() => {
     const timer = setInterval(() => setSelectedIndex((prevIndex) => (prevIndex + 1) % imageList.length), 5000);
@@ -97,7 +99,7 @@ export default function DragonBetaPanel({ data }: DragonBetaPanelProps) {
           </div>
         </div>
       </div>
-      <DragonverseRoomDialog version={version} />
+      <DragonverseRoomDialog version={version} sceneGames={sceneGames} />
     </div>
   );
 }

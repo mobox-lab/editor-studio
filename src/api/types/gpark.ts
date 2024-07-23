@@ -240,3 +240,21 @@ export type GparkTsGameConfig = {
   openId: string;
   uuid: string;
 };
+
+export type metaSceneInfo = {
+  sceneId: string;
+  gameId: string;
+  referenceId: string;
+  sceneVersion: string;
+  sceneName: string;
+  mainScene: number;
+  scenePublic: number;
+};
+
+export type GparkMetaInfo = {
+  icon: string;
+  gameName: string;
+  gameVersion: string;
+  gameId: string;
+  metaSceneInfoResponseList: metaSceneInfo[];
+};

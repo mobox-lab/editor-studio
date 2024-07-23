@@ -2,22 +2,26 @@ import { useAtom, useAtomValue } from 'jotai';
 import { useMemo } from 'react';
 import { toast } from 'react-toastify';
 import Dialog from '@/components/ui/dialog';
+import { SceneGame } from '@/constants/games';
 import RefreshSVG from '@/../public/svg/refresh.svg?component';
 import SceneRoomItem from '@/app/gpark/_components/SceneRoomItem';
 import { dragonverseRoomDialogOpen, dvGameConfig } from '@/atoms/gpark/dragonverse';
 import { useGparkGameRoomList } from '@/hooks/gpark/useGparkGameRoomList';
 import DragonRoomItem from '@/app/game/(dragon-verse)/_components/DragonRoomItem';
 
-type DragonverseRoomDialogProps = { version?: string };
+type DragonverseRoomDialogProps = {
+  version?: string;
+  sceneGames?: SceneGame;
+};
 
-export default function DragonverseRoomDialog({ version }: DragonverseRoomDialogProps) {
+export default function DragonverseRoomDialog({ version, sceneGames }: DragonverseRoomDialogProps) {
   const game = useAtomValue(dvGameConfig);
   const [open, setOpen] = useAtom(dragonverseRoomDialogOpen);
   const params = useMemo(() => ({ maxId: '0', pageSize: 20, sortType: 0, version }), [version]);
 
   const { data: mainRooms, refetch: mainRefetch } = useGparkGameRoomList({ ...params, gameId: game.code });
-  const { data: bwRooms, refetch: bwRefresh } = useGparkGameRoomList({ ...params, sceneId: game.scenes.battleWorld });
-  const { data: psRooms, refetch: psRefresh } = useGparkGameRoomList({ ...params, sceneId: game.scenes.petSimulator });
+  const { data: bwRooms, refetch: bwRefresh } = useGparkGameRoomList({ ...params, sceneId: sceneGames?.battleWorld });
+  const { data: psRooms, refetch: psRefresh } = useGparkGameRoomList({ ...params, sceneId: sceneGames?.petSimulator });
 
   const mainRoomList = useMemo(() => mainRooms?.dataList ?? [], [mainRooms?.dataList]);
   const bwRoomList = useMemo(() => bwRooms?.dataList ?? [], [bwRooms?.dataList]);

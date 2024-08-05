@@ -61,6 +61,14 @@ const DV_CONFIG_MAP: Record<string, DvConfig[]> = {
       },
     },
     {
+      name: 'Merlin Beta S3',
+      code: 'q1vtx0y9hFUgh7jlb86C',
+      scenes: {
+        battleWorld: 'P_10eb0ccbf4beaa640ca724b20a9d6e7332fe4b24',
+        petSimulator: 'P_60b547be86193b3c29707293017814e4c0052894',
+      },
+    },
+    {
       name: 'Merlin Beta TD',
       code: 'viZFX0AlKUbrpl7tpP21',
       scenes: {

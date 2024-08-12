@@ -12,7 +12,7 @@ type GamePanelProps = {
 
 export default function GamePanel({ data, isLoading, handleRunningGame }: GamePanelProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const imageList = useMemo(() => data?.images.map((item) => item.url) ?? [], [data?.images]);
+  const imageList = useMemo(() => data?.images?.map((item) => item.url) ?? [], [data?.images]);
   const author = useMemo<GparkGameAuthor | undefined>(() => data?.author ?? undefined, [data?.author]);
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import { STORAGE_KEY } from '@/constants/storage';
 import { useMutation } from '@tanstack/react-query';
 import { useCallback, useMemo, useState } from 'react';
 import { getMwRuntimeArgs } from '@/utils/mw-runtime-args';
-import { fetchGparkMWGameDetail, fetchGparkTSGameConfig, qtClient } from '@/api';
+import { fetchGparkMWGameDetail, fetchGparkTSGameConfig, qtClient, QTError } from '@/api';
 
 type RunningGameParams = {
   gameId: string;
@@ -63,8 +63,9 @@ export default function useRunningGame() {
         }
         setIsLoading(false);
         return runningRes;
-      } catch (e) {
+      } catch (e: any) {
         console.log('error: ', e);
+        qtClient.logger(QTError.ERROR, e.toString());
         setIsLoading(false);
       }
     },

@@ -15,6 +15,13 @@ function _removeMsgListener(callback: (_: string) => void) {
   qtApiClient?.off('receiveMsgFromLauncher', callback);
 }
 
+export enum QTError {
+  LOG = 'Log: ',
+  INFO = 'Info: ',
+  ERROR = 'Error: ',
+  WARN = 'Warning: ',
+}
+
 export const qtClient = {
   refreshToken: <T>(data: { type: TokenType; token: string }) => qtApiClient?.send<T>({ action: 'refreshToken', data }),
   openExternalLink: (link: string) => qtApiClient?.send({ action: 'openExternalLink', data: link }),
@@ -34,4 +41,9 @@ export const qtClient = {
     }
     return qtApiClient?.send({ action: 'setStorage', data: { key, value } });
   },
+  logger: (level: QTError, message: string) =>
+    qtApiClient?.send({
+      action: 'logger',
+      data: level + JSON.stringify(message),
+    }),
 };

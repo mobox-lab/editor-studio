@@ -41,7 +41,7 @@ export const qtClient = {
     }
     return qtApiClient?.send({ action: 'setStorage', data: { key, value } });
   },
-  logger: (level: QTError, message: string) =>
+  logger: (level: QTError, message?: any) =>
     qtApiClient?.send({
       action: 'logger',
       data: level + JSON.stringify(message),

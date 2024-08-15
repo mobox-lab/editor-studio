@@ -131,7 +131,7 @@ const ImageSelector = forwardRef(
           e.target.value = '';
         }
       },
-      [images, minSize, maxSize, maxLength, mutateAsync, onChange],
+      [images, minSize, maxSize, maxFileSize, ratio, maxLength, mutateAsync, onChange],
     );
 
     const handleRemoveImage = (index: number) => {

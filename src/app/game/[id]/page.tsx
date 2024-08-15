@@ -29,7 +29,7 @@ export default function GparkGame({ params }: { params: { id: string } }) {
     } else {
       router.back();
     }
-  }, []);
+  }, [router, query]);
 
   return (
     <div>

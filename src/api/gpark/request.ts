@@ -5,7 +5,7 @@ import { getQtStorageConfig } from '@/utils/storage';
 import { refreshToken, retryRequest } from '@/api/utils';
 import { GPARK_API_PREFIX, GPARK_PACKAGE_NAME } from '@/constants/env';
 
-const instance = axios.create({ baseURL: GPARK_API_PREFIX, timeout: 15_000 });
+const instance = axios.create({ baseURL: GPARK_API_PREFIX, timeout: 30_000 });
 const queue: PendingTask[] = [];
 let refreshing = false;
 

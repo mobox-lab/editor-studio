@@ -44,8 +44,8 @@ export type SharedProps = {
 };
 export type ButtonProps = SharedProps & NativeButtonProps;
 
-const StyledButton: ForwardRefComponent<HTMLButtonElement, ButtonProps> = memo(
-  forwardRef(({ variant = 'default', className, loading, disabled, children, ...props }: ButtonProps, ref) => {
+const StyledButton: ForwardRefComponent<HTMLButtonElement, ButtonProps> = forwardRef(
+  memo(({ variant = 'default', className, loading, disabled, children, ...props }: ButtonProps, ref) => {
     return (
       <button
         className={buttonStyles({

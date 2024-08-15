@@ -108,6 +108,7 @@ const config: Config = {
         'gradient-corner-gold': 'linear-gradient(270deg, #FFF5BF 0%, #FFAA4B 100%)',
         'gradient-red': 'linear-gradient(180deg, #8C2329 7.27%, #B03B42 48.64%, #C03840 89.17%)',
         'gradient-green': 'linear-gradient(180deg, #1E6744 4.55%, #388657 52.28%, #499467 99.04%)',
+        'gradient-button': 'linear-gradient(90deg, #00F0FF 14.01%, #00FF94 91.43%)',
       },
       keyframes: {
         breathing: {

@@ -1,6 +1,6 @@
 'use client';
-import { useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useCallback, useMemo } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { GparkStartupExtension } from '@/api';
 import Back from '@/../public/svg/back.svg?component';
 import useRunningGame from '@/hooks/gpark/useRunningGame';
@@ -12,6 +12,7 @@ import { useGparkGameRoomList } from '@/hooks/gpark/useGparkGameRoomList';
 export default function GparkGame({ params }: { params: { id: string } }) {
   const router = useRouter();
   const { data } = useGparkGameDetail(params.id);
+  const query = useSearchParams();
   const startup = useMemo<GparkStartupExtension>(() => (data ? JSON.parse(data.startupExtension) : {}), [data]);
   const { handleRunningGame, isLoading } = useRunningGame();
   const { data: rooms, refetch } = useGparkGameRoomList({
@@ -22,12 +23,20 @@ export default function GparkGame({ params }: { params: { id: string } }) {
     version: startup.version,
   });
 
+  const onBack = useCallback(() => {
+    if (query.get('back') === 'gpark') {
+      router.replace('/');
+    } else {
+      router.back();
+    }
+  }, []);
+
   return (
     <div>
       <div className="text-base font-medium">
         <span
           className="cursor-pointer fill-gray-300 font-normal text-gray-300 hover:fill-white hover:text-white"
-          onClick={() => router.back()}
+          onClick={onBack}
         >
           <Back className="mb-0.5 mr-2 inline w-9 hover:fill-white/20" />
           GPark

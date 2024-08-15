@@ -15,3 +15,8 @@ export type PendingTask = {
   config: AxiosRequestConfig;
   resolve: Function;
 };
+
+export type PublishGame = {
+  id: number;
+  status: 1 | 0;
+}

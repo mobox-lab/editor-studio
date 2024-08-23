@@ -24,15 +24,16 @@ export default function GparkGame({ params }: { params: { id: string } }) {
   });
 
   const onBack = useCallback(() => {
-    if (query.get('back') === 'gpark') {
-      router.replace('/');
-    } else {
-      router.back();
-    }
-  }, [router, query]);
+    // if (query.get('back') === 'gpark') {
+    //   router.replace('/');
+    // } else {
+    //   router.replace('/');
+    // }
+    router.replace('/gpark');
+  }, [router]);
 
   return (
-    <div>
+    <div className='px-[120px]'>
       <div className="text-base font-medium">
         <span
           className="cursor-pointer fill-gray-300 font-normal text-gray-300 hover:fill-white hover:text-white"

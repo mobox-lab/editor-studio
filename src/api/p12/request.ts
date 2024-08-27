@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { PendingTask, qtClient, QTError } from '@/api';
+import { PendingTask, qtClient, QTLogger } from '@/api';
 import { P12_API_PREFIX } from '@/constants/env';
 import { STORAGE_KEY } from '@/constants/storage';
 import { refreshToken, retryRequest } from '@/api/utils';
@@ -21,12 +21,12 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     if (response.data?.code !== 200) {
-      qtClient.logger(QTError.ERROR, response);
+      qtClient.logger(QTLogger.ERROR, response);
     }
     return response.data;
   },
   async (error) => {
-    qtClient.logger(QTError.ERROR, error);
+    qtClient.logger(QTLogger.ERROR, error);
     const { data, config } = error.response;
     if (data.code !== 401 || data.data[0] === 'TokenNotExist' || data.data[0] === 'JsonWebTokenError')
       return Promise.reject(data);

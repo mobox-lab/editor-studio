@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { MOBOX_API_PREFIX } from '@/constants/env';
 import { STORAGE_KEY } from '@/constants/storage';
-import { getMoboxAccessToken, PendingTask, qtClient, QTError } from '@/api';
+import { getMoboxAccessToken, PendingTask, qtClient, QTLogger } from '@/api';
 import { retryRequest } from '@/api/utils';
 
 const instance = axios.create({ baseURL: MOBOX_API_PREFIX, timeout: 15_000 });
@@ -26,7 +26,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   async (response) => {
     if (response.data?.code !== 200) {
-      qtClient.logger(QTError.ERROR, response);
+      qtClient.logger(QTLogger.ERROR, response);
     }
     const { data, config } = response;
     if (data.code !== 401) return data;
@@ -39,7 +39,7 @@ instance.interceptors.response.use(
     return instance(config);
   },
   async (error) => {
-    qtClient.logger(QTError.ERROR, error);
+    qtClient.logger(QTLogger.ERROR, error);
     const { response } = error;
     const { data } = response ?? {};
     return Promise.reject(data);

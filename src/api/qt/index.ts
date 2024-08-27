@@ -15,7 +15,7 @@ function _removeMsgListener(callback: (_: string) => void) {
   qtApiClient?.off('receiveMsgFromLauncher', callback);
 }
 
-export enum QTError {
+export enum QTLogger {
   LOG = 'Log: ',
   INFO = 'Info: ',
   ERROR = 'Error: ',
@@ -41,7 +41,7 @@ export const qtClient = {
     }
     return qtApiClient?.send({ action: 'setStorage', data: { key, value } });
   },
-  logger: (level: QTError, message?: any) =>
+  logger: (level: QTLogger, message?: any) =>
     qtApiClient?.send({
       action: 'logger',
       data: level + JSON.stringify(message),

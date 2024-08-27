@@ -4,7 +4,7 @@ import { STORAGE_KEY } from '@/constants/storage';
 import { useMutation } from '@tanstack/react-query';
 import { useCallback, useMemo, useState } from 'react';
 import { getMwRuntimeArgs } from '@/utils/mw-runtime-args';
-import { fetchGparkMWGameDetail, fetchGparkTSGameConfig, qtClient, QTError } from '@/api';
+import { fetchGparkMWGameDetail, fetchGparkTSGameConfig, qtClient, QTLogger } from '@/api';
 
 type RunningGameParams = {
   gameId: string;
@@ -36,7 +36,7 @@ export default function useRunningGame() {
         const { code: gameDetailCode, data: gameDetail, message: gameDetailMessage } = await mwGameDetailAsync(params.gameId);
         if (gameDetailCode === 1003) {
           toast.error('Requires a later version of GPark');
-          qtClient.logger(QTError.ERROR, gameDetailMessage);
+          qtClient.logger(QTLogger.ERROR, gameDetailMessage);
         }
         // const enableMgs = gameDetail.gameTags.includes(1) ? 1 : 0;
         const enableMgs = 0;
@@ -66,7 +66,7 @@ export default function useRunningGame() {
         return runningRes;
       } catch (e: any) {
         console.log('error: ', e);
-        qtClient.logger(QTError.ERROR, e.toString());
+        qtClient.logger(QTLogger.ERROR, e.toString());
         setIsLoading(false);
       }
     },

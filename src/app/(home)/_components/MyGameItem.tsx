@@ -17,6 +17,7 @@ import { openExternalLink, sendEvent } from '@/utils';
 import Popover from '@/components/ui/popover';
 import Dialog from '@/components/ui/dialog';
 import Link from 'next/link';
+import { DEFAULT_COVER } from '@/constants/editor';
 
 export default function MyGameItem({
   gameInfo,
@@ -144,25 +145,25 @@ export default function MyGameItem({
         <div className="relative h-[144px] w-full">
           <div className="absolute left-0 top-0 flex items-center rounded-br-sm bg-[#00000040] p-[6px] backdrop-blur-[7.78px]">
             {game.rank && game.rank <= 3 ? (
-              <img src={`/svg/rank-${game.rank}.svg`} className="w-[20px]" alt='' />
+              <img src={`/svg/rank-${game.rank}.svg`} className="w-[20px]" alt="" />
             ) : (
               <span className="font-poppins text-[12px] font-semibold text-white">No.{game.rank}</span>
             )}
-            <img src="/svg/ticket.svg" className="ml-[6px] mr-[2px] w-[18px]" alt='' />
+            <img src="/svg/ticket.svg" className="ml-[6px] mr-[2px] w-[18px]" alt="" />
             <span className="font-poppins text-[14px] font-semibold text-[#F2B8B0]">12321</span>
           </div>
-          <Image src={game.cover} style={{ objectFit: 'cover' }} alt="game image" fill />
+          <Image src={game.cover || DEFAULT_COVER} style={{ objectFit: 'cover' }} alt="game image" fill />
         </div>
         <div className="relative flex-1 p-[8px]">
           {game.state === 1 ? (
             <Link
-            href={`/game/${game.gameCode}`}
+              href={`/game/${game.gameCode}`}
               className="absolute right-2 top-0 flex translate-y-[-50%] items-center rounded-full bg-gradient-button px-[10px] py-1 !no-underline"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14" viewBox="0 0 11 14" fill="none">
                 <path d="M11 7L0.5 13.0622L0.500001 0.937822L11 7Z" fill="black" />
               </svg>
-              <span  className="ml-[4px] text-[13px] font-semibold text-black">PLAY</span>
+              <span className="ml-[4px] text-[13px] font-semibold text-black">PLAY</span>
             </Link>
           ) : null}
           <p className="text-[14px]">{game.name}</p>

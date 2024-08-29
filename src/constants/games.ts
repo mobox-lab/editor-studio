@@ -20,7 +20,7 @@ const DV_CONFIG_MAP: Record<string, DvConfig[]> = {
   [GameEnv.Online]: [
     { name: 'Merlin Release', code: 'hK2gJGPEnhV2hKB9CxEu' },
     { name: 'Bsc Release', code: 'UcJsqnsne3DvCnZxafFp' },
-    { name: 'Merlin Beta S3', code: 'q1vtx0y9hFUgh7jlb86C' },
+    { name: 'Merlin Beta S4', code: 'PdEOIOXCKR031tfUULrk' },
     { name: 'Merlin Beta 038', code: 'ak0XtpACHGf9kMSgfKjR' },
     { name: 'Bsc Beta', code: 'DKQOhNcTocVPt0ceYCy1' },
   ],

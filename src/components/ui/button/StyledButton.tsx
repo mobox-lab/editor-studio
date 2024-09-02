@@ -1,6 +1,6 @@
 import LoadingSvg from '@/../public/svg/loading.svg?component';
 import { ForwardRefComponent } from 'framer-motion';
-import { ButtonHTMLAttributes, forwardRef, memo } from 'react';
+import { ButtonHTMLAttributes, forwardRef } from 'react';
 import { tv } from 'tailwind-variants';
 
 const buttonStyles = tv({
@@ -44,8 +44,8 @@ export type SharedProps = {
 };
 export type ButtonProps = SharedProps & NativeButtonProps;
 
-const StyledButton: ForwardRefComponent<HTMLButtonElement, ButtonProps> = memo(
-  forwardRef(({ variant = 'default', className, loading, disabled, children, ...props }: ButtonProps, ref) => {
+const StyledButton: ForwardRefComponent<HTMLButtonElement, ButtonProps> = forwardRef(
+  ({ variant = 'default', className, loading, disabled, children, ...props }: ButtonProps, ref) => {
     return (
       <button
         className={buttonStyles({
@@ -62,7 +62,8 @@ const StyledButton: ForwardRefComponent<HTMLButtonElement, ButtonProps> = memo(
         {children}
       </button>
     );
-  }),
+  },
 );
 
+StyledButton.displayName = 'StyledButton';
 export default StyledButton;

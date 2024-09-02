@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import MyGameItem from '@/app/(home)/_components/MyGameItem';
 import Right from '@/../public/svg/right.svg?component';
-import { useFetchEditorGameListTop3 } from '@/hooks/editor/useFetchGameList';
+import { useFetchEditorGameList, useFetchEditorGameListTop3 } from '@/hooks/editor/useFetchGameList';
 import { useFetchRank } from '@/hooks/editor/useFetchRank';
 import { rankConfig } from '@/constants';
 import { openExternalLink, shortenNumber, shortenShowName } from '@/utils';
@@ -13,50 +13,33 @@ import clsx from 'clsx';
 import StyledButton from '@/components/ui/button/StyledButton';
 import { useEffect, useState } from 'react';
 import { DataListType } from '@/api';
-import { editorGamesTop3ListAtom } from '@/atoms/editor';
+import { editorGamesListAtom, editorGamesTop3ListAtom } from '@/atoms/editor';
 import { useAtomValue } from 'jotai';
 import Empty from '@/components/ui/empty';
 
 export default function MyGames({ isP12User = false }: { isP12User?: boolean }) {
-  const data = useAtomValue(editorGamesTop3ListAtom);
-  const { refetch } = useFetchEditorGameListTop3();
-  const { firstThree, rest } = useFetchRank();
-
-  const [fillData, setFillData] = useState<(null | DataListType)[]>([null, null, null]);
-
-  useEffect(() => {
-    if (data) {
-      if (data.length < 3) {
-        const newData: (null | DataListType)[] = [...data];
-        newData.length = 3;
-        newData.fill(null, data.length);
-        setFillData(newData);
-      } else {
-        setFillData(data);
-      }
-    } else {
-      setFillData([null, null, null]);
-    }
-  }, [data]);
+  const { refetch } = useFetchEditorGameList();
+  const data = useAtomValue(editorGamesListAtom);
 
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between">
+      {/* <div className="flex items-center justify-between">
         <h3 className="text-base font-medium">My Games</h3>
         <Link href="/developer/games" className="text-sm">
           View all
           <Right className="inline h-3.5 w-3.5 fill-blue align-baseline" />
         </Link>
-      </div>
-
-      {fillData.some((el) => el !== null) ? (
-        <div className="mt-3 grid grid-cols-3 gap-4">
-          {fillData?.map((item) => {
-            return <MyGameItem key={item?.sourceGameId} gameInfo={item} refetchGameList={refetch} />;
+      </div> */}
+      {(data?.pages.length || 0) > 0 ? (
+        <div className="grid grid-cols-4 gap-4">
+          {data?.pages.map((item) => {
+            return (item?.dataList || []).map((game) => {
+              return <MyGameItem key={game.sourceGameId} gameInfo={game} refetchGameList={refetch} />;
+            });
           })}
         </div>
       ) : (
-        <div className="flex-center mt-3 h-[280px] border border-gray-500 bg-gray-550/10">
+        <div className="flex-center h-[280px] border border-gray-500 bg-gray-550/10">
           <Empty />
         </div>
       )}

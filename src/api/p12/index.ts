@@ -18,6 +18,7 @@ import {
   P12ProfileParams,
   P12ProfileResult,
   P12SelectionGameInfo,
+  PublishGame,
   Response,
   SBTInfo,
   ToggleStatusParams,
@@ -109,3 +110,6 @@ export const fetchDragonGameRank = ({ page = 1, size = 25 }: FetchDragonProposal
   });
 
 export const fetchDvBetaWhiteList = () => request.get<any, Response<string[]>>('/pge/dragon-verse/beta-white-list');
+
+export const fetchPublishGame = (data: PublishGame) => request.post('/arcana/game/push/game', data);
+

@@ -24,7 +24,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en">
       <body className={clsx(poppins.className, poppins.variable, 'h-screen')}>
         <Providers>
-          <main className="py-7.5 pt-5 xl:container">{children}</main>
+          <main className="py-7.5 xl:container">{children}</main>
           <ToastContainer theme="dark" toastClassName="toast-container" icon={<ToastIcon />} autoClose={3000} hideProgressBar />
           <EditCreationDialog />
         </Providers>

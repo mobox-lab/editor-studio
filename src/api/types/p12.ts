@@ -31,6 +31,7 @@ export type P12GameDetail = {
   mainImage: string | null;
   screenshots: string[];
   // user info
+  icon?: string;
   bio?: string;
   showName: string | null;
   twitter: string | null;
@@ -44,6 +45,7 @@ export type P12GameDetail = {
 export type UpdateP12GameParams = {
   id: number;
   gameDescription: string;
+  icon?: string;
   gameName: string;
   screenshots: string[];
 };
@@ -204,6 +206,9 @@ export type DataListType = {
   latestVersion: string;
   isSubmitted?: boolean;
   p12GameId?: number;
+  rank: number;
+  updatedAt: string;
+  weeklyVotes: number;
 };
 
 export type ToggleStatusParams = {

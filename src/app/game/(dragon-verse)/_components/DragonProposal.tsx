@@ -1,6 +1,6 @@
 'use client';
 
-import { DragonProposal } from '@/api';
+import type { DragonProposal } from '@/api';
 import { DragonProposalState } from '@/constants/enum';
 import { clsxm, openExternalLink, sendEvent, shortenAddress, shortenSnapStr } from '@/utils';
 import { computeTimeDifference } from '@/utils/date';

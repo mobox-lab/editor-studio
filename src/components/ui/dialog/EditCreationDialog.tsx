@@ -39,6 +39,7 @@ export default function EditCreationDialog() {
     clearErrors,
   } = useForm<GameDetailForm>();
 
+  const [icon, setIcon] = useState<string>();
   const gameNameValue = watch('gameName');
   const gameDescValue = watch('gameDescription');
 
@@ -48,7 +49,7 @@ export default function EditCreationDialog() {
     if (!editingCreationId) return;
     const { gameDescription, gameName } = values;
     mutate(
-      { id: editingCreationId, gameDescription, gameName, screenshots: selectedImages },
+      { id: editingCreationId, gameDescription, gameName, screenshots: selectedImages, icon },
       {
         onSuccess: () => {
           if (data?.gameName !== gameName) sendEvent('ed_edit_name', '编辑游戏：修改名字');
@@ -65,10 +66,11 @@ export default function EditCreationDialog() {
 
   // reset default values
   useEffect(() => {
-    const { gameName, gameDescription, mainImage, screenshots } = data ?? {};
+    const { gameName, gameDescription, icon, screenshots } = data ?? {};
     setValue('gameName', gameName ?? '');
     setValue('gameDescription', gameDescription ?? '');
     setSelectedImages(screenshots ?? []);
+    setIcon(icon);
   }, [data, setValue]);
 
   // watch gameDescription length
@@ -108,6 +110,10 @@ export default function EditCreationDialog() {
     [clearErrors, setError, setValue],
   );
 
+  const onChangeIcon = useCallback((value: string[]) => {
+    setIcon(value[0]);
+  }, []);
+
   return (
     <Dialog
       open={isOpen}
@@ -115,16 +121,8 @@ export default function EditCreationDialog() {
       title={`Edit ${data?.gameName}`}
       render={({ close }) => (
         <div className="w-[600px] p-6">
-          <h3 className="text-sm font-medium">Images</h3>
           <form onSubmit={handleSubmit(onSubmit, onError)}>
-            <ImageSelector
-              className="mt-3"
-              images={selectedImages}
-              onChange={handleImagesSelected}
-              defaultImages={[data?.mainImage ?? '']}
-              itemClass="h-[4.5rem] w-[7.875rem]"
-            />
-            <h3 className="mt-8 text-sm font-medium">Display Name</h3>
+            <h3 className="text-sm font-medium">Display Name</h3>
             <div className="vertical-scroll mt-3 flex w-full items-center gap-2 rounded-sm bg-white/[0.12] p-3 text-xs/5 backdrop-blur-lg">
               <input
                 className="flex-grow bg-transparent"
@@ -137,6 +135,32 @@ export default function EditCreationDialog() {
               <p className="text-gray-100">{watchGameName.length}/50</p>
             </div>
             {errors.gameName && <p className="mt-1 text-xs text-red-500">{errors.gameName.message}</p>}
+            <h3 className="mt-8 text-sm font-medium">Images</h3>
+            <ImageSelector
+              className="mt-3"
+              maxLength={5}
+              images={selectedImages}
+              onChange={handleImagesSelected}
+              maxFileSize={1 * 1024 * 1024}
+              ratio={5 / 3}
+              defaultImages={[data?.mainImage ?? '']}
+              itemClass="w-[126px] h-[75px]"
+              buttonClass="w-[126px] h-[75px]"
+            />
+            <p className="mt-1 text-xs">Support PNG and JPG, with a maximum size of 1MB, the image ratio is 5:3 or 3:5.</p>
+            <h3 className="mt-8 text-sm font-medium">Game Icon</h3>
+            <ImageSelector
+              className="mt-3"
+              images={icon ? [icon] : []}
+              maxFileSize={1 * 1024 * 1024}
+              maxLength={1}
+              ratio={1}
+              minSize={{ width: 256, height: 256 }}
+              onChange={onChangeIcon}
+              itemClass="w-[72px] h-[72px]"
+              buttonClass="w-[72px] h-[72px]"
+            />
+            <p className="mt-1 text-xs">Image size not less than 60x60 pixels</p>
             {/* Social Links */}
             <h3 className="mt-8 text-sm font-medium">Introduction</h3>
             <div className="vertical-scroll mt-3 rounded-sm bg-white/[0.12] p-3 text-xs/5 backdrop-blur-lg">

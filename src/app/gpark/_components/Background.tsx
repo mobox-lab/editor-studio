@@ -22,10 +22,15 @@ const Background = () => {
 
   return (
     <div>
-      <video autoPlay playsInline loop muted className={'absolute -top-0 left-0 -z-10 h-full w-full object-cover'}>
-        <source src={`${DRAGON_CDN_URL}/bg.webm`} type="video/webm" />
-        <source src={`${DRAGON_CDN_URL}/bg.mp4`} type="video/mp4" />
-      </video>
+      <img
+        className="absolute left-0 top-0 -z-10 h-full w-full object-cover"
+        src={`${DRAGON_CDN_URL}/bg.jpeg`}
+        alt="background"
+      />
+      {/*<video autoPlay playsInline loop muted className={'absolute -top-0 left-0 -z-10 h-full w-full object-cover'}>*/}
+      {/*  <source src={`${DRAGON_CDN_URL}/bg.webm`} type="video/webm" />*/}
+      {/*  <source src={`${DRAGON_CDN_URL}/bg.mp4`} type="video/mp4" />*/}
+      {/*</video>*/}
       <div className="absolute left-0 top-0 h-screen w-full bg-gradient-to-b from-black/0 to-black/100" />
       <div className="absolute left-1/2 top-5 -translate-x-1/2 transform">
         <img

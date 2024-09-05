@@ -14,7 +14,6 @@ export default function GamePanel({ data, isLoading, handleRunningGame }: GamePa
   const [selectedIndex, setSelectedIndex] = useState(0);
   const imageList = useMemo(() => {
     const images = data?.images?.map((item) => item.url) ?? [];
-    console.log('data:', data);
     return images;
   }, [data]);
   const author = useMemo<GparkGameAuthor | undefined>(() => data?.author ?? undefined, [data?.author]);
@@ -56,12 +55,9 @@ export default function GamePanel({ data, isLoading, handleRunningGame }: GamePa
           </span>
           <div className="mt-[24px] h-48 overflow-y-scroll whitespace-pre-line text-xs/5">{data?.description}</div>
           <div className="absolute bottom-0 flex h-11 items-center gap-2">
-            <div className="relative h-10.5 w-10.5 overflow-hidden rounded-full">
-              {author && <img className="h-full w-full object-cover" loading="lazy" src={author.avatar} alt="avatar" />}
-            </div>
             <div className="">
               <div className="text-base/5">
-                <span className="font-medium">{author?.name}</span>&nbsp;
+                <span className="font-medium">By {author?.name}</span>&nbsp;
               </div>
               <div className="mt-0.5 text-xs/5">{author?.introduction}</div>
             </div>

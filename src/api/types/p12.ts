@@ -199,6 +199,7 @@ export type DataListType = {
   icon: string;
   name: string;
   state: number;
+  canPlay: boolean;
   version: string;
   channel: number;
   sourceGameId: string;

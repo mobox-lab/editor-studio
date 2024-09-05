@@ -107,7 +107,7 @@ export default function MyGameItem({
   const onTogglePublishGame = useCallback(async () => {
     if (isPublishLoading) return;
 
-    const status = game!.state == 0 ? 1 : 0;
+    const status = game!.canPlay ? 1 : 0;
 
     try {
       await toggleGamePublish({
@@ -155,7 +155,7 @@ export default function MyGameItem({
           <Image src={game.cover || DEFAULT_COVER} style={{ objectFit: 'cover' }} alt="game image" fill />
         </div>
         <div className="relative flex-1 p-[8px]">
-          {game.state === 1 ? (
+          {game.canPlay ? (
             <Link
               href={`/game/${game.gameCode}`}
               className="absolute right-2 top-0 flex translate-y-[-50%] items-center rounded-full bg-gradient-button px-[10px] py-1 !no-underline"
@@ -170,7 +170,7 @@ export default function MyGameItem({
           <div className="mt-[8px] flex items-center">
             <div className="flex flex-1 items-center">
               <span className="rounded-sm bg-[#4383ff20] px-[8px] text-[12px] leading-[20px] text-blue">
-                {game.state === 1 ? 'Published' : 'Unpublish'}
+                {game.canPlay ? 'Published' : 'Unpublish'}
               </span>
               <span className="ml-[6px] rounded-sm bg-[#4383ff20] px-[8px] text-[12px] leading-[20px] text-blue">
                 v{game.version}
@@ -188,13 +188,13 @@ export default function MyGameItem({
                     </li>
                     <li
                       className="flex h-[30px] items-center rounded-sm px-[10px] text-sm hover:bg-white/10"
-                      onClick={game.state === 1 ? () => setShowUnpublish(true) : onTogglePublishGame}
+                      onClick={game.canPlay ? () => setShowUnpublish(true) : onTogglePublishGame}
                     >
                       {isPublishLoading ? (
                         <div className="flex-center w-full">
                           <LoadingSvg className="animate-spin" />
                         </div>
-                      ) : game.state === 1 ? (
+                      ) : game.canPlay ? (
                         'Unpublish'
                       ) : (
                         'Published'

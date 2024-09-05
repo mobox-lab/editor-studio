@@ -74,6 +74,7 @@ export function removeDispatcher(QtServer: PublishedObject) {
 }
 
 export function saveQtConfigData(QtServer: PublishedObject) {
+  console.log('QtServer: ', QtServer);
   const p12Token = QtServer.p12Token;
   const playerToken = QtServer.playerToken;
   const editorToken = QtServer.editorToken;

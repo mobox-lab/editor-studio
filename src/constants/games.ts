@@ -3,6 +3,7 @@ import { LAUNCHER_ENV } from '@/constants/env';
 export type SceneGame = {
   battleWorld: string;
   petSimulator: string;
+  neverGiveUp: string;
 };
 
 export type DvConfig = {

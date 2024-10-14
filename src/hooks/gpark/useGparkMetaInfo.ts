@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 export function useGparkMetaInfo(referenceId: string, version: string) {
   const isEnable = useMemo(() => !!referenceId && !!version, [referenceId, version]);
-  const [sceneGame, setSceneGame] = useState<SceneGame>({ battleWorld: '', petSimulator: '' });
+  const [sceneGame, setSceneGame] = useState<SceneGame>({ battleWorld: '', petSimulator: '', neverGiveUp: '' });
 
   const { data } = useQuery({
     queryKey: ['gpark_meta_info', referenceId, version],
@@ -15,11 +15,14 @@ export function useGparkMetaInfo(referenceId: string, version: string) {
   });
 
   useEffect(() => {
-    const map = { battleWorld: '', petSimulator: '' };
+    const map = { battleWorld: '', petSimulator: '', neverGiveUp: '' };
     if (data && data.metaSceneInfoResponseList) {
       data.metaSceneInfoResponseList.map((item) => {
-        if (item.sceneName === 'battleworld') {
-          map.battleWorld = item.sceneId;
+        // if (item.sceneName === 'battleworld') {
+        //   map.battleWorld = item.sceneId;
+        // }
+        if (item.sceneName === 'nevergiveup') {
+          map.neverGiveUp = item.sceneId;
         }
         if (item.sceneName === 'pet-simulator') {
           map.petSimulator = item.sceneId;

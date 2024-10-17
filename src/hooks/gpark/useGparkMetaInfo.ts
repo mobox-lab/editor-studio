@@ -18,9 +18,9 @@ export function useGparkMetaInfo(referenceId: string, version: string) {
     const map = { battleWorld: '', petSimulator: '', neverGiveUp: '' };
     if (data && data.metaSceneInfoResponseList) {
       data.metaSceneInfoResponseList.map((item) => {
-        // if (item.sceneName === 'battleworld') {
-        //   map.battleWorld = item.sceneId;
-        // }
+        if (item.sceneName === 'battleworld') {
+          map.battleWorld = item.sceneId;
+        }
         if (item.sceneName === 'nevergiveup') {
           map.neverGiveUp = item.sceneId;
         }

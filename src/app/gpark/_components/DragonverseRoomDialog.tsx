@@ -20,19 +20,19 @@ export default function DragonverseRoomDialog({ version, sceneGames }: Dragonver
   const params = useMemo(() => ({ maxId: '0', pageSize: 20, sortType: 0, version }), [version]);
 
   const { data: mainRooms, refetch: mainRefetch } = useGparkGameRoomList({ ...params, gameId: game.code });
-  // const { data: bwRooms, refetch: bwRefresh } = useGparkGameRoomList({ ...params, sceneId: sceneGames?.battleWorld });
-  const { data: tdRooms, refetch: tdRefresh } = useGparkGameRoomList({ ...params, sceneId: sceneGames?.neverGiveUp });
+  const { data: bwRooms, refetch: bwRefresh } = useGparkGameRoomList({ ...params, sceneId: sceneGames?.battleWorld });
+  // const { data: tdRooms, refetch: tdRefresh } = useGparkGameRoomList({ ...params, sceneId: sceneGames?.neverGiveUp });
   const { data: psRooms, refetch: psRefresh } = useGparkGameRoomList({ ...params, sceneId: sceneGames?.petSimulator });
 
   const mainRoomList = useMemo(() => mainRooms?.dataList ?? [], [mainRooms?.dataList]);
-  // const bwRoomList = useMemo(() => bwRooms?.dataList ?? [], [bwRooms?.dataList]);
-  const tdRoomList = useMemo(() => tdRooms?.dataList ?? [], [tdRooms?.dataList]);
+  const bwRoomList = useMemo(() => bwRooms?.dataList ?? [], [bwRooms?.dataList]);
+  // const tdRoomList = useMemo(() => tdRooms?.dataList ?? [], [tdRooms?.dataList]);
   const psRoomList = useMemo(() => psRooms?.dataList ?? [], [psRooms?.dataList]);
 
   const onRefreshClick = () => {
     mainRefetch().then();
-    // bwRefresh().then();
-    tdRefresh().then();
+    bwRefresh().then();
+    // tdRefresh().then();
     psRefresh().then();
     toast.success('Room refresh successful');
   };
@@ -65,14 +65,29 @@ export default function DragonverseRoomDialog({ version, sceneGames }: Dragonver
             )}
           </div>
           <div className="mt-5.5 grid grid-cols-2 gap-3">
+            <div>
+              <div className="flex items-center gap-1.5 text-sm/4 font-semibold">
+                <img src="/img/gpark/bw-icon.webp" alt="bw" className="w-7" />
+                Infinity Ramble
+              </div>
+              <div className="mt-3 grid gap-3">
+                {bwRoomList.length ? (
+                  bwRoomList.map((room) => <SceneRoomItem key={room.roomId} data={room} />)
+                ) : (
+                  <div className="flex-center w-full border border-gray-400 bg-gray-550/10 py-12 text-sm text-gray-300">
+                    NO ROOM
+                  </div>
+                )}
+              </div>
+            </div>
             {/*<div>*/}
             {/*  <div className="flex items-center gap-1.5 text-sm/4 font-semibold">*/}
-            {/*    <img src="/img/gpark/bw-icon.webp" alt="bw" className="w-7"/>*/}
-            {/*    Infinity Ramble*/}
+            {/*    <img src="/img/gpark/td-icon.webp" alt="td" className="w-7"/>*/}
+            {/*    Dragon Defense*/}
             {/*  </div>*/}
             {/*  <div className="mt-3 grid gap-3">*/}
-            {/*    {bwRoomList.length ? (*/}
-            {/*      bwRoomList.map((room) => <SceneRoomItem key={room.roomId} data={room}/>)*/}
+            {/*    {tdRoomList.length ? (*/}
+            {/*      tdRoomList.map((room) => <SceneRoomItem key={room.roomId} data={room}/>)*/}
             {/*    ) : (*/}
             {/*      <div className="flex-center w-full border border-gray-400 bg-gray-550/10 py-12 text-sm text-gray-300">*/}
             {/*        NO ROOM*/}
@@ -82,27 +97,12 @@ export default function DragonverseRoomDialog({ version, sceneGames }: Dragonver
             {/*</div>*/}
             <div>
               <div className="flex items-center gap-1.5 text-sm/4 font-semibold">
-                <img src="/img/gpark/td-icon.webp" alt="td" className="w-7"/>
-                Dragon Defense
-              </div>
-              <div className="mt-3 grid gap-3">
-                {tdRoomList.length ? (
-                  tdRoomList.map((room) => <SceneRoomItem key={room.roomId} data={room}/>)
-                ) : (
-                  <div className="flex-center w-full border border-gray-400 bg-gray-550/10 py-12 text-sm text-gray-300">
-                    NO ROOM
-                  </div>
-                )}
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5 text-sm/4 font-semibold">
-                <img src="/img/gpark/ps-icon.webp" alt="ps" className="w-7"/>
+                <img src="/img/gpark/ps-icon.webp" alt="ps" className="w-7" />
                 Dream Pets
               </div>
               <div className="mt-3 grid gap-3">
                 {psRoomList.length ? (
-                  psRoomList.map((room) => <SceneRoomItem key={room.roomId} data={room}/>)
+                  psRoomList.map((room) => <SceneRoomItem key={room.roomId} data={room} />)
                 ) : (
                   <div className="flex-center w-full border border-gray-400 bg-gray-550/10 py-12 text-sm text-gray-300">
                     NO ROOM

@@ -1,18 +1,15 @@
 'use client';
 
-import DeveloperLevel from '@/app/(home)/_components/DeveloperLevel';
 import MyGames from '@/app/(home)/_components/MyGames';
-import StyledButton from '@/components/ui/button/StyledButton';
-import Empty from '@/components/ui/empty';
-import { useFetchNews } from '@/hooks/editor/useFetchNews';
 import { useIsP12User } from '@/hooks/editor/useP12Account';
-import { openExternalLink, sendEvent } from '@/utils';
-import NewInfoDialog from './_components/NewInfoDialog';
-import News from './_components/News';
+import { openExternalLink } from '@/utils';
 
 export default function Home() {
   const isP12User = useIsP12User();
-  // const { data: news } = useFetchNews();
+
+  function onOpenLink() {
+    openExternalLink('https://arcana.p12.games');
+  }
 
   return (
     <div className=' relative -top-7.5'>
@@ -25,7 +22,7 @@ export default function Home() {
               fill="white"
             />
           </svg>
-          <a href='https://arcana.p12.games' className='w-[248px] h-[48px] border border-white rounded-full flex-center mt-[20px] dec cursor-pointer hover:opacity-60 !no-underline'>View More Creations</a>
+          <div onClick={onOpenLink} className='w-[248px] h-[48px] border border-white rounded-full flex-center mt-[20px] dec cursor-pointer hover:opacity-60 !no-underline'>View More Creations</div>
         </div>
       </div>
       {/*{isP12User ? (*/}

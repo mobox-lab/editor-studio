@@ -22,6 +22,7 @@ const DV_CONFIG_MAP: Record<string, DvConfig[]> = {
     { name: 'Merlin Release', code: 'BuEaE4o55A0qNJIG0dD4' },
     { name: 'Bsc Release', code: 'UcJsqnsne3DvCnZxafFp' },
     { name: 'Merlin Beta S6', code: '42qwxtWuRAiAYjq4YEfF' },
+    { name: 'Merlin Beta 038', code: 'ak0XtpACHGf9kMSgfKjR' },
     { name: 'Merlin Beta 040', code: 'FQuicx5SwSO6Vc2M2uKY' },
     { name: 'Bsc Beta', code: 'DKQOhNcTocVPt0ceYCy1' },
   ],

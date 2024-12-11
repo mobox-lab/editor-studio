@@ -27,6 +27,10 @@ export const useProfileRadioOptions = () => {
             toast.error(`Nickname shouldn't include dot, please try again.`);
             return false;
           }
+          if (value.length > 16) {
+            toast.error(`Nickname must in 16 characters, please try again.`);
+            return false;
+          }
           return true;
         },
       },

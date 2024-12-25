@@ -12,12 +12,9 @@ type GamePanelProps = {
 
 export default function GamePanel({ data, isLoading, handleRunningGame }: GamePanelProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const imageList = useMemo(() => {
-    const images = data?.images?.map((item) => item.url) ?? [];
-    return images;
-  }, [data]);
+  const imageList = useMemo(() => data?.images?.map((item) => item.url) ?? [], [data]);
   const author = useMemo<GparkGameAuthor | undefined>(() => data?.author ?? undefined, [data?.author]);
-  const startupExtension = useMemo(() => (data ? JSON.parse(data.startupExtension) as GparkStartupExtension : null), [data]);
+  const startupExtension = useMemo(() => (data ? (JSON.parse(data.startupExtension) as GparkStartupExtension) : null), [data]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -29,13 +26,13 @@ export default function GamePanel({ data, isLoading, handleRunningGame }: GamePa
 
   return (
     <div className="flex border border-gray-500 bg-gray-550/10">
-      <div className='flex-1'>
+      <div className="flex-1">
         <div className="relative h-[338px]">
           {imageList.length ? (
             <img src={imageList[selectedIndex]} loading="lazy" className="h-full w-full object-cover" alt="cover" />
           ) : null}
         </div>
-        <div className="grid grid-cols-5 gap-[8px] h-20 p-2">
+        <div className="grid h-20 grid-cols-5 gap-[8px] p-2">
           {imageList.map((item, index) => (
             <div
               key={index}
@@ -47,9 +44,9 @@ export default function GamePanel({ data, isLoading, handleRunningGame }: GamePa
           ))}
         </div>
       </div>
-      <div className='w-[40%]'>
+      <div className="w-[40%]">
         <div className="relative h-[338px] px-6 pt-6">
-          <h1 className="h-9 text-3xl font-semibold mb-[12px]">{data?.name}</h1>
+          <h1 className="mb-[12px] text-3xl font-semibold">{data?.name}</h1>
           <span className="rounded-sm bg-[#4383ff20] px-[8px] py-1 text-[12px] leading-[1] text-blue">
             v{startupExtension?.version}
           </span>

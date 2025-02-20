@@ -19,7 +19,7 @@ enum GameEnv {
 const DV_CONFIG_MAP: Record<string, DvConfig[]> = {
   [GameEnv.Test]: [{ name: 'Merlin Beta', code: 'D5LIrBLH5XJ2nhYqrk4M' }],
   [GameEnv.Online]: [
-    { name: 'Merlin Release', code: 'lfmip9wg68Gr8I9XyWTa' },
+    { name: 'Merlin Release', code: 'ae0H7FBgyCoZMU2ABoT2' },
     { name: 'Bsc Release', code: 'UcJsqnsne3DvCnZxafFp' },
     { name: 'Merlin Beta S6', code: '42qwxtWuRAiAYjq4YEfF' },
     { name: 'Merlin Beta 038', code: 'ak0XtpACHGf9kMSgfKjR' },

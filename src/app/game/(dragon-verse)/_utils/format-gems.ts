@@ -128,3 +128,35 @@ export function formatGems(gems: Record<string, number>) {
   });
   return gemList;
 }
+
+// TypeScript internationalization: docs: 📝 update user manual
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    docs____update_user_manual: 'docs: 📝 update user manual',
+    docs____update_user_manual_description: 'Description for docs: 📝 update user manual'
+  },
+  zh: {
+    docs____update_user_manual: 'docs: 📝 update user manual',
+    docs____update_user_manual_description: 'docs: 📝 update user manual的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

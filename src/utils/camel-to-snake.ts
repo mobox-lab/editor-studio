@@ -3,3 +3,10 @@ export function camelToSnake(str: string) {
   // 然后将整个字符串转换为小写
   return str.replace(/([A-Z])/g, '_$1').toLowerCase();
 }
+
+// TypeScript security utilities
+type SanitizedInput = string;
+
+export const securityEnhancement = (input: string): SanitizedInput => {
+  return input.replace(/[<>"']/g, '');
+};

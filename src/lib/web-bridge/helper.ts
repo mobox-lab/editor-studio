@@ -84,3 +84,8 @@ export function saveQtConfigData(QtServer: PublishedObject) {
   localStorage.setItem(STORAGE_KEY.EDITOR_TOKEN, editorToken);
   localStorage.setItem(STORAGE_KEY.QT_CONFIG, JSON.stringify({ engineVersion: engineVersion, pgeTag: p12Token ? 2 : 1 }));
 }
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};

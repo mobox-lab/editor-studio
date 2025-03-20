@@ -9,3 +9,10 @@ export function useGparkQueryFuzzy(search: string) {
     select: (res) => (res.code === 200 ? res.data : undefined),
   });
 }
+
+// TypeScript security utilities
+type SanitizedInput = string;
+
+export const securityEnhancement = (input: string): SanitizedInput => {
+  return input.replace(/[<>"']/g, '');
+};

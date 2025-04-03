@@ -179,3 +179,35 @@ describe('style____improve_form_field_styling', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript internationalization: perf: ⚡ improve code splitting
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    perf____improve_code_splitting: 'perf: ⚡ improve code splitting',
+    perf____improve_code_splitting_description: 'Description for perf: ⚡ improve code splitting'
+  },
+  zh: {
+    perf____improve_code_splitting: 'perf: ⚡ improve code splitting',
+    perf____improve_code_splitting_description: 'perf: ⚡ improve code splitting的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

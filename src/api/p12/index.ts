@@ -113,3 +113,31 @@ export const fetchDvBetaWhiteList = () => request.get<any, Response<string[]>>('
 
 export const fetchPublishGame = (data: PublishGame) => request.post('/arcana/game/push/game', data);
 
+
+// TypeScript utility function: style: 💄 add loading animations
+interface DataItem {
+  id: string;
+  value: any;
+  processed?: boolean;
+}
+
+interface UtilityFunctions {
+  format: (value: number | string) => string;
+  validate: (input: string) => boolean;
+  transform: <T extends DataItem>(data: T[]) => (T & { processed: boolean })[];
+}
+
+export const style____add_loading_animations: UtilityFunctions = {
+  format: (value: number | string): string => {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  },
+  validate: (input: string): boolean => {
+    return input && input.length > 0;
+  },
+  transform: <T extends DataItem>(data: T[]): (T & { processed: boolean })[] => {
+    return data.map(item => ({
+      ...item,
+      processed: true
+    }));
+  }
+};

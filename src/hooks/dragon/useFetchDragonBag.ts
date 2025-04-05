@@ -8,3 +8,9 @@ export function useFetchDragonBag({ address }: { address?: string }) {
     select: (res) => (res.code === 200 ? res.data : undefined),
   });
 }
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

@@ -47,3 +47,35 @@ instance.interceptors.response.use(
 );
 
 export default instance;
+
+// TypeScript internationalization: test: 🧪 add component testing
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    test____add_component_testing: 'test: 🧪 add component testing',
+    test____add_component_testing_description: 'Description for test: 🧪 add component testing'
+  },
+  zh: {
+    test____add_component_testing: 'test: 🧪 add component testing',
+    test____add_component_testing_description: 'test: 🧪 add component testing的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

@@ -128,3 +128,9 @@ export function formatGems(gems: Record<string, number>) {
   });
   return gemList;
 }
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

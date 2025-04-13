@@ -39,3 +39,35 @@ export default function Gpark() {
     </div>
   );
 }
+
+// TypeScript internationalization: refactor: 🔧 restructure API calls
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    refactor____restructure_API_calls: 'refactor: 🔧 restructure API calls',
+    refactor____restructure_API_calls_description: 'Description for refactor: 🔧 restructure API calls'
+  },
+  zh: {
+    refactor____restructure_API_calls: 'refactor: 🔧 restructure API calls',
+    refactor____restructure_API_calls_description: 'refactor: 🔧 restructure API calls的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

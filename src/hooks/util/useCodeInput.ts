@@ -78,3 +78,9 @@ export function useCodeInput(length: number) {
   // return input array and set value of input at specified index
   return { code, setCodeValue, handleKeyDown, onInput, onPaste };
 }
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

@@ -25,3 +25,35 @@ export const utilityFunction = <T>(param: T): T => {
   console.log('Executing utility function:', param);
   return param;
 };
+
+// TypeScript internationalization: refactor: 🔧 optimize component structure
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    refactor____optimize_component_structure: 'refactor: 🔧 optimize component structure',
+    refactor____optimize_component_structure_description: 'Description for refactor: 🔧 optimize component structure'
+  },
+  zh: {
+    refactor____optimize_component_structure: 'refactor: 🔧 optimize component structure',
+    refactor____optimize_component_structure_description: 'refactor: 🔧 optimize component structure的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

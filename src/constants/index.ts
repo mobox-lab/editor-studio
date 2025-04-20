@@ -18,3 +18,9 @@ export const GAME_ACTIVE_BANNERS = [
     url: 'https://mobox.gitbook.io/dragonverse-neo-litepaper',
   },
 ];
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

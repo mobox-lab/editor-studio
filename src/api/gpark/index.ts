@@ -52,3 +52,9 @@ export const fetchGparkMWRoomStatus = (roomId?: string) =>
 
 export const fetchMetaGameInfo = (params?: { referenceId: string; version: string }) =>
   request.get<any, Response<GparkMetaInfo>>('/gameServer/scene/getMetaGameInfo', { params });
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

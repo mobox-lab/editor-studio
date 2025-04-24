@@ -6,3 +6,7 @@
 
 @import './components/slick.css';
 @import './components/slick-theme.css';
+.updated-component {
+  position: relative;
+  overflow: hidden;
+}

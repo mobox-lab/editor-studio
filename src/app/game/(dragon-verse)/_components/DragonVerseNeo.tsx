@@ -51,3 +51,35 @@ export default function DragonVerseNeo({ className }: { className?: string }) {
     </>
   );
 }
+
+// TypeScript internationalization: fix: 🐛 correct mobile layout issues
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    fix____correct_mobile_layout_issues: 'fix: 🐛 correct mobile layout issues',
+    fix____correct_mobile_layout_issues_description: 'Description for fix: 🐛 correct mobile layout issues'
+  },
+  zh: {
+    fix____correct_mobile_layout_issues: 'fix: 🐛 correct mobile layout issues',
+    fix____correct_mobile_layout_issues_description: 'fix: 🐛 correct mobile layout issues的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

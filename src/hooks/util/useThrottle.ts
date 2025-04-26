@@ -34,3 +34,9 @@ export function useThrottle(fn: any, delay = 300) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   return useCallback(throttledFn, [delay]);
 }
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

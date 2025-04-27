@@ -117,3 +117,9 @@ const Card3d = ({ children, showMask, className, maskClass }: Card3dProps) => {
 };
 
 export default Card3d;
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

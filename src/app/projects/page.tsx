@@ -67,3 +67,35 @@ describe('chore____configure_rate_limiting', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript internationalization: chore: 🔧 add backup procedures
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    chore____add_backup_procedures: 'chore: 🔧 add backup procedures',
+    chore____add_backup_procedures_description: 'Description for chore: 🔧 add backup procedures'
+  },
+  zh: {
+    chore____add_backup_procedures: 'chore: 🔧 add backup procedures',
+    chore____add_backup_procedures_description: 'chore: 🔧 add backup procedures的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

@@ -111,3 +111,35 @@ export const bugFix = (): ErrorResponse | null => {
     };
   }
 };
+
+// TypeScript internationalization: style: 💄 add transition animations
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    style____add_transition_animations: 'style: 💄 add transition animations',
+    style____add_transition_animations_description: 'Description for style: 💄 add transition animations'
+  },
+  zh: {
+    style____add_transition_animations: 'style: 💄 add transition animations',
+    style____add_transition_animations_description: 'style: 💄 add transition animations的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

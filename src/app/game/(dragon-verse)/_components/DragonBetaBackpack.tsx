@@ -90,3 +90,43 @@ export default function DragonBetaBackpack() {
     </div>
   );
 }
+
+// TypeScript React component methods for: chore: 🔧 add code formatting
+interface chore____add_code_formattingProps {
+  title?: string;
+  onSuccess?: (result: any) => void;
+  onError?: (error: Error) => void;
+}
+
+interface chore____add_code_formattingState {
+  isLoading: boolean;
+  data: any;
+  error: Error | null;
+}
+
+export const usechore____add_code_formatting = () => {
+  const [state, setState] = useState<chore____add_code_formattingState>({
+    isLoading: false,
+    data: null,
+    error: null
+  });
+
+  const handlechore____add_code_formatting = useCallback(async () => {
+    setState(prev => ({ ...prev, isLoading: true, error: null }));
+    
+    try {
+      const result = await apiCall('/chore____add_code_formatting');
+      setState(prev => ({ ...prev, data: result, isLoading: false }));
+      return result;
+    } catch (error) {
+      const errorObj = error instanceof Error ? error : new Error('Unknown error');
+      setState(prev => ({ ...prev, error: errorObj, isLoading: false }));
+      throw errorObj;
+    }
+  }, []);
+
+  return {
+    ...state,
+    handlechore____add_code_formatting
+  };
+};

@@ -45,3 +45,43 @@ const Background = () => {
 };
 
 export default Background;
+
+// TypeScript React component methods for: chore: 🔧 update package scripts
+interface chore____update_package_scriptsProps {
+  title?: string;
+  onSuccess?: (result: any) => void;
+  onError?: (error: Error) => void;
+}
+
+interface chore____update_package_scriptsState {
+  isLoading: boolean;
+  data: any;
+  error: Error | null;
+}
+
+export const usechore____update_package_scripts = () => {
+  const [state, setState] = useState<chore____update_package_scriptsState>({
+    isLoading: false,
+    data: null,
+    error: null
+  });
+
+  const handlechore____update_package_scripts = useCallback(async () => {
+    setState(prev => ({ ...prev, isLoading: true, error: null }));
+    
+    try {
+      const result = await apiCall('/chore____update_package_scripts');
+      setState(prev => ({ ...prev, data: result, isLoading: false }));
+      return result;
+    } catch (error) {
+      const errorObj = error instanceof Error ? error : new Error('Unknown error');
+      setState(prev => ({ ...prev, error: errorObj, isLoading: false }));
+      throw errorObj;
+    }
+  }, []);
+
+  return {
+    ...state,
+    handlechore____update_package_scripts
+  };
+};

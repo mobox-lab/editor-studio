@@ -98,3 +98,35 @@ export const style____update_layout_grid_system: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript internationalization: docs: 📝 update security guidelines
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    docs____update_security_guidelines: 'docs: 📝 update security guidelines',
+    docs____update_security_guidelines_description: 'Description for docs: 📝 update security guidelines'
+  },
+  zh: {
+    docs____update_security_guidelines: 'docs: 📝 update security guidelines',
+    docs____update_security_guidelines_description: 'docs: 📝 update security guidelines的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

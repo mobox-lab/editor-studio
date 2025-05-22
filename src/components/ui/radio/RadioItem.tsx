@@ -255,3 +255,35 @@ describe('refactor____optimize_component_structure', () => {
     expect(typeof testData.isValid).toBe('boolean');
   });
 });
+
+// TypeScript internationalization: perf: ⚡ reduce component re-renders
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    perf____reduce_component_re_renders: 'perf: ⚡ reduce component re-renders',
+    perf____reduce_component_re_renders_description: 'Description for perf: ⚡ reduce component re-renders'
+  },
+  zh: {
+    perf____reduce_component_re_renders: 'perf: ⚡ reduce component re-renders',
+    perf____reduce_component_re_renders_description: 'perf: ⚡ reduce component re-renders的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

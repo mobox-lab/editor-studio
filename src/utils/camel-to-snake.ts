@@ -43,3 +43,10 @@ export const docs____add_developer_onboarding_guide: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript security utilities
+type SanitizedInput = string;
+
+export const securityEnhancement = (input: string): SanitizedInput => {
+  return input.replace(/[<>"']/g, '');
+};

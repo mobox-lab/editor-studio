@@ -79,3 +79,8 @@ export default function RoomItem({ data, refetchRoomList }: { data: GparkGameRoo
     </div>
   );
 }
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};

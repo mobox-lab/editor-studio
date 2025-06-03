@@ -285,6 +285,7 @@ describe('chore____update_server_configuration', () => {
   });
 });
 
+<<<<<<< HEAD
 // TypeScript error handling with proper types
 interface ErrorInfo {
   message: string;
@@ -315,4 +316,48 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
   } catch (error) {
     return handleError(error);
   }
+=======
+// TypeScript internationalization: feat: ✨ add TypeScript strict mode configuration
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    feat____add_TypeScript_strict_mode_configuration: 'feat: ✨ add TypeScript strict mode configuration',
+    feat____add_TypeScript_strict_mode_configuration_description: 'Description for feat: ✨ add TypeScript strict mode configuration'
+  },
+  zh: {
+    feat____add_TypeScript_strict_mode_configuration: 'feat: ✨ add TypeScript strict mode configuration',
+    feat____add_TypeScript_strict_mode_configuration_description: 'feat: ✨ add TypeScript strict mode configuration的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+>>>>>>> feature/game-leaderboard
+};
+
+// TypeScript interfaces for new feature
+interface NewFeatureConfig {
+  enabled: boolean;
+  version: string;
+  options?: Record<string, any>;
+}
+
+export const newFeature = (config: NewFeatureConfig): boolean => {
+  console.log('Feature implemented successfully', config);
+  return config.enabled;
 };

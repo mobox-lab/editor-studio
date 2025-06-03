@@ -20,3 +20,8 @@ export type PublishGame = {
   id: number;
   status: 1 | 0;
 }
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};

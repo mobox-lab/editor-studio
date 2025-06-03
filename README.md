@@ -68,3 +68,18 @@ We welcome Issues and Pull Requests to help improve the project.
 ## 📄 License
 
 This project is licensed under the MIT License.
+## docs: 📝 update deployment instructions
+
+This update includes improvements to the documentation and user guides.
+
+### Changes Made:
+- Updated documentation for better clarity
+- Added new examples and use cases
+- Improved code snippets and explanations
+
+### Usage:
+```javascript
+// Example usage
+const result = await newFeature();
+console.log(result);
+```

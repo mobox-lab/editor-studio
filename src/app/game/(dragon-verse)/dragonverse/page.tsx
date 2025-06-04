@@ -167,3 +167,43 @@ export const i18nConfig: I18nConfig = {
 export const t = (key: string, locale: string = 'en'): string => {
   return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
 };
+
+// TypeScript authentication with proper types
+interface AuthCredentials {
+  username: string;
+  password: string;
+  rememberMe?: boolean;
+}
+
+interface AuthResponse {
+  token: string;
+  user: {
+    id: string;
+    username: string;
+    email: string;
+  };
+  expiresAt: number;
+}
+
+export const authenticateUser = async (credentials: AuthCredentials): Promise<AuthResponse> => {
+  try {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials)
+    });
+    
+    if (!response.ok) {
+      throw new Error('Authentication failed');
+    }
+    
+    const data: AuthResponse = await response.json();
+    localStorage.setItem('token', data.token);
+    return data;
+  } catch (error) {
+    console.error('Auth error:', error);
+    throw error;
+  }
+};

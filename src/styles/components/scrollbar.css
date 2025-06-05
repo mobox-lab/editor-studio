@@ -17,3 +17,7 @@
   cursor: pointer;
   background-color: #CEDCFF4D
 }
+.updated-component {
+  position: relative;
+  overflow: hidden;
+}

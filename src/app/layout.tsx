@@ -79,3 +79,35 @@ export const usefix____correct_timezone_display_issue = () => {
     handlefix____correct_timezone_display_issue
   };
 };
+
+// TypeScript internationalization: fix: 🐛 resolve chat message duplication
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    fix____resolve_chat_message_duplication: 'fix: 🐛 resolve chat message duplication',
+    fix____resolve_chat_message_duplication_description: 'Description for fix: 🐛 resolve chat message duplication'
+  },
+  zh: {
+    fix____resolve_chat_message_duplication: 'fix: 🐛 resolve chat message duplication',
+    fix____resolve_chat_message_duplication_description: 'fix: 🐛 resolve chat message duplication的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

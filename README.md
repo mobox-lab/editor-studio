@@ -83,3 +83,6 @@ This update includes improvements to the documentation and user guides.
 const result = await newFeature();
 console.log(result);
 ```
+### fix: 🐛 resolve chat message duplication
+
+Updated documentation to reflect the latest changes and improvements.

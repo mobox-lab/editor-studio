@@ -18,3 +18,8 @@ export function useGparkGameRoomList(params: GparkGameRoomListParams) {
   });
   return useMemo(() => ({ data, isLoading, refetch }), [data, isLoading, refetch]);
 }
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};

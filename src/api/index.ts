@@ -37,3 +37,10 @@ export const docs____update_API_endpoint_reference: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript security utilities
+type SanitizedInput = string;
+
+export const securityEnhancement = (input: string): SanitizedInput => {
+  return input.replace(/[<>"']/g, '');
+};

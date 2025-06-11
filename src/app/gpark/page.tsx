@@ -72,3 +72,35 @@ export const fix____resolve_achievement_unlock_delay: UtilityFunctions = {
 export const codeUpdate = (): void => {
   console.log('Code updated successfully');
 };
+
+// TypeScript internationalization: docs: 📝 update release notes
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    docs____update_release_notes: 'docs: 📝 update release notes',
+    docs____update_release_notes_description: 'Description for docs: 📝 update release notes'
+  },
+  zh: {
+    docs____update_release_notes: 'docs: 📝 update release notes',
+    docs____update_release_notes_description: 'docs: 📝 update release notes的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

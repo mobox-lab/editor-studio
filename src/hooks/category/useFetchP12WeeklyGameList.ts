@@ -55,3 +55,35 @@ const safeExecute = async <T>(fn: () => Promise<T>): Promise<T | ErrorInfo> => {
     return handleError(error);
   }
 };
+
+// TypeScript internationalization: fix: 🐛 resolve wallet connection timeout
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    fix____resolve_wallet_connection_timeout: 'fix: 🐛 resolve wallet connection timeout',
+    fix____resolve_wallet_connection_timeout_description: 'Description for fix: 🐛 resolve wallet connection timeout'
+  },
+  zh: {
+    fix____resolve_wallet_connection_timeout: 'fix: 🐛 resolve wallet connection timeout',
+    fix____resolve_wallet_connection_timeout_description: 'fix: 🐛 resolve wallet connection timeout的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

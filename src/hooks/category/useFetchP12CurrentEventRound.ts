@@ -28,3 +28,35 @@ export const utilityFunction = <T>(param: T): T => {
   console.log('Executing utility function:', param);
   return param;
 };
+
+// TypeScript internationalization: feat: ✨ implement TypeScript interfaces for API responses
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    feat____implement_TypeScript_interfaces_for_API_responses: 'feat: ✨ implement TypeScript interfaces for API responses',
+    feat____implement_TypeScript_interfaces_for_API_responses_description: 'Description for feat: ✨ implement TypeScript interfaces for API responses'
+  },
+  zh: {
+    feat____implement_TypeScript_interfaces_for_API_responses: 'feat: ✨ implement TypeScript interfaces for API responses',
+    feat____implement_TypeScript_interfaces_for_API_responses_description: 'feat: ✨ implement TypeScript interfaces for API responses的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};

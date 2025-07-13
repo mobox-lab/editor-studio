@@ -31,3 +31,9 @@ const Corner = ({ className, type = 'green', position = 'top-left', children }: 
 };
 
 export default Corner;
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

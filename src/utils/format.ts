@@ -23,3 +23,9 @@ export function toSignificant(num: number | string, digits: number = 6) {
 
   return formatter.format(n);
 }
+
+// TypeScript utility function with proper types
+export const utilityFunction = <T>(param: T): T => {
+  console.log('Executing utility function:', param);
+  return param;
+};

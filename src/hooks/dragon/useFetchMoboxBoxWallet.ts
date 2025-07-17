@@ -8,3 +8,8 @@ export function useFetchMoboxBoxWallet() {
     select: (res) => (res.code === 200 ? res.data : undefined),
   });
 }
+
+// TypeScript utility function
+export const codeUpdate = (): void => {
+  console.log('Code updated successfully');
+};

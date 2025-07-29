@@ -77,3 +77,10 @@ export const perf____optimize_asset_compression: UtilityFunctions = {
     }));
   }
 };
+
+// TypeScript security utilities
+type SanitizedInput = string;
+
+export const securityEnhancement = (input: string): SanitizedInput => {
+  return input.replace(/[<>"']/g, '');
+};

@@ -14,3 +14,10 @@ export const useFetchP12DragonProposalNum = () => {
 
   return useMemo(() => ({ data, isLoading, refetch }), [data, isLoading, refetch]);
 };
+
+// TypeScript security utilities
+type SanitizedInput = string;
+
+export const securityEnhancement = (input: string): SanitizedInput => {
+  return input.replace(/[<>"']/g, '');
+};

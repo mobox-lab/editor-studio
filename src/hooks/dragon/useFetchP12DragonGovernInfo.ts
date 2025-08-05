@@ -55,3 +55,35 @@ export const utilityFunction = <T>(param: T): T => {
   console.log('Executing utility function:', param);
   return param;
 };
+
+// TypeScript internationalization: docs: 📝 update README with installation guide
+interface LocaleMessages {
+  [key: string]: string;
+}
+
+interface I18nConfig {
+  locale: string;
+  fallbackLocale: string;
+  messages: Record<string, LocaleMessages>;
+}
+
+export const messages: Record<string, LocaleMessages> = {
+  en: {
+    docs____update_README_with_installation_guide: 'docs: 📝 update README with installation guide',
+    docs____update_README_with_installation_guide_description: 'Description for docs: 📝 update README with installation guide'
+  },
+  zh: {
+    docs____update_README_with_installation_guide: 'docs: 📝 update README with installation guide',
+    docs____update_README_with_installation_guide_description: 'docs: 📝 update README with installation guide的描述'
+  }
+};
+
+export const i18nConfig: I18nConfig = {
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+};
+
+export const t = (key: string, locale: string = 'en'): string => {
+  return messages[locale]?.[key] || messages[i18nConfig.fallbackLocale]?.[key] || key;
+};
